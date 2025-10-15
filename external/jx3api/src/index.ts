@@ -238,10 +238,10 @@ export class JX3_api_service extends Service {
   }
 
   /**
-   * 获取家园游历信息
+   * 获取地图产出的家具
    * @param params.name 地图名称
    */
-  getHomeTravel(params: HomeTravelParams): Promise<HomeTravel[]> {
+  getHomeTravel(params: HomeTravelParams): Promise<HomeTravel> {
     return this.http.post("/data/home/travel", params);
   }
 
@@ -249,7 +249,7 @@ export class JX3_api_service extends Service {
    * 获取新闻公告
    * @param params.limit 限制返回的新闻条数，默认10，范围1-50（可选）
    */
-  getAllNews(params?: NewsParams): Promise<NewsItem[]> {
+  getAllNews(params?: NewsParams): Promise<NewsItem> {
     return this.http.post("/data/news/allnews", params);
   }
 
@@ -265,14 +265,14 @@ export class JX3_api_service extends Service {
    * 获取维护公告
    * @param params.limit 限制返回的公告条数，默认10，范围1-50（可选）
    */
-  getNewsAnnounce(params?: NewsAnnounceParams): Promise<NewsAnnounce[]> {
+  getNewsAnnounce(params?: NewsAnnounceParams): Promise<NewsAnnounce> {
     return this.http.post("/data/news/announce", params);
   }
 
   /**
    * 获取技改记录
    */
-  getSkillRecords(): Promise<SkillRecord[]> {
+  getSkillRecords(): Promise<SkillRecord> {
     return this.http.post("/data/skills/records");
   }
 
@@ -304,7 +304,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名
    * @param params.num 统计时间范围（天数），默认7天，范围1-30（可选）
    */
-  getFireworksCollect(params: FireworksCollectParams): Promise<FireworksCollect[]> {
+  getFireworksCollect(params: FireworksCollectParams): Promise<FireworksCollect> {
     return this.http.post("/data/fireworks/collect", params);
   }
 
@@ -313,7 +313,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名
    * @param params.name 角色名
    */
-  getFireworksRecords(params: FireworksRecordParams): Promise<FireworksRecord[]> {
+  getFireworksRecords(params: FireworksRecordParams): Promise<FireworksRecord> {
     return this.http.post("/data/fireworks/records", params);
   }
 
@@ -323,7 +323,7 @@ export class JX3_api_service extends Service {
    * @param params.name 物品名称（可选）
    * @param params.limit 返回记录数量限制，默认50，范围1-100（可选）
    */
-  getAuctionRecords(params: AuctionRecordParams): Promise<AuctionRecord[]> {
+  getAuctionRecords(params: AuctionRecordParams): Promise<AuctionRecord> {
     return this.http.post("/data/auction/records", params);
   }
 
@@ -331,7 +331,7 @@ export class JX3_api_service extends Service {
    * 获取的卢记录
    * @param params.server 服务器名（可选）
    */
-  getDiluRecords(params: DiluRecordParams): Promise<DiluRecord[]> {
+  getDiluRecords(params: DiluRecordParams): Promise<DiluRecord> {
     return this.http.post("/data/dilu/records", params);
   }
 
@@ -341,7 +341,7 @@ export class JX3_api_service extends Service {
    * @param params.name 烟花名称
    * @param params.limit 返回记录数量限制，默认20，范围1-50（可选）
    */
-  getFireworksStatistical(params: FireworksStatisticalParams): Promise<FireworksStatistical[]> {
+  getFireworksStatistical(params: FireworksStatisticalParams): Promise<FireworksStatistical> {
     return this.http.post("/data/fireworks/statistical", params);
   }
 
@@ -359,7 +359,7 @@ export class JX3_api_service extends Service {
    * @param params.name 奇遇名称
    * @param params.limit 返回记录数量限制，默认50，范围1-50（可选）
    */
-  getLuckStatistical(params: LuckStatisticalParams): Promise<LuckStatistical[]> {
+  getLuckStatistical(params: LuckStatisticalParams): Promise<LuckStatistical> {
     return this.http.post("/data/luck/statistical", params);
   }
 
@@ -367,7 +367,7 @@ export class JX3_api_service extends Service {
    * 获取近期奇遇
    * @param params.server 服务器名
    */
-  getLuckRecent(params: LuckRecentParams): Promise<LuckRecent[]> {
+  getLuckRecent(params: LuckRecentParams): Promise<LuckRecent> {
     return this.http.post("/data/luck/recent", params);
   }
 
@@ -377,7 +377,7 @@ export class JX3_api_service extends Service {
    * @param params.name 角色名
    * @param params.ticket 推栏标识（可选）
    */
-  getLuckAdventure(params: LuckAdventureParams): Promise<LuckAdventure[]> {
+  getLuckAdventure(params: LuckAdventureParams): Promise<LuckAdventure> {
     return this.http.post("/data/luck/adventure", params);
   }
 
@@ -387,7 +387,7 @@ export class JX3_api_service extends Service {
    * @param params.name 角色名
    * @param params.ticket 推栏标识（可选）
    */
-  getLuckUnfinished(params: LuckUnfinishedParams): Promise<LuckUnfinished[]> {
+  getLuckUnfinished(params: LuckUnfinishedParams): Promise<LuckUnfinished> {
     return this.http.post("/data/luck/unfinished", params);
   }
 
@@ -396,7 +396,7 @@ export class JX3_api_service extends Service {
    * @param params.table 榜单类型：个人、帮会、阵营、试炼
    * @param params.name 榜单名称
    */
-  getRankServerStatistical(params: RankServerStatisticalParams): Promise<RankServerStatistical[]> {
+  getRankServerStatistical(params: RankServerStatisticalParams): Promise<RankServerStatistical> {
     return this.http.post("/data/rank/server/statistical", params);
   }
 
@@ -406,7 +406,7 @@ export class JX3_api_service extends Service {
    * @param params.table 榜单类型：个人、帮会、阵营、试炼
    * @param params.name 榜单名称
    */
-  getRankStatistical(params: RankStatisticalParams): Promise<RankStatistical[]> {
+  getRankStatistical(params: RankStatisticalParams): Promise<RankStatistical> {
     return this.http.post("/data/rank/statistical", params);
   }
 
@@ -463,7 +463,7 @@ export class JX3_api_service extends Service {
    * @param params.name 物品名称
    * @param params.limit 返回记录数量限制，默认30，范围1-100（可选）
    */
-  getRewardServerStatistical(params: RewardServerStatisticalParams): Promise<RewardServerStatistical[]> {
+  getRewardServerStatistical(params: RewardServerStatisticalParams): Promise<RewardServerStatistical> {
     return this.http.post("/data/reward/server/statistical", params);
   }
 
@@ -473,7 +473,7 @@ export class JX3_api_service extends Service {
    * @param params.name 物品名称
    * @param params.limit 返回记录数量限制，默认20，范围1-100（可选）
    */
-  getRewardStatistical(params: RewardStatisticalParams): Promise<RewardStatistical[]> {
+  getRewardStatistical(params: RewardStatisticalParams): Promise<RewardStatistical> {
     return this.http.post("/data/reward/statistical", params);
   }
 
@@ -492,7 +492,7 @@ export class JX3_api_service extends Service {
    * @param params.name 心法名称
    * @param params.ticket 推栏标识
    */
-  getSchoolForce(params: SchoolForceParams): Promise<SchoolForce[]> {
+  getSchoolForce(params: SchoolForceParams): Promise<SchoolForce> {
     return this.http.post("/data/school/force", params);
   }
 
@@ -546,14 +546,14 @@ export class JX3_api_service extends Service {
   /**
    * 获取诛恶事件
    */
-  getServerAntivice(): Promise<ServerAntivice[]> {
+  getServerAntivice(): Promise<ServerAntivice> {
     return this.http.post("/data/server/antivice");
   }
 
   /**
    * 获取跨服阵营事件
    */
-  getServerEvent(): Promise<ServerEvent[]> {
+  getServerEvent(): Promise<ServerEvent> {
     return this.http.post("/data/server/event");
   }
 
@@ -562,7 +562,7 @@ export class JX3_api_service extends Service {
    * @param params.school 心法名称
    * @param params.ticket 推栏标识
    */
-  getSchoolSeniority(params: SchoolSeniorityParams): Promise<SchoolSeniority[]> {
+  getSchoolSeniority(params: SchoolSeniorityParams): Promise<SchoolSeniority> {
     return this.http.post("/data/school/seniority", params);
   }
 
@@ -571,14 +571,14 @@ export class JX3_api_service extends Service {
    * @param params.name 心法名称
    * @param params.ticket 推栏标识
    */
-  getSchoolSkills(params: SchoolSkillParams): Promise<SchoolSkill[]> {
+  getSchoolSkills(params: SchoolSkillParams): Promise<SchoolSkill> {
     return this.http.post("/data/school/skills", params);
   }
 
   /**
    * 获取服务器关隘首领
    */
-  getServerLeader(): Promise<ServerLeader[]> {
+  getServerLeader(): Promise<ServerLeader> {
     return this.http.post("/data/server/leader");
   }
 
@@ -616,7 +616,7 @@ export class JX3_api_service extends Service {
    * @param params.name 物品名称
    * @param params.limit 返回记录数量限制，默认10，范围1-50（可选）
    */
-  getTiebaItemRecords(params: TiebaItemRecordsParams): Promise<TiebaItemRecord[]> {
+  getTiebaItemRecords(params: TiebaItemRecordsParams): Promise<TiebaItemRecord> {
     return this.http.post("/data/tieba/item/records", params);
   }
 
@@ -625,7 +625,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名称（可选）
    * @param params.limit 返回数量，默认10，范围1-100（可选）
    */
-  getTradeDemon(params: TradeDemonParams): Promise<TradeDemon[]> {
+  getTradeDemon(params: TradeDemonParams): Promise<TradeDemon> {
     return this.http.post("/data/trade/demon", params);
   }
 
@@ -664,7 +664,7 @@ export class JX3_api_service extends Service {
    * @param params.server 区服名称，用于查询指定区服的帖子记录，默认值为 - 表示全区服（可选）
    * @param params.limit 查询结果数量的限制，默认值为 10（可选）
    */
-  getTiebaRandom(params: TiebaRandomParams): Promise<TiebaRandom[]> {
+  getTiebaRandom(params: TiebaRandomParams): Promise<TiebaRandom> {
     return this.http.post("/data/tieba/random", params);
   }
 
@@ -672,7 +672,7 @@ export class JX3_api_service extends Service {
    * 获取酷狗音乐搜索结果
    * @param params.name 歌曲名称，用于搜索酷狗音乐的相关内容
    */
-  getKugouMusic(params: KugouMusicParams): Promise<KugouMusic[]> {
+  getKugouMusic(params: KugouMusicParams): Promise<KugouMusic> {
     return this.http.post("/data/music/kugou", params);
   }
 
@@ -680,7 +680,7 @@ export class JX3_api_service extends Service {
    * 获取网易云音乐搜索结果
    * @param params.name 歌曲名称，用于搜索网易云音乐的相关内容
    */
-  getNeteaseMusic(params: NeteaseMusicParams): Promise<NeteaseMusic[]> {
+  getNeteaseMusic(params: NeteaseMusicParams): Promise<NeteaseMusic> {
     return this.http.post("/data/music/netease", params);
   }
 
@@ -688,7 +688,7 @@ export class JX3_api_service extends Service {
    * 获取腾讯音乐搜索结果
    * @param params.name 歌曲名称，用于搜索腾讯音乐的相关内容
    */
-  getTencentMusic(params: TencentMusicParams): Promise<TencentMusic[]> {
+  getTencentMusic(params: TencentMusicParams): Promise<TencentMusic> {
     return this.http.post("/data/music/tencent", params);
   }
 
@@ -727,7 +727,7 @@ export class JX3_api_service extends Service {
    * 获取下一次扶摇九天活动开启的时间
    * @param params.server 服务器名（可选）
    */
-  getActiveNextEvent(params?: ActiveNextEventParams): Promise<ActiveNextEvent[]> {
+  getActiveNextEvent(params?: ActiveNextEventParams): Promise<ActiveNextEvent> {
     return this.http.post("/data/active/next/event", params);
   }
 
@@ -735,7 +735,7 @@ export class JX3_api_service extends Service {
    * 查询挂件的效果及获取方式
    * @param params.name 挂件名称
    */
-  getArchivedPendant(params: ArchivedPendantParams): Promise<ArchivedPendant[]> {
+  getArchivedPendant(params: ArchivedPendantParams): Promise<ArchivedPendant> {
     return this.http.post("/data/archived/pendant", params);
   }
 
@@ -743,7 +743,7 @@ export class JX3_api_service extends Service {
    * 查询宠物的出现记录
    * @param params.server 服务器名
    */
-  getArchivedPetEvent(params: ArchivedPetEventParams): Promise<ArchivedPetEvent[]> {
+  getArchivedPetEvent(params: ArchivedPetEventParams): Promise<ArchivedPetEvent> {
     return this.http.post("/data/archived/petEvent", params);
   }
 
@@ -753,7 +753,7 @@ export class JX3_api_service extends Service {
    * @param params.limit 返回数量，默认20
    * @param params.ticket 推栏ticket
    */
-  getArenaAwesome(params: ArenaAwesomeParams): Promise<ArenaAwesome[]> {
+  getArenaAwesome(params: ArenaAwesomeParams): Promise<ArenaAwesome> {
     return this.http.post("/data/arena/awesome", params);
   }
 
@@ -773,14 +773,14 @@ export class JX3_api_service extends Service {
    * @param params.mode 比赛模式，默认33
    * @param params.ticket 推栏ticket
    */
-  getArenaSchools(params: ArenaSchoolsParams): Promise<ArenaSchool[]> {
+  getArenaSchools(params: ArenaSchoolsParams): Promise<ArenaSchool> {
     return this.http.post("/data/arena/schools", params);
   }
 
   /**
    * 获取今天刷新出的赤兔幼驹相关信息
    */
-  getChituRecords(): Promise<ChituRecord[]> {
+  getChituRecords(): Promise<ChituRecord> {
     return this.http.post("/data/chitu/records");
   }
 
@@ -797,7 +797,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名
    * @param params.num 汇总时间范围，默认7天
    */
-  getLuckCollect(params: LuckCollectParams): Promise<LuckCollect[]> {
+  getLuckCollect(params: LuckCollectParams): Promise<LuckCollect> {
     return this.http.post("/data/luck/collect", params);
   }
 
@@ -806,7 +806,7 @@ export class JX3_api_service extends Service {
    * @param params.name 奇遇名称
    * @param params.limit 返回数量，默认10
    */
-  getLuckServerStatistical(params: LuckServerStatisticalParams): Promise<LuckServerStatistical[]> {
+  getLuckServerStatistical(params: LuckServerStatisticalParams): Promise<LuckServerStatistical> {
     return this.http.post("/data/luck/server/statistical", params);
   }
 
@@ -824,7 +824,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名
    * @param params.name 角色名
    */
-  getShowRecords(params: ShowRecordsParams): Promise<ShowRecord[]> {
+  getShowRecords(params: ShowRecordsParams): Promise<ShowRecord> {
     return this.http.post("/data/show/records", params);
   }
 
@@ -833,7 +833,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名（可选）
    * @param params.name 物品名称
    */
-  getTradeItemRecords(params: TradeItemRecordsParams): Promise<TradeItemRecord[]> {
+  getTradeItemRecords(params: TradeItemRecordsParams): Promise<TradeItemRecord> {
     return this.http.post("/data/trade/item/records", params);
   }
 
@@ -842,7 +842,7 @@ export class JX3_api_service extends Service {
    * @param params.server 服务器名
    * @param params.name 物品名称
    */
-  getTradeMarket(params: TradeMarketParams): Promise<TradeMarket[]> {
+  getTradeMarket(params: TradeMarketParams): Promise<TradeMarket> {
     return this.http.post("/data/trade/market", params);
   }
 
@@ -859,7 +859,7 @@ export class JX3_api_service extends Service {
    * 模糊搜索外观物品
    * @param params.name 物品名称
    */
-  getTradeSearch(params: TradeSearchParams): Promise<TradeSearch[]> {
+  getTradeSearch(params: TradeSearchParams): Promise<TradeSearch> {
     return this.http.post("/data/trade/search", params);
   }
 

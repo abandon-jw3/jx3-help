@@ -106,7 +106,7 @@ export interface HomeFlowerParams {
 
 // 家园装饰查询
 export interface HomeFurniture extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     name: string;
     type: number;
@@ -123,16 +123,16 @@ export interface HomeFurniture extends JX3APIResponse {
     produce: string | null;
     image: string;
     tip: string;
-  };
+  }>;
 }
 
 export interface HomeFurnitureParams {
   name: string;
 }
 
-// 家园游历查询
+// 地图家具查询
 export interface HomeTravel extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     name: string;
     type: number;
@@ -149,7 +149,7 @@ export interface HomeTravel extends JX3APIResponse {
     produce: string;
     image: string;
     tip: string;
-  };
+  }>;
 }
 
 export interface HomeTravelParams {
@@ -158,14 +158,14 @@ export interface HomeTravelParams {
 
 // 新闻公告
 export interface NewsItem extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     token: number;
     class: string;
     title: string;
     date: string;
     url: string;
-  };
+  }>;
 }
 
 export interface NewsParams {
@@ -193,14 +193,14 @@ export interface ServerMasterParams {
 
 // 维护公告
 export interface NewsAnnounce extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     token: number;
     class: string;
     title: string;
     date: string;
     url: string;
-  };
+  }>;
 }
 
 export interface NewsAnnounceParams {
@@ -209,14 +209,13 @@ export interface NewsAnnounceParams {
 
 // 技能记录查询
 export interface SkillRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: string;
     title: string;
     url: string;
     time: string;
-  };
+  }>;
 }
-
 // 开服检查
 export interface ServerCheck extends JX3APIResponse {
   data: {
@@ -267,7 +266,7 @@ export interface ActiveMonster extends JX3APIResponse {
 
 // 烟花统计
 export interface FireworksCollect extends JX3APIResponse {
-  data: {
+  data: Array<{
     zone: string;
     server: string;
     sender: string;
@@ -275,7 +274,7 @@ export interface FireworksCollect extends JX3APIResponse {
     name: string;
     count: number;
     time: number;
-  };
+  }>;
 }
 
 export interface FireworksCollectParams {
@@ -285,7 +284,7 @@ export interface FireworksCollectParams {
 
 // 烟花记录
 export interface FireworksRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -295,7 +294,7 @@ export interface FireworksRecord extends JX3APIResponse {
     receive: string;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface FireworksRecordParams {
@@ -305,7 +304,7 @@ export interface FireworksRecordParams {
 
 // 拍卖记录
 export interface AuctionRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -314,7 +313,7 @@ export interface AuctionRecord extends JX3APIResponse {
     name: string;
     amount: string;
     time: number;
-  };
+  }>;
 }
 
 export interface AuctionRecordParams {
@@ -325,7 +324,7 @@ export interface AuctionRecordParams {
 
 // 的卢记录
 export interface DiluRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -342,7 +341,7 @@ export interface DiluRecord extends JX3APIResponse {
     auction_amount: string;
     start_time: number;
     end_time: number;
-  };
+  }>;
 }
 
 export interface DiluRecordParams {
@@ -351,7 +350,7 @@ export interface DiluRecordParams {
 
 // 烟花汇总
 export interface FireworksStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -362,7 +361,7 @@ export interface FireworksStatistical extends JX3APIResponse {
     mode: number;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface FireworksStatisticalParams {
@@ -393,7 +392,7 @@ export interface FraudDetailedParams {
 
 // 奇遇统计查询
 export interface LuckStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -401,7 +400,7 @@ export interface LuckStatistical extends JX3APIResponse {
     event: string;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface LuckStatisticalParams {
@@ -412,7 +411,7 @@ export interface LuckStatisticalParams {
 
 // 近期奇遇查询
 export interface LuckRecent extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -420,7 +419,7 @@ export interface LuckRecent extends JX3APIResponse {
     event: string;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface LuckRecentParams {
@@ -429,7 +428,7 @@ export interface LuckRecentParams {
 
 // 奇遇记录查询
 export interface LuckAdventure extends JX3APIResponse {
-  data: {
+  data: Array<{
     zone: string;
     server: string;
     name: string;
@@ -437,7 +436,7 @@ export interface LuckAdventure extends JX3APIResponse {
     level: number;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface LuckAdventureParams {
@@ -448,11 +447,11 @@ export interface LuckAdventureParams {
 
 // 未完成奇遇查询
 export interface LuckUnfinished extends JX3APIResponse {
-  data: {
+  data: Array<{
     name: string;
     type: string;
     level: number;
-  };
+  }>;
 }
 
 export interface LuckUnfinishedParams {
@@ -463,7 +462,7 @@ export interface LuckUnfinishedParams {
 
 // 服务器排行榜统计
 export interface RankServerStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     class: string;
     zone: string;
@@ -476,7 +475,7 @@ export interface RankServerStatistical extends JX3APIResponse {
     tong_name: string;
     score: number;
     datetime: string;
-  };
+  }>;
 }
 
 export interface RankServerStatisticalParams {
@@ -486,7 +485,7 @@ export interface RankServerStatisticalParams {
 
 // 区服排行榜统计
 export interface RankStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     class: string;
     zone: string;
@@ -499,7 +498,7 @@ export interface RankStatistical extends JX3APIResponse {
     tong_name: string;
     score: number;
     datetime: string;
-  };
+  }>;
 }
 
 export interface RankStatisticalParams {
@@ -665,7 +664,7 @@ export interface SaveRoleDetailedParams {
 
 // 全服物品掉落统计
 export interface RewardServerStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -674,7 +673,7 @@ export interface RewardServerStatistical extends JX3APIResponse {
     map_name: string;
     source: number;
     time: number;
-  };
+  }>;
 }
 
 export interface RewardServerStatisticalParams {
@@ -684,7 +683,7 @@ export interface RewardServerStatisticalParams {
 
 // 区服物品掉落统计
 export interface RewardStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -693,7 +692,7 @@ export interface RewardStatistical extends JX3APIResponse {
     map_name: string;
     source: number;
     time: number;
-  };
+  }>;
 }
 
 export interface RewardStatisticalParams {
@@ -732,7 +731,7 @@ export interface RoleDetailedParams {
 
 // 心法奇穴
 export interface SchoolForce extends JX3APIResponse {
-  data: {
+  data: Array<{
     level: number;
     data: Array<{
       name: string;
@@ -742,7 +741,7 @@ export interface SchoolForce extends JX3APIResponse {
       kind: string;
       subKind: string;
     }>;
-  };
+  }>;
 }
 
 export interface SchoolForceParams {
@@ -965,30 +964,32 @@ export interface ServerSandParams {
 
 // 诛恶事件
 export interface ServerAntivice extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
     map_name: string;
     time: number;
-  };
+  }>;
 }
 
 // 跨服阵营事件
-export interface ServerEvent {
-  id: number;
-  camp_name: string;
-  fenxian_zone_name: string;
-  fenxian_server_name: string;
-  friend_zone_name: string;
-  friend_server_name: string;
-  role_name: string;
-  set_time: number;
+export interface ServerEvent extends JX3APIResponse {
+  data: Array<{
+    id: number;
+    camp_name: string;
+    fenxian_zone_name: string;
+    fenxian_server_name: string;
+    friend_zone_name: string;
+    friend_server_name: string;
+    role_name: string;
+    set_time: number;
+  }>;
 }
 
 // 心法资历
 export interface SchoolSeniority extends JX3APIResponse {
-  data: {
+  data: Array<{
     Value: number;
     avatarUrl: string;
     forceIcon: string;
@@ -1003,7 +1004,7 @@ export interface SchoolSeniority extends JX3APIResponse {
     zoneName: string;
     zoneServerName: string;
     forceName: string;
-  };
+  }>;
 }
 
 export interface SchoolSeniorityParams {
@@ -1013,7 +1014,7 @@ export interface SchoolSeniorityParams {
 
 // 心法技能
 export interface SchoolSkill extends JX3APIResponse {
-  data: {
+  data: Array<{
     class: string;
     data: Array<{
       name: string;
@@ -1030,7 +1031,7 @@ export interface SchoolSkill extends JX3APIResponse {
       weapon: string;
     }>;
     time: number;
-  };
+  }>;
 }
 
 export interface SchoolSkillParams {
@@ -1040,7 +1041,7 @@ export interface SchoolSkillParams {
 
 // 服务器首领
 export interface ServerLeader extends JX3APIResponse {
-  data: {
+  data: Array<{
     server: string;
     data: Array<{
       id: number;
@@ -1054,7 +1055,7 @@ export interface ServerLeader extends JX3APIResponse {
       start_time: number;
       end_time: number;
     }>;
-  };
+  }>;
 }
 
 // 名片墙缓存
@@ -1110,7 +1111,7 @@ export interface ShowCardParams {
 
 // 贴吧物价记录
 export interface TiebaItemRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -1120,7 +1121,7 @@ export interface TiebaItemRecord extends JX3APIResponse {
     reply: number;
     floor: number;
     time: number;
-  };
+  }>;
 }
 
 export interface TiebaItemRecordsParams {
@@ -1131,7 +1132,7 @@ export interface TiebaItemRecordsParams {
 
 // 金价比例信息
 export interface TradeDemon extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -1143,7 +1144,7 @@ export interface TradeDemon extends JX3APIResponse {
     "7881": string;
     time: number;
     date: string;
-  };
+  }>;
 }
 
 export interface TradeDemonParams {
@@ -1272,7 +1273,7 @@ export interface MixedChatParams {
 
 // 贴吧随机帖子
 export interface TiebaRandom extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     class: string;
     zone: string;
@@ -1281,7 +1282,7 @@ export interface TiebaRandom extends JX3APIResponse {
     title: string;
     url: number;
     date: string;
-  };
+  }>;
 }
 
 export interface TiebaRandomParams {
@@ -1292,7 +1293,7 @@ export interface TiebaRandomParams {
 
 // 酷狗音乐搜索
 export interface KugouMusic extends JX3APIResponse {
-  data: {
+  data: Array<{
     SongName: string;
     AlbumID: string;
     FileHash: string;
@@ -1303,7 +1304,7 @@ export interface KugouMusic extends JX3APIResponse {
     SingerName: string;
     PlayUrl: string;
     Img: string;
-  };
+  }>;
 }
 
 export interface KugouMusicParams {
@@ -1312,11 +1313,11 @@ export interface KugouMusicParams {
 
 // 网易云音乐搜索
 export interface NeteaseMusic extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     name: string;
     singer: string;
-  };
+  }>;
 }
 
 export interface NeteaseMusicParams {
@@ -1325,11 +1326,11 @@ export interface NeteaseMusicParams {
 
 // 腾讯音乐搜索
 export interface TencentMusic extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: string;
     name: string;
     singer: string;
-  };
+  }>;
 }
 
 export interface TencentMusicParams {
@@ -1376,12 +1377,12 @@ export interface SoundConverterParams {
 
 // 下一次扶摇九天活动
 export interface ActiveNextEvent extends JX3APIResponse {
-  data: {
+  data: Array<{
     zone: string;
     server: string;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface ActiveNextEventParams {
@@ -1390,14 +1391,14 @@ export interface ActiveNextEventParams {
 
 // 挂件信息
 export interface ArchivedPendant extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     class: string;
     name: string;
     ui: string;
     source: string;
     desc: string;
-  };
+  }>;
 }
 
 export interface ArchivedPendantParams {
@@ -1406,7 +1407,7 @@ export interface ArchivedPendantParams {
 
 // 宠物出现记录
 export interface ArchivedPetEvent extends JX3APIResponse {
-  data: {
+  data: Array<{
     zone: string;
     server: string;
     name: string;
@@ -1417,7 +1418,7 @@ export interface ArchivedPetEvent extends JX3APIResponse {
       max_time: number;
     };
     time: number;
-  };
+  }>;
 }
 
 export interface ArchivedPetEventParams {
@@ -1426,7 +1427,7 @@ export interface ArchivedPetEventParams {
 
 // 名剑大会排行榜
 export interface ArenaAwesome extends JX3APIResponse {
-  data: {
+  data: Array<{
     zoneName: string;
     serverName: string;
     roleName: string;
@@ -1436,7 +1437,7 @@ export interface ArenaAwesome extends JX3APIResponse {
     score: string;
     upNum: string;
     winRate: string;
-  };
+  }>;
 }
 
 export interface ArenaAwesomeParams {
@@ -1506,11 +1507,11 @@ export interface ArenaRecentParams {
 
 // 名剑大会各门派表现
 export interface ArenaSchool extends JX3APIResponse {
-  data: {
+  data: Array<{
     name: string;
     this: number;
     last: number;
-  };
+  }>;
 }
 
 export interface ArenaSchoolsParams {
@@ -1520,14 +1521,14 @@ export interface ArenaSchoolsParams {
 
 // 赤兔幼驹刷新信息
 export interface ChituRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     server: string;
     map_name: string;
     horse: string;
     send: number;
     date: string;
-  };
+  }>;
 }
 
 // 马场马驹刷新信息
@@ -1548,7 +1549,7 @@ export interface HorseRanchParams {
 
 // 奇遇统计
 export interface LuckCollect extends JX3APIResponse {
-  data: {
+  data: Array<{
     server: string;
     event: string;
     count: number;
@@ -1556,7 +1557,7 @@ export interface LuckCollect extends JX3APIResponse {
       name: string;
       time: number;
     };
-  };
+  }>;
 }
 
 export interface LuckCollectParams {
@@ -1566,7 +1567,7 @@ export interface LuckCollectParams {
 
 // 全服奇遇统计
 export interface LuckServerStatistical extends JX3APIResponse {
-  data: {
+  data: Array<{
     id: number;
     zone: string;
     server: string;
@@ -1574,7 +1575,7 @@ export interface LuckServerStatistical extends JX3APIResponse {
     event: string;
     status: number;
     time: number;
-  };
+  }>;
 }
 
 export interface LuckServerStatisticalParams {
@@ -1599,7 +1600,7 @@ export interface RoleOnlineStatusParams {
 
 // 角色所有名片墙信息
 export interface ShowRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     zoneName: string;
     serverName: string;
     roleName: string;
@@ -1607,7 +1608,7 @@ export interface ShowRecord extends JX3APIResponse {
     showActive: boolean;
     showAvatar: string;
     saveTime: number;
-  };
+  }>;
 }
 
 export interface ShowRecordsParams {
@@ -1617,13 +1618,13 @@ export interface ShowRecordsParams {
 
 // 黑市物品价格信息
 export interface TradeItemRecord extends JX3APIResponse {
-  data: {
+  data: Array<{
     name: string;
     class: string;
     subclass: string;
     alias: string;
     subalias: string;
-  };
+  }>;
 }
 
 export interface TradeItemRecordsParams {
@@ -1633,7 +1634,7 @@ export interface TradeItemRecordsParams {
 
 // 交易行价格信息
 export interface TradeMarket extends JX3APIResponse {
-  data: {
+  data: Array<{
     name: string;
     icon: number;
     type: number;
@@ -1649,7 +1650,7 @@ export interface TradeMarket extends JX3APIResponse {
       server: string;
       unit_price: number;
     }>;
-  };
+  }>;
 }
 
 export interface TradeMarketParams {
@@ -1696,13 +1697,13 @@ export interface TradeRecordsParams {
 
 // 模糊搜索外观物品
 export interface TradeSearch extends JX3APIResponse {
-  data: {
+  data: Array<{
     name: string;
     class: string;
     subclass: string;
     alias: string;
     subalias: string;
-  };
+  }>;
 }
 
 export interface TradeSearchParams {

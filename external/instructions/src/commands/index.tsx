@@ -1,6 +1,4 @@
-import { Context, Binary } from "koishi";
-import * as fs from "fs";
-
+import { Context } from "koishi";
 export const name = "instructions-commands";
 export interface Config {}
 
@@ -87,5 +85,153 @@ export function instructionsCommands(ctx: Context, config: Config) {
         ))}
       </>
     );
+  });
+  ctx.command("装饰 [name]", "查询家园装饰信息").action(async ({ session }, name) => {
+    const res = await ctx.jx3api.getHomeFurniture({ name });
+    if (res.msg !== "success") return <p>未找到装饰：{name}</p>;
+    return (
+      <>
+        {res.data.map((item) => {
+          return (
+            <>
+              <img src={item.image} />
+              <br />
+              <p>装饰-{item.name}</p>
+              <p>来源：{item.source}</p>
+              <p>品质：{item.quality}</p>
+              <p>价格：{item.architecture}</p>
+              <p>需要家园等级：{item.limit}</p>
+              <p>风水评分：{item.geomantic}</p>
+              <p>观赏评分：{item.view}</p>
+              <p>实用评分：{item.practical}</p>
+              <p>坚固评分：{item.hard}</p>
+              <p>{item.tip}</p>
+            </>
+          );
+        })}
+      </>
+    );
+  });
+
+  ctx.command("器物谱 [mapName]", "查阅地图产出的家具").action(async ({ session }, name) => {
+    const res = await ctx.jx3api.getHomeTravel({ name });
+    if (res.msg !== "success") return <p>未找到家具：{name}</p>;
+    return (
+      <>
+        {res.data.map((item) => {
+          return (
+            <>
+              <img src={item.image} />
+              <br />
+              <p>家具-{item.name}</p>
+              <p>来源：{item.source}</p>
+              <p>品质：{item.quality}</p>
+              <p>价格：{item.architecture}</p>
+              <p>需要家园等级：{item.limit}</p>
+              <p>风水评分：{item.geomantic}</p>
+              <p>观赏评分：{item.view}</p>
+              <p>实用评分：{item.practical}</p>
+              <p>坚固评分：{item.hard}</p>
+              <p>{item.tip}</p>
+            </>
+          );
+        })}
+      </>
+    );
+  });
+
+  ctx
+    .command("新闻", "查询新闻")
+    .alias("公告")
+    .action(async () => {
+      const res = await ctx.jx3api.getAllNews({ limit: 3 });
+
+      return (
+        <>
+          {res.data.map((item) => {
+            return (
+              <>
+                <p>{item.class}</p>
+                <p>{item.title}</p>
+                <p>{item.date}</p>
+                <p>{item.url}</p>
+                <br />
+              </>
+            );
+          })}
+        </>
+      );
+    });
+
+  ctx.command("开服 [server]", "查询服务器开服信息").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getServerCheck({ server });
+    console.log(res);
+
+    return (
+      <>
+        <p>服务器：{res.data.server}</p>
+        <p>状 态：{res.data.status == 1 ? "已开服" : "维护中"}</p>
+      </>
+    );
+  });
+  ctx.command("服务器 [server]", "查询服务器状态").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getServerStatus({ server });
+    console.log(res);
+
+    return (
+      <>
+        <p>服务器：{res.data.server}</p>
+        <p>热 度：{res.data.status}</p>
+      </>
+    );
+  });
+
+  ctx
+    .command("维护", "查询维护公告")
+    .alias("维护公告")
+    .action(async () => {
+      const res = await ctx.jx3api.getNewsAnnounce({ limit: 3 });
+
+      return (
+        <>
+          {res.data.map((item) => {
+            return (
+              <>
+                <p>{item.class}</p>
+                <p>{item.title}</p>
+                <p>{item.date}</p>
+                <p>{item.url}</p>
+                <br />
+              </>
+            );
+          })}
+        </>
+      );
+    });
+
+  ctx.command("技改", "查询技改记录").action(async () => {
+    const res = await ctx.jx3api.getSkillRecords();
+    const arr = res.data.slice(0, 3);
+    return (
+      <>
+        {arr.map((item) => {
+          return (
+            <>
+              <p>{item.title}</p>
+              <p>{item.time}</p>
+              <p>{item.url}</p>
+              <br />
+            </>
+          );
+        })}
+      </>
+    );
+  });
+
+  ctx.command("百战", "查询百战异闻录").action(async () => {
+    const res = await ctx.jx3api.getActiveMonster();
+    console.log(res);
+
+    return null;
   });
 }

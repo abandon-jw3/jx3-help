@@ -7,7 +7,6 @@ plugins:
     ~server-satori:phz4hn: {}
     ~server-temp:gpokvu: {}
   group:basic:
-    $collapsed: true
     ~admin:d5f7jd: {}
     ~bind:3hwi9x: {}
     commands:wer0ll: {}
