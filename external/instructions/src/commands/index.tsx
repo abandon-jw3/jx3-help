@@ -88,12 +88,4 @@ export function instructionsCommands(ctx: Context, config: Config) {
       </>
     );
   });
-
-  ctx.command("花价 [server]", "查询服务器花价").action(async ({ session }, server) => {
-    const res = await ctx.jx3api.getHomeFlower({ server });
-    console.log(res.data);
-    console.log(res.data["枫叶泊·乐苑"][0]);
-
-    return;
-  });
 }

@@ -7,6 +7,7 @@ plugins:
     ~server-satori:phz4hn: {}
     ~server-temp:gpokvu: {}
   group:basic:
+    $collapsed: true
     ~admin:d5f7jd: {}
     ~bind:3hwi9x: {}
     commands:wer0ll: {}
@@ -33,7 +34,7 @@ plugins:
     explorer:0gzgbx: {}
     logger:5vygxu: {}
     insight:row0d8: {}
-    ~market:sstlz9:
+    market:sstlz9:
       search:
         endpoint: https://registry.koishi.chat/index.json
       registry: {}

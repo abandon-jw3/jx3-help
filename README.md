@@ -202,7 +202,7 @@ ctx.command("jx3.新指令 <参数>", "指令说明").action(async ({ session },
 
 ## 📄 许可证
 
-本项目采用 [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) 许可证。
+[MIT License](./License.txt)
 
 ## 🙏 致谢
 

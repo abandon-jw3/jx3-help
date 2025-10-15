@@ -14,7 +14,5 @@ export interface Config {}
 export const Config: Schema<Config> = Schema.object({});
 
 export function apply(ctx: Context, config: Config) {
-  ctx.on("jx3ws.2005", (data) => {});
-
   ctx.plugin(instructionsCommands, config);
 }
