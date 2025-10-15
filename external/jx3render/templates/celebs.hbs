@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楚天社或云从社的进度</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Microsoft YaHei', 'SimSun', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .title-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background: #4a90e2;
+            border-radius: 4px;
+        }
+
+        .current-time {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .time-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+            background: #999;
+            border-radius: 50%;
+        }
+
+        .progress-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table-header {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .table-header th {
+            padding: 12px 8px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .progress-row {
+            border: 1px solid #e0e0e0;
+        }
+
+        .progress-row:hover {
+            background: #f8f9fa;
+        }
+
+        .progress-row.current {
+            background: #e8f5e8;
+        }
+
+        .progress-row.current td {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .progress-row td {
+            padding: 10px 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .time-cell {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .map-cell {
+            color: #555;
+        }
+
+        .location-cell {
+            color: #666;
+        }
+
+        .event-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .event-icon {
+            width: 20px;
+            height: 20px;
+            background: #8b4513;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .event-text {
+            color: #333;
+        }
+
+        .notification-bell {
+            width: 16px;
+            height: 16px;
+            background: #4caf50;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .footer-line1 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .footer-line2 {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="header">
+            <div class="title">
+                <div class="title-icon"></div>
+                楚天社
+            </div>
+            <div class="current-time">
+                <div class="time-icon"></div>
+                {{currentTime}}
+            </div>
+        </div>
+
+        <table class="progress-table">
+            <thead class="table-header">
+                <tr>
+                    <th>时间</th>
+                    <th>地图</th>
+                    <th>地点</th>
+                    <th>事件进度</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each this}}
+                <tr class="progress-row {{#if isCurrent}}current{{/if}}">
+                    <td class="time-cell">{{time}}</td>
+                    <td class="map-cell">{{map}}</td>
+                    <td class="location-cell">{{site}}</td>
+                    <td class="event-cell">
+                        {{!-- <div class="event-icon">{{icon}}</div> --}}
+                        <span class="event-text">{{stage}}</span>
+                        {{#if isCurrent}}
+                        <div class="notification-bell"></div>
+                        {{/if}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <div class="footer-line1">萌萌</div>
+            <div class="footer-line2">你一笑，便是春天</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "koishi-plugin-jx3ws",
+  "description": "JX3API websocket服务",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.18.7"
+  },
+  "koishi": {
+    "service": {
+      "required": [
+        "http"
+      ],
+      "implements": [
+        "jx3ws"
+      ]
+    }
+  }
+}

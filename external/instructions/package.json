@@ -1,0 +1,37 @@
+{
+  "name": "koishi-plugin-instructions",
+  "description": "指令相关",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.18.7"
+  },
+  "dependencies": {
+    "@satorijs/element": "^3.1.8",
+    "handlebars": "^4.7.8",
+    "koishi-plugin-jx3Render": "workspace:*",
+    "koishi-plugin-jx3api": "workspace:*",
+    "koishi-plugin-jx3ws": "workspace:*"
+  },
+  "koishi": {
+    "service": {
+      "required": [
+        "jx3api",
+        "jx3ws",
+        "http",
+        "jx3Render"
+      ]
+    }
+  }
+}

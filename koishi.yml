@@ -1,0 +1,72 @@
+plugins:
+  group:server:
+    $collapsed: true
+    server:77kuvb:
+      port: 5140
+      maxPort: 5149
+    ~server-satori:phz4hn: {}
+    ~server-temp:gpokvu: {}
+  group:basic:
+    ~admin:d5f7jd: {}
+    ~bind:3hwi9x: {}
+    commands:wer0ll: {}
+    help:ibqzvf: {}
+    http:ao7d8n: {}
+    ~inspect:hf0mgv: {}
+    locales:nyzp6h: {}
+    ~proxy-agent:dhupp2: {}
+    rate-limit:f4szha: {}
+    telemetry:ee3p6t:
+      mode: 'off'
+  group:console:
+    actions:gflpgg: {}
+    analytics:8iw30z: {}
+    android:wa6lby:
+      $if: env.KOISHI_AGENT?.includes('Android')
+    ~auth:xsxg1v: {}
+    config:j8g6hu: {}
+    console:83p9ft:
+      open: true
+    dataview:7x2v7s: {}
+    desktop:qq6osy:
+      $if: env.KOISHI_AGENT?.includes('Desktop')
+    explorer:0gzgbx: {}
+    logger:5vygxu: {}
+    insight:row0d8: {}
+    ~market:sstlz9:
+      search:
+        endpoint: https://registry.koishi.chat/index.json
+      registry: {}
+    notifier:g6bdvu: {}
+    oobe:01jmeo: {}
+    sandbox:fg4yjn: {}
+    status:ccfiol: {}
+    theme-vanilla:yecs3l: {}
+  group:storage:
+    database-postgres:dk3pmj:
+      database: koishi
+      password: ${{env.DB_PASSWORD}}
+      host: ${{env.DB_HOST}}
+  group:adapter:
+    adapter-onebot:vzydl8:
+      selfId: '1714436591'
+      token: sfxeeegez
+      protocol: ws
+      endpoint: ws://127.0.0.1:3001
+  group:develop:
+    $collapsed: true
+    $if: env.NODE_ENV === 'development'
+    hmr:1phdm8:
+      root: .
+  group:bgk8b7:
+    jx3Render:gdwm18: {}
+    instructions:wx7gxe: null
+    jx3ws:dsyxdj:
+      wsUrl: wss://socket.jx3api.com
+      wstoken: ${{env.WS_TOKEN}}
+    jx3api:fw3i0f:
+      token: ${{env.API_TOKEN}}
+      apiUrl: https://www.jx3api.com
+      ticket: ${{env.API_TICKET}}
+    $label: 剑网3
+  puppeteer:rdco9y: {}
