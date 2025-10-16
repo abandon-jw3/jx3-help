@@ -59,6 +59,7 @@ plugins:
     hmr:1phdm8:
       root: .
   group:bgk8b7:
+    puppeteer:rdco9y: {}
     jx3Render:gdwm18: {}
     instructions:wx7gxe: null
     jx3ws:dsyxdj:
@@ -69,4 +70,3 @@ plugins:
       apiUrl: https://www.jx3api.com
       ticket: ${{env.API_TICKET}}
     $label: 剑网3
-  puppeteer:rdco9y: {}
