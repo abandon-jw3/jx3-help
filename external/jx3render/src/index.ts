@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import handlebars from "handlebars";
 import type Puppeteer from "koishi-plugin-puppeteer";
+import dayjs from "dayjs";
 export const name = "jx3Render";
 
 export interface Config {}
@@ -16,6 +17,21 @@ export class RenderService extends Service {
   puppeteer: Puppeteer;
   constructor(ctx: Context) {
     super(ctx, "jx3Render", true);
+    // 注册 helper：让索引从 1 开始
+    handlebars.registerHelper("inc", function (value) {
+      return parseInt(value) + 1;
+    });
+    //格式化时间
+    handlebars.registerHelper("formatTime", function (value) {
+      return dayjs.unix(value).format("YYYY-MM-DD HH:mm:ss");
+    });
+    handlebars.registerHelper("formatDateHour", function (value) {
+      return dayjs.unix(value).format("YYYY-MM-DD HH");
+    });
+    //格式化日期
+    handlebars.registerHelper("formatDate", function (value) {
+      return dayjs.unix(value).format("YYYY-MM-DD");
+    });
     const templatePath = path.join(__dirname, "../templates");
     //读取目录下所有模板文件
     const templateFiles = fs.readdirSync(templatePath);

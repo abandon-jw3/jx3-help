@@ -4970,6 +4970,7 @@ __metadata:
   resolution: "koishi-plugin-jx3Render@workspace:external/jx3render"
   dependencies:
     "@satorijs/element": "npm:^3.1.8"
+    dayjs: "npm:^1.11.18"
     handlebars: "npm:^4.7.8"
   peerDependencies:
     koishi: ^4.18.7

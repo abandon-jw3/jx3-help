@@ -1,103 +1,109 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>服务器烟花记录</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <div class="container-fluid py-4">
-      <div class="card shadow-sm">
-        <div class="card-header bg-light text-dark">
-          <h4 class="mb-0 text-center">
-            <i class="bi bi-stars"></i>烟花记录
-          </h4>
-        </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover table-striped mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th scope="col" class="text-center" style="width: 20%;">时间</th>
-                  <th scope="col" class="text-center" style="width: 20%;">地图</th>
-                  <th scope="col" class="text-center" style="width: 20%;">烟花名称</th>
-                  <th scope="col" class="text-center" style="width: 20%;">发送者</th>
-                  <th scope="col" class="text-center" style="width: 20%;">接收者</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each this}}
-                  <tr>
-                    <td class="text-center align-middle">
-                      <small class="text-muted">{{time}}</small>
-                    </td>
-                    <td class="text-center align-middle">
-                      <small class="text-muted">{{map_name}}</small>
-                    </td>
-                    <td class="text-center align-middle">
-                      <span class="badge bg-success fs-5">{{name}}</span>
-                    </td>
-                    <td class="text-center align-middle">
-                      <strong class="text-primary">{{sender}}</strong>
-                    </td>
-                    <td class="text-center align-middle">
-                      <strong class="text-success">{{receive}}</strong>
-                    </td>
-                  </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服务器烟花记录</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container-fluid py-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light text-dark">
+        <h4 class="mb-0 text-center">
+          <i class="bi bi-stars"></i>烟花记录
+        </h4>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped mb-0">
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="text-center" style="width: 20%;">时间</th>
+                <th scope="col" class="text-center" style="width: 20%;">地图</th>
+                <th scope="col" class="text-center" style="width: 20%;">烟花名称</th>
+                <th scope="col" class="text-center" style="width: 20%;">发送者</th>
+                <th scope="col" class="text-center" style="width: 20%;">接收者</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each this}}
+              <tr>
+                <td class="text-center align-middle">
+                  <small class="text-muted">{{formatTime time}}</small>
+                </td>
+                <td class="text-center align-middle">
+                  <small class="text-muted">{{map_name}}</small>
+                </td>
+                <td class="text-center align-middle">
+                  <span class="badge bg-success fs-5">{{name}}</span>
+                </td>
+                <td class="text-center align-middle">
+                  <strong class="text-primary">{{sender}}</strong>
+                </td>
+                <td class="text-center align-middle">
+                  <strong class="text-success">{{receive}}</strong>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 
-    <style>
-      body {
-        font-family: "Microsoft YaHei", Arial, sans-serif;
-      }
-      .card {
-        border-radius: 15px;
-        border: none;
-      }
-      .card-header {
-        border-radius: 15px 15px 0 0 !important;
-        padding: 16px;
-      }
-      .table {
-        font-size: 24px;
-      }
-      .table thead th {
-        font-weight: 600;
-        border-bottom: 2px solid #dee2e6;
-        padding: 16px;
-      }
-      .table tbody td {
-        padding: 16px;
-      }
-      .table-hover tbody tr:hover {
-        background-color: rgba(102, 126, 234, 0.1);
-      }
-      .badge {
-        padding: 0.5rem 0.75rem;
-        font-weight: 500;
-      }
-      .card-footer {
-        background-color: #f8f9fa;
-        border-radius: 0 0 15px 15px !important;
-        padding: 1rem;
-      }
-    </style>
-  </body>
+  <style>
+    body {
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    .card {
+      border-radius: 15px;
+      border: none;
+    }
+
+    .card-header {
+      border-radius: 15px 15px 0 0 !important;
+      padding: 16px;
+    }
+
+    .table {
+      font-size: 24px;
+    }
+
+    .table thead th {
+      font-weight: 600;
+      border-bottom: 2px solid #dee2e6;
+      padding: 16px;
+    }
+
+    .table tbody td {
+      padding: 16px;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(102, 126, 234, 0.1);
+    }
+
+    .badge {
+      padding: 0.5rem 0.75rem;
+      font-weight: 500;
+    }
+
+    .card-footer {
+      background-color: #f8f9fa;
+      border-radius: 0 0 15px 15px !important;
+      padding: 1rem;
+    }
+  </style>
+</body>
+
 </html>
