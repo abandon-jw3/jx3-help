@@ -49,7 +49,7 @@ plugins:
       host: ${{env.DB_HOST}}
   group:adapter:
     adapter-onebot:vzydl8:
-      selfId: '1714436591'
+      selfId: ${{env.ADMIN_ID}}
       token: sfxeeegez
       protocol: ws
       endpoint: ws://127.0.0.1:3001
