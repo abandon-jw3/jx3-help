@@ -4,10 +4,9 @@ export const name = "instructions-commands";
 export interface Config {}
 
 export function instructionsCommands(ctx: Context, config: Config) {
+  //服务器活动日历查询
   ctx
-    .command("日常 [server]", "查询服务器活动日历", {
-      permissions: ["instructions.botVip"],
-    })
+    .command("日常 [server]", "查询服务器活动日历")
     .alias("每日")
     .action(async (context, server) => {
       const res = await ctx.jx3api.getActiveCalendar({ server, num: 0 });
@@ -37,6 +36,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
         </>
       );
     });
+
   // 基础命令
   ctx.command("月历", "查询服务器活动月历").action(async () => {
     const res = await ctx.jx3api.getActiveListCalendar({ num: 15 });
@@ -65,7 +65,8 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const screenshot = await ctx.jx3Render.render("celebs", res.data, "celebs披风会", false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
-  //科举
+
+  //科举答案查询
   ctx.command("科举 [string]", "查询科举").action(async ({ session }, string) => {
     const res = await ctx.jx3api.getExamAnswer({ subject: string, limit: 3 });
     if (res.msg !== "success") return <p>查询科举失败</p>;
@@ -82,6 +83,8 @@ export function instructionsCommands(ctx: Context, config: Config) {
       </>
     );
   });
+
+  //家园装饰查询
   ctx.command("装饰 [name]", "查询家园装饰信息").action(async ({ session }, name) => {
     const res = await ctx.jx3api.getHomeFurniture({ name });
     if (res.msg !== "success") return <p>未找到装饰：{name}</p>;
@@ -109,6 +112,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     );
   });
 
+  //器物谱查询
   ctx.command("器物谱 [mapName]", "查阅地图产出的家具").action(async ({ session }, name) => {
     const res = await ctx.jx3api.getHomeTravel({ name });
     if (res.msg !== "success") return <p>未找到家具：{name}</p>;
@@ -136,6 +140,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     );
   });
 
+  //官方新闻查询
   ctx
     .command("新闻", "查询新闻")
     .alias("公告")
@@ -159,6 +164,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       );
     });
 
+  //开服信息查询
   ctx.command("开服 [server]", "查询服务器开服信息").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getServerCheck({ server });
     if (res.msg !== "success") return <p>查询服务器开服信息失败</p>;
@@ -169,6 +175,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       </>
     );
   });
+  //服务器状态查询
   ctx.command("服务器 [server]", "查询服务器状态").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getServerStatus({ server });
     if (res.msg !== "success") return <p>查询服务器状态失败</p>;
@@ -180,6 +187,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     );
   });
 
+  //维护公告查询
   ctx
     .command("维护", "查询维护公告")
     .alias("维护公告")
@@ -204,6 +212,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       );
     });
 
+  //技改查询
   ctx.command("技改", "查询技改记录").action(async () => {
     const res = await ctx.jx3api.getSkillRecords();
     if (res.msg !== "success") return <p>查询技改记录失败</p>;
@@ -225,13 +234,19 @@ export function instructionsCommands(ctx: Context, config: Config) {
     );
   });
 
+  //百战查询
   ctx.command("百战", "查询百战异闻录").action(async () => {
     const res = await ctx.jx3api.getActiveMonster();
-    /**
-     * TODO: 百战异闻录
-     */
-    return null;
+
+    if (res.msg !== "success") return <p>查询百战异闻录失败</p>;
+
+    res.data.start = dayjs(res.data.start * 1000).format("YYYY-MM-DD") as any;
+    res.data.end = dayjs(res.data.end * 1000).format("YYYY-MM-DD") as any;
+
+    const screenshot = await ctx.jx3Render.render("baizhan", res.data, `baizhan`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
   });
+
   //烟花统计
   ctx.command("烟花统计 [server] <num:number>", "查询烟花统计").action(async ({ session }, server, num = 1) => {
     const res = await ctx.jx3api.getFireworksCollect({ server, num });
@@ -244,6 +259,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
+  //烟花记录查询
   ctx.command("烟花记录 [server] [name]", "查询烟花记录").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getFireworksRecords({ server, name });
     console.log(res.data);
@@ -259,12 +275,16 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const screenshot = await ctx.jx3Render.render("UserFireworksRecords", res.data, `UserFireworksRecords-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  //拍卖纪录查询
   ctx.command("拍卖纪录 [server] [name]", "查询拍卖纪录").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getAuctionRecords({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>查询拍卖纪录失败</p>;
     const screenshot = await ctx.jx3Render.render("AuctionRecord", res.data, `AuctionRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  //的卢查询
   ctx
     .command("的卢 [server]", "查询的卢记录")
     .alias("的卢记录")
@@ -282,11 +302,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
+  //黑历史查询
   ctx.command("查人 [uid:number]", "查询qq号黑历史").action(async ({ session }, uid) => {
     const res = await ctx.jx3api.getFraudDetailed({ uid });
     if (!res.data.records.length) return <p>未找到{uid}的qq号贴吧黑历史</p>;
-    console.log(res.data.records);
-
     res.data.records.forEach((item) => {
       item.data.forEach((item) => {
         item.time = dayjs(item.time * 1000).format("YYYY-MM-DD HH:mm:ss") as any;
@@ -322,6 +341,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     );
   });
 
+  //奇遇统计查询
   ctx.command("奇遇统计 [server] [name]", "查询奇遇统计").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getLuckStatistical({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇数据</p>;
@@ -332,6 +352,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
+  //奇遇汇总查询
   ctx.command("奇遇汇总 [server]", "查询奇遇汇总").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getLuckRecent({ server });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇数据</p>;
@@ -341,10 +362,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const screenshot = await ctx.jx3Render.render("ServerQiyuSummary", res.data, `ServerQiyuSummary-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  //奇遇记录查询
   ctx.command("奇遇记录 [server] [name]", "查询奇遇记录").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getLuckAdventure({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇记录</p>;
-    console.log(res);
 
     res.data.forEach((item) => {
       item.time = dayjs(item.time * 1000).format("YYYY-MM-DD HH:mm:ss") as any;
@@ -352,6 +374,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const screenshot = await ctx.jx3Render.render("UserQiyuRecord", res.data, `UserQiyuRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+  //未出奇遇查询
   ctx
     .command("未出奇遇 [server] [name]", "查询缺失奇遇")
     .alias("缺失奇遇", "缺少奇遇")
