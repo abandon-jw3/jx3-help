@@ -631,7 +631,7 @@ export interface TeamCdList extends JX3APIResponse {
 export interface TeamCdListParams {
   server: string;
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 保存角色详情
@@ -659,7 +659,7 @@ export interface SaveRoleDetailed extends JX3APIResponse {
 export interface SaveRoleDetailedParams {
   server: string;
   roleid: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 全服物品掉落统计
@@ -726,7 +726,7 @@ export interface RoleDetailed extends JX3APIResponse {
 export interface RoleDetailedParams {
   server: string;
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 心法奇穴
@@ -746,7 +746,7 @@ export interface SchoolForce extends JX3APIResponse {
 
 export interface SchoolForceParams {
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 角色精力
@@ -827,7 +827,7 @@ export interface RoleAchievementParams {
   server: string;
   role: string;
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 角色属性
@@ -917,7 +917,7 @@ export interface RoleAttribute extends JX3APIResponse {
 export interface RoleAttributeParams {
   server: string;
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 心法阵眼
@@ -935,7 +935,7 @@ export interface SchoolMatrix extends JX3APIResponse {
 
 export interface SchoolMatrixParams {
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 服务器沙盘
@@ -1009,7 +1009,7 @@ export interface SchoolSeniority extends JX3APIResponse {
 
 export interface SchoolSeniorityParams {
   school: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 心法技能
@@ -1036,7 +1036,7 @@ export interface SchoolSkill extends JX3APIResponse {
 
 export interface SchoolSkillParams {
   name: string;
-  ticket: string;
+  ticket?: string;
 }
 
 // 服务器首领
@@ -1221,7 +1221,7 @@ export interface TuilanAchievementParams {
   name: string;
   class: 1 | 2 | 3;
   subclass: "杂闻" | "武学" | "修为" | "装备" | "技艺" | "阅读" | "任务" | "足迹" | "战斗" | "声望" | "秘境" | "帮会" | "阵营" | "节日" | "活动" | "风雨江湖路" | "家园" | "剑侠录";
-  ticket: string;
+  ticket?: string;
 }
 
 // 成语接龙
@@ -1443,7 +1443,7 @@ export interface ArenaAwesome extends JX3APIResponse {
 export interface ArenaAwesomeParams {
   mode?: number;
   limit?: number;
-  ticket: string;
+  ticket?: string;
 }
 
 // 角色近期名剑战绩
@@ -1502,7 +1502,7 @@ export interface ArenaRecentParams {
   server: string;
   name: string;
   mode?: number;
-  ticket: string;
+  ticket?: string;
 }
 
 // 名剑大会各门派表现
@@ -1516,7 +1516,7 @@ export interface ArenaSchool extends JX3APIResponse {
 
 export interface ArenaSchoolsParams {
   mode?: number;
-  ticket: string;
+  ticket?: string;
 }
 
 // 赤兔幼驹刷新信息
@@ -1733,7 +1733,7 @@ export interface SaveTuilanCalendar extends JX3APIResponse {
 }
 
 export interface SaveTuilanCalendarParams {
-  ticket: string;
+  ticket?: string;
 }
 
 // 更新推栏周常任务
@@ -1744,5 +1744,5 @@ export interface SaveWeekCalendar extends JX3APIResponse {
 }
 
 export interface SaveWeekCalendarParams {
-  ticket: string;
+  ticket?: string;
 }

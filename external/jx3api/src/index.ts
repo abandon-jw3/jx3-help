@@ -174,99 +174,100 @@ export class JX3_api_service extends Service {
     public config: Config
   ) {
     super(ctx, "jx3api", true);
+    console.log(config.ticket);
+
     // 创建一个带有统一 baseURL 的 HTTP 客户端实例
     this.http = ctx.http.extend({
       baseURL: config.apiUrl,
       headers: {
         token: config.token,
-        ...(config.ticket && { ticket: config.ticket }),
       },
     });
   }
 
   /**
    * 获取活动日历
-   * @param params.server 服务器名（可选）
-   * @param params.num 日期偏移值：0-当天，1-明天，2-后天（可选）
+   * @param data.server 服务器名（可选）
+   * @param data.num 日期偏移值：0-当天，1-明天，2-后天（可选）
    */
-  getActiveCalendar(params?: ActiveCalendarParams): Promise<ActiveCalendar> {
+  getActiveCalendar(data?: ActiveCalendarParams): Promise<ActiveCalendar> {
     // 现在只需要写相对路径即可
-    return this.http.post("/data/active/calendar", params);
+    return this.http.post("/data/active/calendar", data);
   }
 
   /**
    * 获取活动列表日历
-   * @param params.num 预测时间范围，返回指定日期的月历，默认15天
+   * @param data.num 预测时间范围，返回指定日期的月历，默认15天
    */
-  getActiveListCalendar(params?: ActiveListCalendarParams): Promise<ActiveListCalendar> {
-    return this.http.post("/data/active/list/calendar", params);
+  getActiveListCalendar(data?: ActiveListCalendarParams): Promise<ActiveListCalendar> {
+    return this.http.post("/data/active/list/calendar", data);
   }
 
   /**
    * 查询当前时间的楚天社或云从社的进度。
-   * @param params.name 目标名称：楚天社、云从社、披风会
+   * @param data.name 目标名称：楚天社、云从社、披风会
    */
-  getActiveCelebs(params: ActiveCelebsParams): Promise<ActiveCelebs> {
-    return this.http.post("/data/active/celebs", params);
+  getActiveCelebs(data: ActiveCelebsParams): Promise<ActiveCelebs> {
+    return this.http.post("/data/active/celebs", data);
   }
 
   /**
    * 获取科举答案
-   * @param params.subject 科举题目内容，支持模糊查询和拼音首字母
-   * @param params.limit 限制返回数量，默认10，范围1-20
+   * @param data.subject 科举题目内容，支持模糊查询和拼音首字母
+   * @param data.limit 限制返回数量，默认10，范围1-20
    */
-  getExamAnswer(params: ExamAnswerParams): Promise<ExamAnswer> {
-    return this.http.post("/data/exam/answer", params);
+  getExamAnswer(data: ExamAnswerParams): Promise<ExamAnswer> {
+    return this.http.post("/data/exam/answer", data);
   }
 
   /**
    * 获取家园花卉信息
-   * @param params.server 服务器名
-   * @param params.name 花卉名称（可选）
-   * @param params.map 地图名称（可选）
+   * @param data.server 服务器名
+   * @param data.name 花卉名称（可选）
+   * @param data.map 地图名称（可选）
    */
-  getHomeFlower(params: HomeFlowerParams): Promise<HomeFlower> {
-    return this.http.post("/data/home/flower", params);
+  getHomeFlower(data: HomeFlowerParams): Promise<HomeFlower> {
+    return this.http.post("/data/home/flower", data);
   }
 
   /**
    * 获取家园装饰信息
-   * @param params.name 装饰名称
+   * @param data.name 装饰名称
    */
-  getHomeFurniture(params: HomeFurnitureParams): Promise<HomeFurniture> {
-    return this.http.post("/data/home/furniture", params);
+  getHomeFurniture(data: HomeFurnitureParams): Promise<HomeFurniture> {
+    return this.http.post("/data/home/furniture", data);
   }
 
   /**
    * 获取地图产出的家具
-   * @param params.name 地图名称
+   * @param data.name 地图名称
    */
-  getHomeTravel(params: HomeTravelParams): Promise<HomeTravel> {
-    return this.http.post("/data/home/travel", params);
+  getHomeTravel(data: HomeTravelParams): Promise<HomeTravel> {
+    return this.http.post("/data/home/travel", data);
   }
 
   /**
    * 获取新闻公告
-   * @param params.limit 限制返回的新闻条数，默认10，范围1-50（可选）
+   * @param data.limit 限制返回的新闻条数，默认10，范围1-50（可选）
    */
-  getAllNews(params?: NewsParams): Promise<NewsItem> {
-    return this.http.post("/data/news/allnews", params);
+  getAllNews(data?: NewsParams): Promise<NewsItem> {
+    return this.http.post("/data/news/allnews", data);
   }
 
   /**
    * 获取服务器信息
-   * @param params.name 服务器名称或简称
+   * @param data.name 服务器名称或简称
    */
-  getServerMaster(params: ServerMasterParams): Promise<ServerMaster> {
-    return this.http.post("/data/server/master", params);
+  getServerMaster(data: ServerMasterParams): Promise<ServerMaster> {
+    return this.http.post("/data/server/master", data);
   }
 
   /**
    * 获取维护公告
-   * @param params.limit 限制返回的公告条数，默认10，范围1-50（可选）
+   * @param data.limit 限制返回的公告条数，默认10，范围1-50（可选）
    */
-  getNewsAnnounce(params?: NewsAnnounceParams): Promise<NewsAnnounce> {
-    return this.http.post("/data/news/announce", params);
+  getNewsAnnounce(data?: NewsAnnounceParams): Promise<NewsAnnounce> {
+    return this.http.post("/data/news/announce", data);
   }
 
   /**
@@ -278,18 +279,18 @@ export class JX3_api_service extends Service {
 
   /**
    * 开服检查
-   * @param params.server 服务器名称（可选，不传则返回所有服务器状态）
+   * @param data.server 服务器名称（可选，不传则返回所有服务器状态）
    */
-  getServerCheck(params?: ServerCheckParams): Promise<ServerCheck> {
-    return this.http.post("/data/server/check", params);
+  getServerCheck(data?: ServerCheckParams): Promise<ServerCheck> {
+    return this.http.post("/data/server/check", data);
   }
 
   /**
    * 获取服务器状态
-   * @param params.server 服务器名称
+   * @param data.server 服务器名称
    */
-  getServerStatus(params: ServerStatusParams): Promise<ServerStatus> {
-    return this.http.post("/data/server/status", params);
+  getServerStatus(data: ServerStatusParams): Promise<ServerStatus> {
+    return this.http.post("/data/server/status", data);
   }
 
   /**
@@ -301,246 +302,246 @@ export class JX3_api_service extends Service {
 
   /**
    * 获取烟花统计
-   * @param params.server 服务器名
-   * @param params.num 统计时间范围（天数），默认7天，范围1-30（可选）
+   * @param data.server 服务器名
+   * @param data.num 统计时间范围（天数），默认7天，范围1-30（可选）
    */
-  getFireworksCollect(params: FireworksCollectParams): Promise<FireworksCollect> {
-    return this.http.post("/data/fireworks/collect", params);
+  getFireworksCollect(data: FireworksCollectParams): Promise<FireworksCollect> {
+    return this.http.post("/data/fireworks/collect", data);
   }
 
   /**
    * 获取烟花记录
-   * @param params.server 服务器名
-   * @param params.name 角色名
+   * @param data.server 服务器名
+   * @param data.name 角色名
    */
-  getFireworksRecords(params: FireworksRecordParams): Promise<FireworksRecord> {
-    return this.http.post("/data/fireworks/records", params);
+  getFireworksRecords(data: FireworksRecordParams): Promise<FireworksRecord> {
+    return this.http.post("/data/fireworks/records", data);
   }
 
   /**
    * 获取拍卖记录
-   * @param params.server 服务器名
-   * @param params.name 物品名称（可选）
-   * @param params.limit 返回记录数量限制，默认50，范围1-100（可选）
+   * @param data.server 服务器名
+   * @param data.name 物品名称（可选）
+   * @param data.limit 返回记录数量限制，默认50，范围1-100（可选）
    */
-  getAuctionRecords(params: AuctionRecordParams): Promise<AuctionRecord> {
-    return this.http.post("/data/auction/records", params);
+  getAuctionRecords(data: AuctionRecordParams): Promise<AuctionRecord> {
+    return this.http.post("/data/auction/records", data);
   }
 
   /**
    * 获取的卢记录
-   * @param params.server 服务器名（可选）
+   * @param data.server 服务器名（可选）
    */
-  getDiluRecords(params: DiluRecordParams): Promise<DiluRecord> {
-    return this.http.post("/data/dilu/records", params);
+  getDiluRecords(data: DiluRecordParams): Promise<DiluRecord> {
+    return this.http.post("/data/dilu/records", data);
   }
 
   /**
    * 获取烟花汇总
-   * @param params.server 服务器名
-   * @param params.name 烟花名称
-   * @param params.limit 返回记录数量限制，默认20，范围1-50（可选）
+   * @param data.server 服务器名
+   * @param data.name 烟花名称
+   * @param data.limit 返回记录数量限制，默认20，范围1-50（可选）
    */
-  getFireworksStatistical(params: FireworksStatisticalParams): Promise<FireworksStatistical> {
-    return this.http.post("/data/fireworks/statistical", params);
+  getFireworksStatistical(data: FireworksStatisticalParams): Promise<FireworksStatistical> {
+    return this.http.post("/data/fireworks/statistical", data);
   }
 
   /**
    * 获取骗子查询
-   * @param params.uid QQ号
+   * @param data.uid QQ号
    */
-  getFraudDetailed(params: FraudDetailedParams): Promise<FraudDetailed> {
-    return this.http.post("/data/fraud/detailed", params);
+  getFraudDetailed(data: FraudDetailedParams): Promise<FraudDetailed> {
+    return this.http.post("/data/fraud/detailed", data);
   }
 
   /**
    * 获取奇遇统计
-   * @param params.server 服务器名
-   * @param params.name 奇遇名称
-   * @param params.limit 返回记录数量限制，默认50，范围1-50（可选）
+   * @param data.server 服务器名
+   * @param data.name 奇遇名称
+   * @param data.limit 返回记录数量限制，默认50，范围1-50（可选）
    */
-  getLuckStatistical(params: LuckStatisticalParams): Promise<LuckStatistical> {
-    return this.http.post("/data/luck/statistical", params);
+  getLuckStatistical(data: LuckStatisticalParams): Promise<LuckStatistical> {
+    return this.http.post("/data/luck/statistical", data);
   }
 
   /**
    * 获取近期奇遇
-   * @param params.server 服务器名
+   * @param data.server 服务器名
    */
-  getLuckRecent(params: LuckRecentParams): Promise<LuckRecent> {
-    return this.http.post("/data/luck/recent", params);
+  getLuckRecent(data: LuckRecentParams): Promise<LuckRecent> {
+    return this.http.post("/data/luck/recent", data);
   }
 
   /**
    * 获取奇遇记录
-   * @param params.server 服务器名
-   * @param params.name 角色名
-   * @param params.ticket 推栏标识（可选）
+   * @param data.server 服务器名
+   * @param data.name 角色名
+   * @param data.ticket 推栏标识（可选）
    */
-  getLuckAdventure(params: LuckAdventureParams): Promise<LuckAdventure> {
-    return this.http.post("/data/luck/adventure", params);
+  getLuckAdventure(data: LuckAdventureParams): Promise<LuckAdventure> {
+    return this.http.post("/data/luck/adventure", data);
   }
 
   /**
    * 获取未完成奇遇
-   * @param params.server 服务器名
-   * @param params.name 角色名
-   * @param params.ticket 推栏标识（可选）
+   * @param data.server 服务器名
+   * @param data.name 角色名
+   * @param data.ticket 推栏标识（可选）
    */
-  getLuckUnfinished(params: LuckUnfinishedParams): Promise<LuckUnfinished> {
-    return this.http.post("/data/luck/unfinished", params);
+  getLuckUnfinished(data: LuckUnfinishedParams): Promise<LuckUnfinished> {
+    return this.http.post("/data/luck/unfinished", data);
   }
 
   /**
    * 获取服务器排行榜统计
-   * @param params.table 榜单类型：个人、帮会、阵营、试炼
-   * @param params.name 榜单名称
+   * @param data.table 榜单类型：个人、帮会、阵营、试炼
+   * @param data.name 榜单名称
    */
-  getRankServerStatistical(params: RankServerStatisticalParams): Promise<RankServerStatistical> {
-    return this.http.post("/data/rank/server/statistical", params);
+  getRankServerStatistical(data: RankServerStatisticalParams): Promise<RankServerStatistical> {
+    return this.http.post("/data/rank/server/statistical", data);
   }
 
   /**
    * 获取区服排行榜统计
-   * @param params.server 服务器名
-   * @param params.table 榜单类型：个人、帮会、阵营、试炼
-   * @param params.name 榜单名称
+   * @param data.server 服务器名
+   * @param data.table 榜单类型：个人、帮会、阵营、试炼
+   * @param data.name 榜单名称
    */
-  getRankStatistical(params: RankStatisticalParams): Promise<RankStatistical> {
-    return this.http.post("/data/rank/statistical", params);
+  getRankStatistical(data: RankStatisticalParams): Promise<RankStatistical> {
+    return this.http.post("/data/rank/statistical", data);
   }
 
   /**
    * 获取师徒系统-徒弟信息
-   * @param params.server 服务器名
-   * @param params.keyword 关键字（可选）
+   * @param data.server 服务器名
+   * @param data.keyword 关键字（可选）
    */
-  getMemberStudent(params: MemberStudentParams): Promise<MemberStudent> {
-    return this.http.post("/data/member/student", params);
+  getMemberStudent(data: MemberStudentParams): Promise<MemberStudent> {
+    return this.http.post("/data/member/student", data);
   }
 
   /**
    * 获取团队招募信息
-   * @param params.server 服务器名
-   * @param params.keyword 关键字（可选）
-   * @param params.table 数据记录范围：1-本服+跨服，2-仅本服，3-仅跨服（可选）
+   * @param data.server 服务器名
+   * @param data.keyword 关键字（可选）
+   * @param data.table 数据记录范围：1-本服+跨服，2-仅本服，3-仅跨服（可选）
    */
-  getMemberRecruit(params: MemberRecruitParams): Promise<MemberRecruit> {
-    return this.http.post("/data/member/recruit", params);
+  getMemberRecruit(data: MemberRecruitParams): Promise<MemberRecruit> {
+    return this.http.post("/data/member/recruit", data);
   }
 
   /**
    * 获取师徒系统-师傅信息
-   * @param params.server 服务器名
-   * @param params.keyword 关键字（可选）
+   * @param data.server 服务器名
+   * @param data.keyword 关键字（可选）
    */
-  getMemberTeacher(params: MemberTeacherParams): Promise<MemberTeacher> {
-    return this.http.post("/data/member/teacher", params);
+  getMemberTeacher(data: MemberTeacherParams): Promise<MemberTeacher> {
+    return this.http.post("/data/member/teacher", data);
   }
 
   /**
    * 获取角色副本进度
-   * @param params.server 服务器名
-   * @param params.name 角色名称
-   * @param params.ticket 推栏标识
+   * @param data.server 服务器名
+   * @param data.name 角色名称
+   * @param data.ticket 推栏标识
    */
-  getTeamCdList(params: TeamCdListParams): Promise<TeamCdList> {
-    return this.http.post("/data/role/teamCdList", params);
+  getTeamCdList(data: TeamCdListParams): Promise<TeamCdList> {
+    return this.http.post("/data/role/teamCdList", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
    * 保存或更新角色的详细信息。
-   * @param params.server 服务器名
-   * @param params.roleid 角色ID
-   * @param params.ticket 推栏标识
+   * @param data.server 服务器名
+   * @param data.roleid 角色ID
+   * @param data.ticket 推栏标识
    */
-  saveRoleDetailed(params: SaveRoleDetailedParams): Promise<SaveRoleDetailed> {
-    return this.http.post("/save/role/detailed", params);
+  saveRoleDetailed(data: SaveRoleDetailedParams): Promise<SaveRoleDetailed> {
+    return this.http.post("/save/role/detailed", data);
   }
 
   /**
    * 获取全服物品掉落统计
-   * @param params.name 物品名称
-   * @param params.limit 返回记录数量限制，默认30，范围1-100（可选）
+   * @param data.name 物品名称
+   * @param data.limit 返回记录数量限制，默认30，范围1-100（可选）
    */
-  getRewardServerStatistical(params: RewardServerStatisticalParams): Promise<RewardServerStatistical> {
-    return this.http.post("/data/reward/server/statistical", params);
+  getRewardServerStatistical(data: RewardServerStatisticalParams): Promise<RewardServerStatistical> {
+    return this.http.post("/data/reward/server/statistical", data);
   }
 
   /**
    * 获取区服物品掉落统计
-   * @param params.server 服务器名
-   * @param params.name 物品名称
-   * @param params.limit 返回记录数量限制，默认20，范围1-100（可选）
+   * @param data.server 服务器名
+   * @param data.name 物品名称
+   * @param data.limit 返回记录数量限制，默认20，范围1-100（可选）
    */
-  getRewardStatistical(params: RewardStatisticalParams): Promise<RewardStatistical> {
-    return this.http.post("/data/reward/statistical", params);
+  getRewardStatistical(data: RewardStatisticalParams): Promise<RewardStatistical> {
+    return this.http.post("/data/reward/statistical", data);
   }
 
   /**
    * 获取角色详情
-   * @param params.server 服务器名
-   * @param params.name 角色名称
-   * @param params.ticket 推栏标识
+   * @param data.server 服务器名
+   * @param data.name 角色名称
+   * @param data.ticket 推栏标识
    */
-  getRoleDetailed(params: RoleDetailedParams): Promise<RoleDetailed> {
-    return this.http.post("/data/role/detailed", params);
+  getRoleDetailed(data: RoleDetailedParams): Promise<RoleDetailed> {
+    return this.http.post("/data/role/detailed", data);
   }
 
   /**
    * 获取心法奇穴信息
-   * @param params.name 心法名称
-   * @param params.ticket 推栏标识
+   * @param data.name 心法名称
+   * @param data.ticket 推栏标识
    */
-  getSchoolForce(params: SchoolForceParams): Promise<SchoolForce> {
-    return this.http.post("/data/school/force", params);
+  getSchoolForce(data: SchoolForceParams): Promise<SchoolForce> {
+    return this.http.post("/data/school/force", data);
   }
 
   /**
    * 获取角色精力信息
-   * @param params.server 服务器名
-   * @param params.name 角色名
+   * @param data.server 服务器名
+   * @param data.name 角色名
    */
-  getRoleMonster(params: RoleMonsterParams): Promise<RoleMonster> {
-    return this.http.post("/data/role/monster", params);
+  getRoleMonster(data: RoleMonsterParams): Promise<RoleMonster> {
+    return this.http.post("/data/role/monster", data);
   }
 
   /**
    * 获取角色成就信息
-   * @param params.server 服务器名
-   * @param params.role 角色名
-   * @param params.name 成就名称
-   * @param params.ticket 推栏标识
+   * @param data.server 服务器名
+   * @param data.role 角色名
+   * @param data.name 成就名称
+   * @param data.ticket 推栏标识
    */
-  getRoleAchievement(params: RoleAchievementParams): Promise<RoleAchievement> {
-    return this.http.post("/data/role/achievement", params);
+  getRoleAchievement(data: RoleAchievementParams): Promise<RoleAchievement> {
+    return this.http.post("/data/role/achievement", data);
   }
 
   /**
    * 获取角色属性信息
-   * @param params.server 服务器名
-   * @param params.name 角色名
-   * @param params.ticket 推栏标识
+   * @param data.server 服务器名
+   * @param data.name 角色名
+   * @param data.ticket 推栏标识
    */
-  getRoleAttribute(params: RoleAttributeParams): Promise<RoleAttribute> {
-    return this.http.post("/data/role/attribute", params);
+  getRoleAttribute(data: RoleAttributeParams): Promise<RoleAttribute> {
+    return this.http.post("/data/role/attribute", data);
   }
 
   /**
    * 获取心法阵眼信息
-   * @param params.name 心法名称
-   * @param params.ticket 推栏标识
+   * @param data.name 心法名称
+   * @param data.ticket 推栏标识
    */
-  getSchoolMatrix(params: SchoolMatrixParams): Promise<SchoolMatrix> {
-    return this.http.post("/data/school/matrix", params);
+  getSchoolMatrix(data: SchoolMatrixParams): Promise<SchoolMatrix> {
+    return this.http.post("/data/school/matrix", data);
   }
 
   /**
    * 获取服务器沙盘信息
-   * @param params.server 服务器名称
+   * @param data.server 服务器名称
    */
-  getServerSand(params: ServerSandParams): Promise<ServerSand> {
-    return this.http.post("/data/server/sand", params);
+  getServerSand(data: ServerSandParams): Promise<ServerSand> {
+    return this.http.post("/data/server/sand", data);
   }
 
   /**
@@ -559,20 +560,20 @@ export class JX3_api_service extends Service {
 
   /**
    * 获取心法资历排行
-   * @param params.school 心法名称
-   * @param params.ticket 推栏标识
+   * @param data.school 心法名称
+   * @param data.ticket 推栏标识
    */
-  getSchoolSeniority(params: SchoolSeniorityParams): Promise<SchoolSeniority> {
-    return this.http.post("/data/school/seniority", params);
+  getSchoolSeniority(data: SchoolSeniorityParams): Promise<SchoolSeniority> {
+    return this.http.post("/data/school/seniority", data);
   }
 
   /**
    * 获取心法技能信息
-   * @param params.name 心法名称
-   * @param params.ticket 推栏标识
+   * @param data.name 心法名称
+   * @param data.ticket 推栏标识
    */
-  getSchoolSkills(params: SchoolSkillParams): Promise<SchoolSkill> {
-    return this.http.post("/data/school/skills", params);
+  getSchoolSkills(data: SchoolSkillParams): Promise<SchoolSkill> {
+    return this.http.post("/data/school/skills", data);
   }
 
   /**
@@ -584,112 +585,112 @@ export class JX3_api_service extends Service {
 
   /**
    * 获取名片墙缓存
-   * @param params.server 服务器名称
-   * @param params.name 角色名称
+   * @param data.server 服务器名称
+   * @param data.name 角色名称
    */
-  getShowCache(params: ShowCacheParams): Promise<ShowCache> {
-    return this.http.post("/data/show/cache", params);
+  getShowCache(data: ShowCacheParams): Promise<ShowCache> {
+    return this.http.post("/data/show/cache", data);
   }
 
   /**
    * 获取随机名片
-   * @param params.server 服务器名称（可选）
-   * @param params.body 角色体型（可选）
-   * @param params.force 门派名称（可选）
+   * @param data.server 服务器名称（可选）
+   * @param data.body 角色体型（可选）
+   * @param data.force 门派名称（可选）
    */
-  getShowRandom(params: ShowRandomParams): Promise<ShowRandom> {
-    return this.http.post("/data/show/random", params);
+  getShowRandom(data: ShowRandomParams): Promise<ShowRandom> {
+    return this.http.post("/data/show/random", data);
   }
 
   /**
    * 获取名片墙信息
-   * @param params.server 服务器名称
-   * @param params.name 角色名称
+   * @param data.server 服务器名称
+   * @param data.name 角色名称
    */
-  getShowCard(params: ShowCardParams): Promise<ShowCard> {
-    return this.http.post("/data/show/card", params);
+  getShowCard(data: ShowCardParams): Promise<ShowCard> {
+    return this.http.post("/data/show/card", data);
   }
 
   /**
    * 获取贴吧物价记录
-   * @param params.server 服务器名称（可选）
-   * @param params.name 物品名称
-   * @param params.limit 返回记录数量限制，默认10，范围1-50（可选）
+   * @param data.server 服务器名称（可选）
+   * @param data.name 物品名称
+   * @param data.limit 返回记录数量限制，默认10，范围1-50（可选）
    */
-  getTiebaItemRecords(params: TiebaItemRecordsParams): Promise<TiebaItemRecord> {
-    return this.http.post("/data/tieba/item/records", params);
+  getTiebaItemRecords(data: TiebaItemRecordsParams): Promise<TiebaItemRecord> {
+    return this.http.post("/data/tieba/item/records", data);
   }
 
   /**
    * 获取金价比例信息
-   * @param params.server 服务器名称（可选）
-   * @param params.limit 返回数量，默认10，范围1-100（可选）
+   * @param data.server 服务器名称（可选）
+   * @param data.limit 返回数量，默认10，范围1-100（可选）
    */
-  getTradeDemon(params: TradeDemonParams): Promise<TradeDemon> {
-    return this.http.post("/data/trade/demon", params);
+  getTradeDemon(data: TradeDemonParams): Promise<TradeDemon> {
+    return this.http.post("/data/trade/demon", data);
   }
 
   /**
    * 获取推栏成就信息
-   * @param params.server 目标服务器名称，用于查询该服务器的角色数据
-   * @param params.name 角色名称，用于查找指定角色的资历分布信息
-   * @param params.class 资历主分类，1：江湖行，2：独步江湖，3：江湖行+独步江湖
-   * @param params.subclass 资历子分类
-   * @param params.ticket 推栏标识
+   * @param data.server 目标服务器名称，用于查询该服务器的角色数据
+   * @param data.name 角色名称，用于查找指定角色的资历分布信息
+   * @param data.class 资历主分类，1：江湖行，2：独步江湖，3：江湖行+独步江湖
+   * @param data.subclass 资历子分类
+   * @param data.ticket 推栏标识
    */
-  getTuilanAchievement(params: TuilanAchievementParams): Promise<TuilanAchievement> {
-    return this.http.post("/data/tuilan/achievement", params);
+  getTuilanAchievement(data: TuilanAchievementParams): Promise<TuilanAchievement> {
+    return this.http.post("/data/tuilan/achievement", data);
   }
 
   /**
    * 成语接龙
-   * @param params.name 输入的四字成语，用于进行成语接龙
+   * @param data.name 输入的四字成语，用于进行成语接龙
    */
-  getIdiomSolitaire(params: IdiomSolitaireParams): Promise<IdiomSolitaire> {
-    return this.http.post("/data/idiom/solitaire", params);
+  getIdiomSolitaire(data: IdiomSolitaireParams): Promise<IdiomSolitaire> {
+    return this.http.post("/data/idiom/solitaire", data);
   }
 
   /**
    * 智能聊天
-   * @param params.name 机器人的名称，返回结果中的回答会使用该名称
-   * @param params.text 输入的对话内容
+   * @param data.name 机器人的名称，返回结果中的回答会使用该名称
+   * @param data.text 输入的对话内容
    */
-  getMixedChat(params: MixedChatParams): Promise<MixedChat> {
-    return this.http.post("/data/mixed/chat", params);
+  getMixedChat(data: MixedChatParams): Promise<MixedChat> {
+    return this.http.post("/data/mixed/chat", data);
   }
 
   /**
    * 获取贴吧随机帖子
-   * @param params.class 帖子分类：818、616、鬼网三、鬼网3、树洞、记录、教程、街拍、故事、避雷、吐槽、提问
-   * @param params.server 区服名称，用于查询指定区服的帖子记录，默认值为 - 表示全区服（可选）
-   * @param params.limit 查询结果数量的限制，默认值为 10（可选）
+   * @param data.class 帖子分类：818、616、鬼网三、鬼网3、树洞、记录、教程、街拍、故事、避雷、吐槽、提问
+   * @param data.server 区服名称，用于查询指定区服的帖子记录，默认值为 - 表示全区服（可选）
+   * @param data.limit 查询结果数量的限制，默认值为 10（可选）
    */
-  getTiebaRandom(params: TiebaRandomParams): Promise<TiebaRandom> {
-    return this.http.post("/data/tieba/random", params);
+  getTiebaRandom(data: TiebaRandomParams): Promise<TiebaRandom> {
+    return this.http.post("/data/tieba/random", data);
   }
 
   /**
    * 获取酷狗音乐搜索结果
-   * @param params.name 歌曲名称，用于搜索酷狗音乐的相关内容
+   * @param data.name 歌曲名称，用于搜索酷狗音乐的相关内容
    */
-  getKugouMusic(params: KugouMusicParams): Promise<KugouMusic> {
-    return this.http.post("/data/music/kugou", params);
+  getKugouMusic(data: KugouMusicParams): Promise<KugouMusic> {
+    return this.http.post("/data/music/kugou", data);
   }
 
   /**
    * 获取网易云音乐搜索结果
-   * @param params.name 歌曲名称，用于搜索网易云音乐的相关内容
+   * @param data.name 歌曲名称，用于搜索网易云音乐的相关内容
    */
-  getNeteaseMusic(params: NeteaseMusicParams): Promise<NeteaseMusic> {
-    return this.http.post("/data/music/netease", params);
+  getNeteaseMusic(data: NeteaseMusicParams): Promise<NeteaseMusic> {
+    return this.http.post("/data/music/netease", data);
   }
 
   /**
    * 获取腾讯音乐搜索结果
-   * @param params.name 歌曲名称，用于搜索腾讯音乐的相关内容
+   * @param data.name 歌曲名称，用于搜索腾讯音乐的相关内容
    */
-  getTencentMusic(params: TencentMusicParams): Promise<TencentMusic> {
-    return this.http.post("/data/music/tencent", params);
+  getTencentMusic(data: TencentMusicParams): Promise<TencentMusic> {
+    return this.http.post("/data/music/tencent", data);
   }
 
   /**
@@ -708,73 +709,73 @@ export class JX3_api_service extends Service {
 
   /**
    * 语音转换
-   * @param params.appkey 阿里云应用标识
-   * @param params.access 阿里云 Access Key
-   * @param params.secret 阿里云 Secret Key
-   * @param params.voice 发音人名称，默认值：Aitong
-   * @param params.format 音频格式，支持 PCM、WAV 和 MP3，默认值：MP3
-   * @param params.sample_rate 音频采样率，支持 8000 和 16000，默认值：16000
-   * @param params.volume 音量大小，范围为 0 到 100，默认值：50
-   * @param params.speech_rate 语速调节，范围为 -500 到 500，默认值：0
-   * @param params.pitch_rate 音调调节，范围为 -500 到 500，默认值：0
-   * @param params.text 待合成的文本内容
+   * @param data.appkey 阿里云应用标识
+   * @param data.access 阿里云 Access Key
+   * @param data.secret 阿里云 Secret Key
+   * @param data.voice 发音人名称，默认值：Aitong
+   * @param data.format 音频格式，支持 PCM、WAV 和 MP3，默认值：MP3
+   * @param data.sample_rate 音频采样率，支持 8000 和 16000，默认值：16000
+   * @param data.volume 音量大小，范围为 0 到 100，默认值：50
+   * @param data.speech_rate 语速调节，范围为 -500 到 500，默认值：0
+   * @param data.pitch_rate 音调调节，范围为 -500 到 500，默认值：0
+   * @param data.text 待合成的文本内容
    */
-  getSoundConverter(params: SoundConverterParams): Promise<SoundConverter> {
-    return this.http.post("/data/sound/converter", params);
+  getSoundConverter(data: SoundConverterParams): Promise<SoundConverter> {
+    return this.http.post("/data/sound/converter", data);
   }
 
   /**
    * 获取下一次扶摇九天活动开启的时间
-   * @param params.server 服务器名（可选）
+   * @param data.server 服务器名（可选）
    */
-  getActiveNextEvent(params?: ActiveNextEventParams): Promise<ActiveNextEvent> {
-    return this.http.post("/data/active/next/event", params);
+  getActiveNextEvent(data?: ActiveNextEventParams): Promise<ActiveNextEvent> {
+    return this.http.post("/data/active/next/event", data);
   }
 
   /**
    * 查询挂件的效果及获取方式
-   * @param params.name 挂件名称
+   * @param data.name 挂件名称
    */
-  getArchivedPendant(params: ArchivedPendantParams): Promise<ArchivedPendant> {
-    return this.http.post("/data/archived/pendant", params);
+  getArchivedPendant(data: ArchivedPendantParams): Promise<ArchivedPendant> {
+    return this.http.post("/data/archived/pendant", data);
   }
 
   /**
    * 查询宠物的出现记录
-   * @param params.server 服务器名
+   * @param data.server 服务器名
    */
-  getArchivedPetEvent(params: ArchivedPetEventParams): Promise<ArchivedPetEvent> {
-    return this.http.post("/data/archived/petEvent", params);
+  getArchivedPetEvent(data: ArchivedPetEventParams): Promise<ArchivedPetEvent> {
+    return this.http.post("/data/archived/petEvent", data);
   }
 
   /**
    * 查询名剑大会的排行榜信息
-   * @param params.mode 比赛模式，默认33
-   * @param params.limit 返回数量，默认20
-   * @param params.ticket 推栏ticket
+   * @param data.mode 比赛模式，默认33
+   * @param data.limit 返回数量，默认20
+   * @param data.ticket 推栏ticket
    */
-  getArenaAwesome(params: ArenaAwesomeParams): Promise<ArenaAwesome> {
-    return this.http.post("/data/arena/awesome", params);
+  getArenaAwesome(data: ArenaAwesomeParams): Promise<ArenaAwesome> {
+    return this.http.post("/data/arena/awesome", data);
   }
 
   /**
    * 查询角色近期的名剑战绩记录
-   * @param params.server 服务器名
-   * @param params.name 角色名
-   * @param params.mode 比赛模式
-   * @param params.ticket 推栏ticket
+   * @param data.server 服务器名
+   * @param data.name 角色名
+   * @param data.mode 比赛模式
+   * @param data.ticket 推栏ticket
    */
-  getArenaRecent(params: ArenaRecentParams): Promise<ArenaRecent> {
-    return this.http.post("/data/arena/recent", params);
+  getArenaRecent(data: ArenaRecentParams): Promise<ArenaRecent> {
+    return this.http.post("/data/arena/recent", data);
   }
 
   /**
    * 统计角色近期的名剑战绩数据
-   * @param params.mode 比赛模式，默认33
-   * @param params.ticket 推栏ticket
+   * @param data.mode 比赛模式，默认33
+   * @param data.ticket 推栏ticket
    */
-  getArenaSchools(params: ArenaSchoolsParams): Promise<ArenaSchool> {
-    return this.http.post("/data/arena/schools", params);
+  getArenaSchools(data: ArenaSchoolsParams): Promise<ArenaSchool> {
+    return this.http.post("/data/arena/schools", data);
   }
 
   /**
@@ -786,108 +787,108 @@ export class JX3_api_service extends Service {
 
   /**
    * 查询指定区服的马场里即将刷新的马驹信息
-   * @param params.server 服务器名
+   * @param data.server 服务器名
    */
-  getHorseRanch(params: HorseRanchParams): Promise<HorseRanch> {
-    return this.http.post("/data/horse/ranch", params);
+  getHorseRanch(data: HorseRanchParams): Promise<HorseRanch> {
+    return this.http.post("/data/horse/ranch", data);
   }
 
   /**
    * 统计指定区服内奇遇的近期触发角色记录
-   * @param params.server 服务器名
-   * @param params.num 汇总时间范围，默认7天
+   * @param data.server 服务器名
+   * @param data.num 汇总时间范围，默认7天
    */
-  getLuckCollect(params: LuckCollectParams): Promise<LuckCollect> {
-    return this.http.post("/data/luck/collect", params);
+  getLuckCollect(data: LuckCollectParams): Promise<LuckCollect> {
+    return this.http.post("/data/luck/collect", data);
   }
 
   /**
    * 统计全服指定奇遇的近期触发记录
-   * @param params.name 奇遇名称
-   * @param params.limit 返回数量，默认10
+   * @param data.name 奇遇名称
+   * @param data.limit 返回数量，默认10
    */
-  getLuckServerStatistical(params: LuckServerStatisticalParams): Promise<LuckServerStatistical> {
-    return this.http.post("/data/luck/server/statistical", params);
+  getLuckServerStatistical(data: LuckServerStatisticalParams): Promise<LuckServerStatistical> {
+    return this.http.post("/data/luck/server/statistical", data);
   }
 
   /**
    * 查询指定角色的当前在线状态
-   * @param params.server 服务器名
-   * @param params.name 角色名
+   * @param data.server 服务器名
+   * @param data.name 角色名
    */
-  getRoleOnlineStatus(params: RoleOnlineStatusParams): Promise<RoleOnlineStatus> {
-    return this.http.post("/data/role/online/status", params);
+  getRoleOnlineStatus(data: RoleOnlineStatusParams): Promise<RoleOnlineStatus> {
+    return this.http.post("/data/role/online/status", data);
   }
 
   /**
    * 查询指定角色的所有名片墙信息
-   * @param params.server 服务器名
-   * @param params.name 角色名
+   * @param data.server 服务器名
+   * @param data.name 角色名
    */
-  getShowRecords(params: ShowRecordsParams): Promise<ShowRecord> {
-    return this.http.post("/data/show/records", params);
+  getShowRecords(data: ShowRecordsParams): Promise<ShowRecord> {
+    return this.http.post("/data/show/records", data);
   }
 
   /**
    * 查询指定物品的黑市价格信息
-   * @param params.server 服务器名（可选）
-   * @param params.name 物品名称
+   * @param data.server 服务器名（可选）
+   * @param data.name 物品名称
    */
-  getTradeItemRecords(params: TradeItemRecordsParams): Promise<TradeItemRecord> {
-    return this.http.post("/data/trade/item/records", params);
+  getTradeItemRecords(data: TradeItemRecordsParams): Promise<TradeItemRecord> {
+    return this.http.post("/data/trade/item/records", data);
   }
 
   /**
    * 查询指定物品的交易行价格信息
-   * @param params.server 服务器名
-   * @param params.name 物品名称
+   * @param data.server 服务器名
+   * @param data.name 物品名称
    */
-  getTradeMarket(params: TradeMarketParams): Promise<TradeMarket> {
-    return this.http.post("/data/trade/market", params);
+  getTradeMarket(data: TradeMarketParams): Promise<TradeMarket> {
+    return this.http.post("/data/trade/market", data);
   }
 
   /**
    * 统计指定物品的黑市价格信息
-   * @param params.server 服务器名（可选）
-   * @param params.name 物品名称
+   * @param data.server 服务器名（可选）
+   * @param data.name 物品名称
    */
-  getTradeRecords(params: TradeRecordsParams): Promise<TradeRecord> {
-    return this.http.post("/data/trade/records", params);
+  getTradeRecords(data: TradeRecordsParams): Promise<TradeRecord> {
+    return this.http.post("/data/trade/records", data);
   }
 
   /**
    * 模糊搜索外观物品
-   * @param params.name 物品名称
+   * @param data.name 物品名称
    */
-  getTradeSearch(params: TradeSearchParams): Promise<TradeSearch> {
-    return this.http.post("/data/trade/search", params);
+  getTradeSearch(data: TradeSearchParams): Promise<TradeSearch> {
+    return this.http.post("/data/trade/search", data);
   }
 
   /**
    * 上报客户端的日常任务信息
-   * @param params.szWar 大战任务
-   * @param params.szCommon 公共周常
-   * @param params.szDungeons 五人周常
-   * @param params.szTeamDungeons 十人周常
+   * @param data.szWar 大战任务
+   * @param data.szCommon 公共周常
+   * @param data.szDungeons 五人周常
+   * @param data.szTeamDungeons 十人周常
    */
-  saveClientCalendar(params: SaveClientCalendarParams): Promise<SaveClientCalendar> {
-    return this.http.post("/save/client/calendar", params);
+  saveClientCalendar(data: SaveClientCalendarParams): Promise<SaveClientCalendar> {
+    return this.http.post("/save/client/calendar", data);
   }
 
   /**
    * 上报推栏app中的日常任务信息
-   * @param params.ticket 推栏ticket
+   * @param data.ticket 推栏ticket
    */
-  saveTuilanCalendar(params: SaveTuilanCalendarParams): Promise<SaveTuilanCalendar> {
-    return this.http.post("/save/tuilan/calendar", params);
+  saveTuilanCalendar(data: SaveTuilanCalendarParams): Promise<SaveTuilanCalendar> {
+    return this.http.post("/save/tuilan/calendar", data);
   }
 
   /**
    * 更新推栏app中的周常任务信息
-   * @param params.ticket 推栏ticket
+   * @param data.ticket 推栏ticket
    */
-  saveWeekCalendar(params: SaveWeekCalendarParams): Promise<SaveWeekCalendar> {
-    return this.http.post("/save/week/calendar", params);
+  saveWeekCalendar(data: SaveWeekCalendarParams): Promise<SaveWeekCalendar> {
+    return this.http.post("/save/week/calendar", data);
   }
 }
 

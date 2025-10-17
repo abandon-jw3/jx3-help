@@ -318,7 +318,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //奇遇统计查询
   ctx.command("奇遇统计 [server] [name]", "查询奇遇统计").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getLuckStatistical({ server, name });
-
     const screenshot = await ctx.jx3Render.render("ServerQiyuRecord", res.data, `ServerQiyuRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
@@ -378,4 +377,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const screenshot = await ctx.jx3Render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  // ctx.command("副本 [server] [name]", "查询副本进度").action(async ({ session }, server, name) => {
+  //   const res = await ctx.jx3api.getTeamCdList({ server, name });
+
+  //   if (res.msg !== "success") return <p>{res.msg}</p>;
+  //   const screenshot = await ctx.jx3Render.render("TeamCdList", res.data, `TeamCdList-${server}-${name}`, false);
+  //   return <img src={"data:image/png;base64," + screenshot} />;
+  // });
 }
