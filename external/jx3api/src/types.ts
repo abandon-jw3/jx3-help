@@ -732,13 +732,13 @@ export interface RoleDetailedParams {
 // 心法奇穴
 export interface SchoolForce extends JX3APIResponse {
   data: Array<{
-    level: number;
+    level: number; //位置
     data: Array<{
-      name: string;
+      name: string; //名称
       class: number;
-      desc: string;
-      icon: string;
-      kind: string;
+      desc: string; //简介
+      icon: string; //图标URL
+      kind: string; //类型
       subKind: string;
     }>;
   }>;

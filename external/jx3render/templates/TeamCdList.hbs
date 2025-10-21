@@ -3,57 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>服务器近期奇遇汇总</title>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
+  <title>副本记录</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
   <div class="container-fluid py-4">
     <div class="card shadow-sm">
       <div class="card-header bg-light text-dark">
-        <h4 class="mb-0 text-center">
-          <i class="bi bi-stars"></i>服务器近期奇遇汇总
-        </h4>
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped mb-0">
-            <thead class="table-light">
-              <tr>
-                <th scope="col" class="text-center" style="width: 120px;">服务器</th>
-                <th scope="col" class="text-center" style="width: 120px;">角色名称</th>
-                <th scope="col" class="text-center" style="width: 120px;">奇遇</th>
-                <th scope="col" class="text-center" style="width: 220px;">时间</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each this}}
-              <tr>
-                <td class="text-center align-middle">
-                  <div>{{server}}</div>
-                </td>
-                <td class="text-center align-middle">
-                  <div class="text-info">{{name}}</div>
-                </td>
-                <td class="text-center align-middle">
-                  <div class="text-success">{{event}}</div>
-                </td>
-                <td class="text-center align-middle">
-                  <div>{{formatTime time}}</div>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+        <span>
+          <i class="bi bi-house-heart-fill"></i>
+          <span>服务器：{{serverName}}</span>
+        </span>
+        <span>
+          <i class="bi bi-grid-3x3-gap-fill"></i>
+          <span>副本记录</span>
+        </span>
+        <span>
+          <i class="bi bi-emoji-sunglasses-fill"></i>
+          <span>{{roleName}}</span>
+        </span>
       </div>
     </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0 w-100">
+          <thead class="table-light w-100">
+            <tr>
+              <th scope="col" class="text-center" style="width: 20%;">副本名称</th>
+              <th scope="col" class="text-center" style="width: 80%;">进度</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each data}}
+            <tr>
+              <td class="text-center align-middle">
+                <div>{{mapName}}-{{mapType}}</div>
+              </td>
+              <td class="text-center align-middle">
+                <div>
+                  {{#each bossProgress}}
+                  <span class="badge {{#if finished}}bg-success{{else}}bg-warning{{/if}}">{{name}}</span>
+                  {{/each}}
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
   </div>
 
   <style>
@@ -69,6 +73,10 @@
     .card-header {
       border-radius: 15px 15px 0 0 !important;
       padding: 16px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      font-size: 22px;
     }
 
     .table {

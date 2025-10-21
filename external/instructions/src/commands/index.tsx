@@ -6,7 +6,9 @@ export interface Config {}
 export function instructionsCommands(ctx: Context, config: Config) {
   //服务器活动日历查询
   ctx
-    .command("日常 [server]", "查询服务器活动日历")
+    .command("日常 [server]", "查询服务器活动日历", {
+      permissions: ["instructions.botVip"],
+    })
     .alias("每日")
     .action(async (context, server) => {
       const res = await ctx.jx3api.getActiveCalendar({ server, num: 0 });
@@ -355,12 +357,15 @@ export function instructionsCommands(ctx: Context, config: Config) {
       );
     });
 
+  //招募
   ctx.command("招募 [server] [keyword]", "查询招募信息").action(async ({ session }, server, keyword) => {
     const res = await ctx.jx3api.getMemberRecruit({ server, keyword, table: 1 });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到招募信息</p>;
     const screenshot = await ctx.jx3Render.render("MemberRecruit", res.data, `MemberRecruit-${server}-${keyword}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  //师父
   ctx
     .command("师父 [server] [keyword]", "查询师父信息")
     .alias("拜师")
@@ -371,18 +376,64 @@ export function instructionsCommands(ctx: Context, config: Config) {
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
+  //徒弟
   ctx.command("徒弟 [server] [keyword]", "查询徒弟信息").action(async ({ session }, server, keyword) => {
     const res = await ctx.jx3api.getMemberStudent({ server, keyword });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到徒弟信息</p>;
     const screenshot = await ctx.jx3Render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+  //副本进度
+  ctx.command("副本 [server] [name]", "查询副本进度").action(async ({ session }, server, name) => {
+    const res = await ctx.jx3api.getTeamCdList({ server, name });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
+    const screenshot = await ctx.jx3Render.render("TeamCdList", res.data, `TeamCdList-${server}-${name}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
+  //全服掉落统计
+  ctx.command("全服掉落 [name]", "查询全服掉落统计").action(async ({ session }, name) => {
+    const res = await ctx.jx3api.getRewardServerStatistical({ name });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
+    const data = { ...res, name };
+    const screenshot = await ctx.jx3Render.render("RewardServerStatistical", data, `RewardServerStatistical-${name}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
 
-  // ctx.command("副本 [server] [name]", "查询副本进度").action(async ({ session }, server, name) => {
-  //   const res = await ctx.jx3api.getTeamCdList({ server, name });
+  //区服掉落统计
+  ctx.command("掉落 [server] [name]", "查询区服掉落统计").action(async ({ session }, server, name) => {
+    const res = await ctx.jx3api.getRewardStatistical({ server, name });
 
-  //   if (res.msg !== "success") return <p>{res.msg}</p>;
-  //   const screenshot = await ctx.jx3Render.render("TeamCdList", res.data, `TeamCdList-${server}-${name}`, false);
-  //   return <img src={"data:image/png;base64," + screenshot} />;
-  // });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
+    const screenshot = await ctx.jx3Render.render("RewardStatistical", { ...res, name, server }, `RewardStatistical-${server}-${name}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
+
+  ctx
+    .command("角色详情 [server] [name]", "查询角色详情")
+    .alias("角色")
+    .action(async ({ session }, server, name) => {
+      const res = await ctx.jx3api.getRoleDetailed({ server, name });
+      if (res.msg !== "success") return <p>{res.msg}</p>;
+      return (
+        <>
+          <p>{res.data.roleName}·详情</p>
+          <p>服务器：{res.data.serverName}</p>
+          <p>名称：{res.data.roleName}</p>
+          <p>门派：{res.data.forceName}</p>
+          <p>体型：{res.data.bodyName}</p>
+          <p>阵营：{res.data.campName}</p>
+          <p>帮会：{res.data.tongName}</p>
+          <p>角色标识：{res.data.roleId}</p>
+          <p>全服标识：{res.data.globalRoleId}</p>
+        </>
+      );
+    });
+  ctx.command("奇穴 [name]", "查询心法奇穴信息").action(async ({ session }, name) => {
+    const res = await ctx.jx3api.getSchoolForce({ name });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
+    console.log(res);
+
+    const screenshot = await ctx.jx3Render.render("SchoolForce", { ...res, name }, `SchoolForce-${name}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
 }

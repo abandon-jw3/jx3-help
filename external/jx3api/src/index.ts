@@ -379,7 +379,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识（可选）
    */
   getLuckAdventure(data: LuckAdventureParams): Promise<LuckAdventure> {
-    return this.http.post("/data/luck/adventure", data);
+    return this.http.post("/data/luck/adventure", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -389,7 +389,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识（可选）
    */
   getLuckUnfinished(data: LuckUnfinishedParams): Promise<LuckUnfinished> {
-    return this.http.post("/data/luck/unfinished", data);
+    return this.http.post("/data/luck/unfinished", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -456,7 +456,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   saveRoleDetailed(data: SaveRoleDetailedParams): Promise<SaveRoleDetailed> {
-    return this.http.post("/save/role/detailed", data);
+    return this.http.post("/save/role/detailed", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -485,7 +485,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getRoleDetailed(data: RoleDetailedParams): Promise<RoleDetailed> {
-    return this.http.post("/data/role/detailed", data);
+    return this.http.post("/data/role/detailed", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -494,7 +494,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getSchoolForce(data: SchoolForceParams): Promise<SchoolForce> {
-    return this.http.post("/data/school/force", data);
+    return this.http.post("/data/school/force", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -514,7 +514,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getRoleAchievement(data: RoleAchievementParams): Promise<RoleAchievement> {
-    return this.http.post("/data/role/achievement", data);
+    return this.http.post("/data/role/achievement", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -524,7 +524,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getRoleAttribute(data: RoleAttributeParams): Promise<RoleAttribute> {
-    return this.http.post("/data/role/attribute", data);
+    return this.http.post("/data/role/attribute", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -533,7 +533,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getSchoolMatrix(data: SchoolMatrixParams): Promise<SchoolMatrix> {
-    return this.http.post("/data/school/matrix", data);
+    return this.http.post("/data/school/matrix", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -564,7 +564,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getSchoolSeniority(data: SchoolSeniorityParams): Promise<SchoolSeniority> {
-    return this.http.post("/data/school/seniority", data);
+    return this.http.post("/data/school/seniority", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -573,7 +573,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getSchoolSkills(data: SchoolSkillParams): Promise<SchoolSkill> {
-    return this.http.post("/data/school/skills", data);
+    return this.http.post("/data/school/skills", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -639,7 +639,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏标识
    */
   getTuilanAchievement(data: TuilanAchievementParams): Promise<TuilanAchievement> {
-    return this.http.post("/data/tuilan/achievement", data);
+    return this.http.post("/data/tuilan/achievement", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -755,7 +755,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏ticket
    */
   getArenaAwesome(data: ArenaAwesomeParams): Promise<ArenaAwesome> {
-    return this.http.post("/data/arena/awesome", data);
+    return this.http.post("/data/arena/awesome", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -766,7 +766,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏ticket
    */
   getArenaRecent(data: ArenaRecentParams): Promise<ArenaRecent> {
-    return this.http.post("/data/arena/recent", data);
+    return this.http.post("/data/arena/recent", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -775,7 +775,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏ticket
    */
   getArenaSchools(data: ArenaSchoolsParams): Promise<ArenaSchool> {
-    return this.http.post("/data/arena/schools", data);
+    return this.http.post("/data/arena/schools", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -880,7 +880,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏ticket
    */
   saveTuilanCalendar(data: SaveTuilanCalendarParams): Promise<SaveTuilanCalendar> {
-    return this.http.post("/save/tuilan/calendar", data);
+    return this.http.post("/save/tuilan/calendar", { ...data, ticket: this.config.ticket || null });
   }
 
   /**
@@ -888,7 +888,7 @@ export class JX3_api_service extends Service {
    * @param data.ticket 推栏ticket
    */
   saveWeekCalendar(data: SaveWeekCalendarParams): Promise<SaveWeekCalendar> {
-    return this.http.post("/save/week/calendar", data);
+    return this.http.post("/save/week/calendar", { ...data, ticket: this.config.ticket || null });
   }
 }
 

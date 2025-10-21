@@ -54,12 +54,12 @@ plugins:
       protocol: ws
       endpoint: ws://127.0.0.1:3001
   group:develop:
-    $collapsed: true
     $if: env.NODE_ENV === 'development'
     hmr:1phdm8:
       root: .
   group:bgk8b7:
-    puppeteer:rdco9y: {}
+    puppeteer:rdco9y:
+      headless: false
     jx3Render:gdwm18: {}
     instructions:wx7gxe: null
     jx3ws:dsyxdj:

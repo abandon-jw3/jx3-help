@@ -60,21 +60,27 @@ export class RenderService extends Service {
 
     //如果缓存图片存在，则直接返回缓存图片
     if (isCache && fs.existsSync(imageFile)) return fs.readFileSync(imageFile).toString("base64");
+
+    // 添加 assets 绝对路径到数据对象
+    const assetsPath = path.join(__dirname, "../assets").replace(/\\/g, "/");
+    const renderData = { ...data, assetsPath };
+
     //根据数据编译成html
-    const html = this.template[templateName](data);
+    const html = this.template[templateName](renderData);
     //将html渲染为图片
     const page = await this.puppeteer.page();
-    await page.setViewport({
-      width: 1400,
-      height: 200,
-    });
-    await page.setContent(html);
+
+    // await page.setViewport({});
+
+    // 先设置HTML内容
+    await page.setContent(html, { waitUntil: "networkidle0" });
 
     const screenshot = await page.screenshot({
       path: imageFile,
       fullPage: true,
       encoding: "base64",
     });
+    // await page.close();
     return screenshot;
   }
 }
