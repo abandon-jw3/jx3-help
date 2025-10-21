@@ -35,7 +35,7 @@ plugins:
     insight:row0d8: {}
     market:sstlz9:
       search:
-        endpoint: https://registry.koishi.chat/index.json
+        endpoint: https://registry.koishi.t4wefan.pub/index.json
       registry: {}
     notifier:g6bdvu: {}
     oobe:01jmeo: {}
@@ -59,7 +59,10 @@ plugins:
       root: .
   group:bgk8b7:
     puppeteer:rdco9y:
-      headless: false
+      defaultViewport:
+        width: 1400
+        deviceScaleFactor: 1
+      ignoreHTTPSErrors: true
     jx3Render:gdwm18: {}
     instructions:wx7gxe: null
     jx3ws:dsyxdj:

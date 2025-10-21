@@ -428,12 +428,21 @@ export function instructionsCommands(ctx: Context, config: Config) {
         </>
       );
     });
+
+  //心法奇穴
   ctx.command("奇穴 [name]", "查询心法奇穴信息").action(async ({ session }, name) => {
     const res = await ctx.jx3api.getSchoolForce({ name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
-    console.log(res);
 
     const screenshot = await ctx.jx3Render.render("SchoolForce", { ...res, name }, `SchoolForce-${name}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
+
+  //查询精耐
+  ctx.command("精耐 [server] [name]", "查询角色精力信息").action(async ({ session }, server, name) => {
+    const res = await ctx.jx3api.getRoleMonster({ server, name });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
+    const screenshot = await ctx.jx3Render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 }

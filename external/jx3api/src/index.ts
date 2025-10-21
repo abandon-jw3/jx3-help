@@ -174,8 +174,6 @@ export class JX3_api_service extends Service {
     public config: Config
   ) {
     super(ctx, "jx3api", true);
-    console.log(config.ticket);
-
     // 创建一个带有统一 baseURL 的 HTTP 客户端实例
     this.http = ctx.http.extend({
       baseURL: config.apiUrl,

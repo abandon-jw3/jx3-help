@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>全服掉落信息</title>
-  <link href="http://localhost:3000/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="http://localhost:3000/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
-  <script src="http://localhost:3000/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+  <title>区服掉落信息</title>
 
+  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
 </head>
 
 <body>
-  <div class="container-fluid py-4">
-    <div class="card shadow-sm">
+  <div class="container-fluid py-4 w-100">
+    <div class="card shadow-sm w-100">
       <div class="card-header bg-light text-dark">
         <span>
           <i class="bi bi-emoji-sunglasses-fill"></i>
@@ -28,7 +28,7 @@
         </span>
       </div>
       <div class="card-body p-0 w-100">
-        <div class="table-responsive">
+        <div class="table-responsive w-100">
           <table class="table table-hover table-striped mb-0 w-100">
             <thead class="table-light">
               <tr>
@@ -63,8 +63,10 @@
   </div>
 
   <style>
-    body {
+    body,
+    html {
       font-family: "Microsoft YaHei", Arial, sans-serif;
+      width: 100%;
     }
 
     .card {
