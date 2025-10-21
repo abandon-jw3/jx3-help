@@ -88,7 +88,7 @@ export class RenderService extends Service {
       fullPage: true,
       encoding: "base64",
     });
-    await page.close();
+    // await page.close();
     // 删除临时 HTML 文件
     fs.unlinkSync(tempHtmlFile);
     return screenshot;

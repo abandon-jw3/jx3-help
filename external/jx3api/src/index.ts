@@ -496,7 +496,7 @@ export class JX3_api_service extends Service {
   }
 
   /**
-   * 获取角色精力信息
+   * 获取角色精耐信息
    * @param data.server 服务器名
    * @param data.name 角色名
    */

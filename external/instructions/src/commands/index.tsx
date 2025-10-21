@@ -445,4 +445,20 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const screenshot = await ctx.jx3Render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  ctx.command("沙盘 [server] ", "查询服务器沙盘信息").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getServerSand({ server });
+    const data = {
+      server: res.data.server,
+      reset: res.data.reset,
+      update: res.data.update,
+      data: {},
+    };
+    res.data.data.forEach((item) => {
+      data.data[item.castleName] = { ...item, campId: item.campId === 1 ? "浩" : "恶" };
+    });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
+    const screenshot = await ctx.jx3Render.render("ServerSand", data, `ServerSand-${server}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
 }
