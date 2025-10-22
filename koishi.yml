@@ -33,7 +33,7 @@ plugins:
     explorer:0gzgbx: {}
     logger:5vygxu: {}
     insight:row0d8: {}
-    market:sstlz9:
+    ~market:sstlz9:
       search:
         endpoint: https://registry.koishi.t4wefan.pub/index.json
       registry: {}

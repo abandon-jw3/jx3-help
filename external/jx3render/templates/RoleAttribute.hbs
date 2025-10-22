@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>角色装备</title>
+  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container " id="main">
+    <div class="card" style="background-image: url('img/bg.png');">
+      <div class="card-header">
+        <div style="text-align:center; margin:10px">
+          <h2><img src="file://{{assetsPath}}/sect/{{data.kungfu}}.png" height="70" width="70"><strong> {{serverName}} •
+              {{roleName}}</strong></h2>
+        </div>
+      </div>
+      <div class="card-body">
+        <!--角色属性-->
+        <hr>
+        <div class="row" style="padding: 20px">
+          {{#each data.panelList.panel}}
+          <div class="col-4">
+            <h3><strong>{{name}}：</strong>{{value}}</h3>
+          </div>
+          {{/each}}
+        </div>
+        <h2 class="tittle-with-hr text-center">
+          <span><strong>装备分数：{{data.panelList.score}}</strong></span>
+        </h2>
+        {{/if}}
+        <!--角色装备-->
+        <div class="row">
+          {{#each data.equipList}}
+          <div class="row">
+            <div class="col-1">
+              <div style="border: 3px solid {{color}}; margin: 0 -10px 0 0;">
+                <img src="{{icon}}" width="70" height="70">
+              </div>
+            </div>
+            <div class="col-4">
+              <p style="margin:1px;font-size: 25px;"><strong style="color: {{color}};">{{name}}</strong>({{quality}})
+              </p>
+              <p style="margin:1px;">{{modifyType}}</p>
+              <p style="margin:1px;color: darkgray;">{{source}}</p>
+            </div>
+            <div class="col text-end fs-5 offset-md-3 justify-content-end">
+              <p style="margin:1px;">
+                {{#times strengthLevel}}
+                <img src="file://{{assetsPath}}/imgs/star.png" width="25" height="25">
+                {{/times}}
+              </p>
+              <p style="margin:1px;color:cornflowerblue;">{{permanentEnchant}}</p>
+              <p style="margin:1px;">
+                {{#each fiveStone}}
+                <img src="{{this}}" width="30" height="30">
+                {{/each}}
+              </p>
+            </div>
+          </div>
+          <hr>
+          {{/each}}
+
+        </div>
+        <!--角色奇穴-->
+        {{#if data.qixueList}}
+        <div style="margin-top:10px;"></div>
+        <div class="row">
+          {{#each data.qixueList}}
+          <div class="col-1 text-center fs-5">
+            <img src="{{icon}}" width="50" height="50" style="margin-top:20px;">
+            <p>{{name}}</p>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="card-footer">
+        <h6 class="text-center fs-3">数据来源：www.jx3api.com</h6>
+      </div>
+    </div>
+  </div>
+</body>
+<style>
+  .table tbody tr td {
+    vertical-align: middle;
+  }
+
+  .text-with-hr {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  /*
+横线，并通过z-index：-1将or附近的横线遮盖住
+*/
+  .text-with-hr:before {
+    position: absolute;
+    content: '';
+    top: 25px;
+    left: 0px;
+    width: 100%;
+    border-bottom: 2px solid #c2c0c0;
+    z-index: -1;
+  }
+
+  .text-with-hr span {
+    display: inline-block;
+    background-image: url('file://{{assetsPath}}/imgs/bg.png');
+    padding: 10px;
+  }
+
+  .tittle-with-hr {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  /*
+横线，并通过z-index：-1将or附近的横线遮盖住
+*/
+  .tittle-with-hr:before {
+    position: absolute;
+    content: '';
+    top: 30px;
+    left: 0px;
+    width: 100%;
+    border-bottom: 2px solid #c2c0c0;
+    z-index: -1;
+  }
+
+  .tittle-with-hr span {
+    display: inline-block;
+    background-image: url('file://{{assetsPath}}/imgs/bg.png');
+    padding: 10px;
+  }
+</style>
+
+</html>

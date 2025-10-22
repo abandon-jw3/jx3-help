@@ -2,313 +2,313 @@
 <html lang="zh-cn">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>沙盘</title>
-    <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        .u-name {
-            display: block;
-            color: #fffcd0;
-            font-size: 12px;
-            line-height: 18px;
-            width: 1em;
-            text-shadow: 1px 1px 1px #000;
-        }
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>沙盘</title>
+  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .u-name {
+      display: block;
+      color: #fffcd0;
+      font-size: 12px;
+      line-height: 18px;
+      width: 1em;
+      text-shadow: 1px 1px 1px #000;
+    }
 
 
 
-        .server {
-            position: absolute;
-            max-width: 100%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            top: 65px;
-            z-index: 1;
-        }
+    .server {
+      position: absolute;
+      max-width: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top: 65px;
+      z-index: 1;
+    }
 
-        .updateTime {
-            position: absolute;
-            max-width: 100%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            top: 125px;
-            z-index: 1;
-        }
+    .updateTime {
+      position: absolute;
+      max-width: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top: 125px;
+      z-index: 1;
+    }
 
-        .server .text {
-            font-weight: 800;
-            font-size: 50px;
-            position: relative;
-            text-shadow: 2px 2px 5px black;
-        }
+    .server .text {
+      font-weight: 800;
+      font-size: 50px;
+      position: relative;
+      text-shadow: 2px 2px 5px black;
+    }
 
-        .updateTime .text {
-            font-weight: 600;
-            font-size: 25px;
-            position: relative;
-            text-shadow: 2px 2px 5px black;
-        }
+    .updateTime .text {
+      font-weight: 600;
+      font-size: 25px;
+      position: relative;
+      text-shadow: 2px 2px 5px black;
+    }
 
-        .text::after {
-            content: attr(text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
-            background-image: linear-gradient(to bottom, #ffeebc, #ce893b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: none;
-        }
-    </style>
+    .text::after {
+      content: attr(text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      background-image: linear-gradient(to bottom, #ffeebc, #ce893b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div id="main" class="card" style="position: absolute;width: 1297px;">
-            <div class="server">
-                <h1 class="text">{{server}}</h1>
-            </div>
-            <div class="updateTime">
-                <h1 class="text">{{updateTime}}</h1>
-            </div>
+  <div class="container">
+    <div id="main" class="card" style="position: absolute;width: 1297px;">
+      <div class="server">
+        <h1 class="text">{{server}}</h1>
+      </div>
+      <div class="updateTime">
+        <h1 class="text">{{updateTime}}</h1>
+      </div>
 
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 122px;top: 189px;width: 708px;height: 478px;z-index:1"
-                    src="file://{{assetsPath}}/img/阵营防线.png" alt="">
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 225px;top: 58px;"
-                    src="file://{{assetsPath}}/img/恶_恶人谷.png" alt="">
-                <img style="position: absolute;max-width: 100%; left: 287px;top: 105px;"
-                    src="file://{{assetsPath}}/img/图标_恶_恶人谷.png" alt="">
-                <span class="u-name" style="left: 367px;top: 105px;z-index:3;position: absolute;">恶人谷</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 300px;top: 110px;"
-                    src="file://{{assetsPath}}/img/{{data.凛风堡.campId}}_凛风堡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 432px;top: 187px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.凛风堡.campId}}_凛风堡.png" alt="">
-                <span class="u-name" style="left: 482px;top: 177px;z-index:3;position: absolute;">凛风堡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 262px;top: 248px;"
-                    src="file://{{assetsPath}}/img/{{data.神池岭.campId}}_神池岭.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 283px;top: 288px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.神池岭.campId}}_02.png" alt="">
-                <span class="u-name" style="left: 323px;top: 278px;z-index:3;position: absolute;">神池岭</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 167px;top: 310px;"
-                    src="file://{{assetsPath}}/img/{{data.烈日岗.campId}}_烈日岗.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 230px;top: 368px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.烈日岗.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 276px;top: 358px;z-index:3;position: absolute;">烈日岗</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 443px;top: 227px;"
-                    src="file://{{assetsPath}}/img/{{data.扶风郡.campId}}_扶风郡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 475px;top: 265px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.扶风郡.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 525px;top: 255px;z-index:3;position: absolute;">扶风郡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 383px;top: 274px;"
-                    src="file://{{assetsPath}}/img/{{data.世外坡.campId}}_世外坡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 445px;top: 334px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.世外坡.campId}}_05.png" alt="">
-                <span class="u-name" style="left: 485px;top: 324px;z-index:3;position: absolute;">世外坡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 507px;top: 181px;"
-                    src="file://{{assetsPath}}/img/{{data.飞沙关.campId}}_飞沙关.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 530px;top: 204px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.飞沙关.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 570px;top: 194px;z-index:3;position: absolute;">飞沙关</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 540px;top: 162px;"
-                    src="file://{{assetsPath}}/img/{{data.龙门镇.campId}}_龙门镇.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 597px;top: 188px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.龙门镇.campId}}_02.png" alt="">
-                <span class="u-name" style="left: 637px;top: 178px;z-index:3;position: absolute;">龙门镇</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 178px;top: 530px;"
-                    src="file://{{assetsPath}}/img/{{data.凤鸣堡.campId}}_凤鸣堡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 222px;top: 575px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.凤鸣堡.campId}}_04.png" alt="">
-                <span class="u-name" style="left: 262px;top: 565px;z-index:3;position: absolute;">凤鸣堡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 166px;top: 422px;"
-                    src="file://{{assetsPath}}/img/{{data.惊虬谷.campId}}_惊虬谷.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 275px;top: 476px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.惊虬谷.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 315px;top: 466px;z-index:3;position: absolute;">惊虬谷</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 406px;top: 394px;"
-                    src="file://{{assetsPath}}/img/{{data.日月崖.campId}}_日月崖.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 494px;top: 472px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.日月崖.campId}}_02.png" alt="">
-                <span class="u-name" style="left: 534px;top: 462px;z-index:3;position: absolute;">日月崖</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 375px;top: 508px;"
-                    src="file://{{assetsPath}}/img/{{data.卧龙坡.campId}}_卧龙坡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 469px;top: 553px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.卧龙坡.campId}}_03.png" alt="">
-                <span class="u-name" style="left: 509px;top: 543px;z-index:3;position: absolute;">卧龙坡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 643px;top: 196px;"
-                    src="file://{{assetsPath}}/img/{{data.啖杏林.campId}}_啖杏林.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 651px;top: 230px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.啖杏林.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 671px;top: 270px;z-index:3;position: absolute;">啖杏林</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 636px;top: 246px;"
-                    src="file://{{assetsPath}}/img/{{data.枫湖寨.campId}}_枫湖寨.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 713px;top: 284px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.枫湖寨.campId}}_03.png" alt="">
-                <span class="u-name" style="left: 743px;top: 274px;z-index:3;position: absolute;">枫湖寨</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 536px;top: 405px;"
-                    src="file://{{assetsPath}}/img/{{data.不空关.campId}}_不空关.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 630px;top: 436px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.不空关.campId}}_04.png" alt="">
-                <span class="u-name" style="left: 670px;top: 426px;z-index:3;position: absolute;">不空关</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 575px;top: 467px;"
-                    src="file://{{assetsPath}}/img/{{data.激流坞.campId}}_激流坞.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 597px;top: 505px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.激流坞.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 637px;top: 495px;z-index:3;position: absolute;">激流坞</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 274px;top: 654px;"
-                    src="file://{{assetsPath}}/img/{{data.澜沧城.campId}}_澜沧城.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 330px;top: 747px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.澜沧城.campId}}_03.png" alt="">
-                <span class="u-name" style="left: 370px;top: 737px;z-index:3;position: absolute;">澜沧城</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 205px;top: 630px;"
-                    src="file://{{assetsPath}}/img/{{data.霜戈堡.campId}}_霜戈堡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 256px;top: 676px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.霜戈堡.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 296px;top: 666px;z-index:3;position: absolute;">霜戈堡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 773px;top: 168px;"
-                    src="file://{{assetsPath}}/img/{{data.金门关.campId}}_金门关.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 823px;top: 250px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.金门关.campId}}_04.png" alt="">
-                <span class="u-name" style="left: 863px;top: 240px;z-index:3;position: absolute;">金门关</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 867px;top: 189px;"
-                    src="file://{{assetsPath}}/img/{{data.青云坞.campId}}_青云坞.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 901px;top: 218px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.青云坞.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 941px;top: 208px;z-index:3;position: absolute;">青云坞</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 712px;top: 427px;"
-                    src="file://{{assetsPath}}/img/{{data.逐鹿坪.campId}}_逐鹿坪.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 773px;top: 485px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.逐鹿坪.campId}}_03.png" alt="">
-                <span class="u-name" style="left: 813px;top: 475px;z-index:3;position: absolute;">逐鹿坪</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 641px;top: 511px;"
-                    src="file://{{assetsPath}}/img/{{data.盘龙坞.campId}}_盘龙坞.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 732px;top: 556px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.盘龙坞.campId}}_05.png" alt="">
-                <span class="u-name" style="left: 772px;top: 546px;z-index:3;position: absolute;">盘龙坞</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 453px;top: 611px;width: 288px;height: 196px;"
-                    src="file://{{assetsPath}}/img/{{data.千岩关.campId}}_千岩关.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 530px;top: 751px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.千岩关.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 570px;top: 741px;z-index:3;position: absolute;">千岩关</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 453px;top: 634px;width: 171px;height: 101px;"
-                    src="file://{{assetsPath}}/img/{{data.大理山城.campId}}_大理山城.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 487px;top: 660px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.大理山城.campId}}_04.png" alt="">
-                <span class="u-name" style="left: 527px;top: 650px;z-index:3;position: absolute;">大理山城</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 761px;top: 359px;"
-                    src="file://{{assetsPath}}/img/{{data.秋雨堡.campId}}_秋雨堡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 828px;top: 405px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.秋雨堡.campId}}_01.png" alt="">
-                <span class="u-name" style="left: 868px;top: 395px;z-index:3;position: absolute;">秋雨堡</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 745px;top: 300px;"
-                    src="file://{{assetsPath}}/img/{{data.红莲岗.campId}}_红莲岗.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 849px;top: 334px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.红莲岗.campId}}_02.png" alt="">
-                <span class="u-name" style="left: 889px;top: 324px;z-index:3;position: absolute;">红莲岗</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 701px;top: 466px;width: 251px;height: 272px;"
-                    src="file://{{assetsPath}}/img/{{data.武王城.campId}}_武王城.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 842px;top: 599px;"
-                    src="file://{{assetsPath}}/img/图标_{{data.武王城.campId}}_武王城.png" alt="">
-                <span class="u-name" style="left: 902px;top: 589px;z-index:3;position: absolute;">武王城</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%; left: 815px;top: 552px;"
-                    src="file://{{assetsPath}}/img/浩_浩气盟.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 887px;top: 661px;"
-                    src="file://{{assetsPath}}/img/图标_浩_浩气盟.png" alt="">
-                <span class="u-name" style="left: 957px;top: 671px;z-index:3;position: absolute;">浩气盟</span>
-            </div>
-            <div>
-                <img style="position: absolute;max-width: 100%;left: 418px;top: 180px;"
-                    src="file://{{assetsPath}}/img/昆仑.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 431px;top: 283px;"
-                    src="file://{{assetsPath}}/img/马嵬驿.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 332px;top: 328px;"
-                    src="file://{{assetsPath}}/img/融天岭.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 576px;top: 171px;"
-                    src="file://{{assetsPath}}/img/龙门荒漠.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 236px;top: 492px;"
-                    src="file://{{assetsPath}}/img/黑龙沼.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 462px;top: 478px;"
-                    src="file://{{assetsPath}}/img/白龙口.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 691px;top: 217px;"
-                    src="file://{{assetsPath}}/img/枫华谷战乱.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 607px;top: 424px;"
-                    src="file://{{assetsPath}}/img/瞿塘峡.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 321px;top: 687px;"
-                    src="file://{{assetsPath}}/img/无量山.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 879px;top: 211px;"
-                    src="file://{{assetsPath}}/img/金水镇.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 576px;top: 695px;"
-                    src="file://{{assetsPath}}/img/苍山洱海.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 749px;top: 486px;"
-                    src="file://{{assetsPath}}/img/巴陵县.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 815px;top: 349px;"
-                    src="file://{{assetsPath}}/img/洛道.png" alt="">
-                <img style="position: absolute;max-width: 100%;left: 810px;top: 571px;"
-                    src="file://{{assetsPath}}/img/南屏山.png" alt="">
-            </div>
-            <img src="file://{{assetsPath}}/img/backgroud.png" alt="">
-        </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 122px;top: 189px;width: 708px;height: 478px;z-index:1"
+          src="file://{{assetsPath}}/mapImg/阵营防线.png" alt="">
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 225px;top: 58px;"
+          src="file://{{assetsPath}}/mapImg/恶_恶人谷.png" alt="">
+        <img style="position: absolute;max-width: 100%; left: 287px;top: 105px;"
+          src="file://{{assetsPath}}/mapImg/图标_恶_恶人谷.png" alt="">
+        <span class="u-name" style="left: 367px;top: 105px;z-index:3;position: absolute;">恶人谷</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 300px;top: 110px;"
+          src="file://{{assetsPath}}/mapImg/{{data.凛风堡.campId}}_凛风堡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 432px;top: 187px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.凛风堡.campId}}_凛风堡.png" alt="">
+        <span class="u-name" style="left: 482px;top: 177px;z-index:3;position: absolute;">凛风堡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 262px;top: 248px;"
+          src="file://{{assetsPath}}/mapImg/{{data.神池岭.campId}}_神池岭.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 283px;top: 288px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.神池岭.campId}}_02.png" alt="">
+        <span class="u-name" style="left: 323px;top: 278px;z-index:3;position: absolute;">神池岭</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 167px;top: 310px;"
+          src="file://{{assetsPath}}/mapImg/{{data.烈日岗.campId}}_烈日岗.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 230px;top: 368px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.烈日岗.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 276px;top: 358px;z-index:3;position: absolute;">烈日岗</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 443px;top: 227px;"
+          src="file://{{assetsPath}}/mapImg/{{data.扶风郡.campId}}_扶风郡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 475px;top: 265px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.扶风郡.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 525px;top: 255px;z-index:3;position: absolute;">扶风郡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 383px;top: 274px;"
+          src="file://{{assetsPath}}/mapImg/{{data.世外坡.campId}}_世外坡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 445px;top: 334px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.世外坡.campId}}_05.png" alt="">
+        <span class="u-name" style="left: 485px;top: 324px;z-index:3;position: absolute;">世外坡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 507px;top: 181px;"
+          src="file://{{assetsPath}}/mapImg/{{data.飞沙关.campId}}_飞沙关.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 530px;top: 204px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.飞沙关.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 570px;top: 194px;z-index:3;position: absolute;">飞沙关</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 540px;top: 162px;"
+          src="file://{{assetsPath}}/mapImg/{{data.龙门镇.campId}}_龙门镇.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 597px;top: 188px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.龙门镇.campId}}_02.png" alt="">
+        <span class="u-name" style="left: 637px;top: 178px;z-index:3;position: absolute;">龙门镇</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 178px;top: 530px;"
+          src="file://{{assetsPath}}/mapImg/{{data.凤鸣堡.campId}}_凤鸣堡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 222px;top: 575px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.凤鸣堡.campId}}_04.png" alt="">
+        <span class="u-name" style="left: 262px;top: 565px;z-index:3;position: absolute;">凤鸣堡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 166px;top: 422px;"
+          src="file://{{assetsPath}}/mapImg/{{data.惊虬谷.campId}}_惊虬谷.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 275px;top: 476px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.惊虬谷.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 315px;top: 466px;z-index:3;position: absolute;">惊虬谷</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 406px;top: 394px;"
+          src="file://{{assetsPath}}/mapImg/{{data.日月崖.campId}}_日月崖.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 494px;top: 472px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.日月崖.campId}}_02.png" alt="">
+        <span class="u-name" style="left: 534px;top: 462px;z-index:3;position: absolute;">日月崖</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 375px;top: 508px;"
+          src="file://{{assetsPath}}/mapImg/{{data.卧龙坡.campId}}_卧龙坡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 469px;top: 553px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.卧龙坡.campId}}_03.png" alt="">
+        <span class="u-name" style="left: 509px;top: 543px;z-index:3;position: absolute;">卧龙坡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 643px;top: 196px;"
+          src="file://{{assetsPath}}/mapImg/{{data.啖杏林.campId}}_啖杏林.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 651px;top: 230px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.啖杏林.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 671px;top: 270px;z-index:3;position: absolute;">啖杏林</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 636px;top: 246px;"
+          src="file://{{assetsPath}}/mapImg/{{data.枫湖寨.campId}}_枫湖寨.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 713px;top: 284px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.枫湖寨.campId}}_03.png" alt="">
+        <span class="u-name" style="left: 743px;top: 274px;z-index:3;position: absolute;">枫湖寨</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 536px;top: 405px;"
+          src="file://{{assetsPath}}/mapImg/{{data.不空关.campId}}_不空关.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 630px;top: 436px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.不空关.campId}}_04.png" alt="">
+        <span class="u-name" style="left: 670px;top: 426px;z-index:3;position: absolute;">不空关</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 575px;top: 467px;"
+          src="file://{{assetsPath}}/mapImg/{{data.激流坞.campId}}_激流坞.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 597px;top: 505px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.激流坞.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 637px;top: 495px;z-index:3;position: absolute;">激流坞</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 274px;top: 654px;"
+          src="file://{{assetsPath}}/mapImg/{{data.澜沧城.campId}}_澜沧城.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 330px;top: 747px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.澜沧城.campId}}_03.png" alt="">
+        <span class="u-name" style="left: 370px;top: 737px;z-index:3;position: absolute;">澜沧城</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 205px;top: 630px;"
+          src="file://{{assetsPath}}/mapImg/{{data.霜戈堡.campId}}_霜戈堡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 256px;top: 676px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.霜戈堡.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 296px;top: 666px;z-index:3;position: absolute;">霜戈堡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 773px;top: 168px;"
+          src="file://{{assetsPath}}/mapImg/{{data.金门关.campId}}_金门关.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 823px;top: 250px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.金门关.campId}}_04.png" alt="">
+        <span class="u-name" style="left: 863px;top: 240px;z-index:3;position: absolute;">金门关</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 867px;top: 189px;"
+          src="file://{{assetsPath}}/mapImg/{{data.青云坞.campId}}_青云坞.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 901px;top: 218px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.青云坞.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 941px;top: 208px;z-index:3;position: absolute;">青云坞</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 712px;top: 427px;"
+          src="file://{{assetsPath}}/mapImg/{{data.逐鹿坪.campId}}_逐鹿坪.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 773px;top: 485px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.逐鹿坪.campId}}_03.png" alt="">
+        <span class="u-name" style="left: 813px;top: 475px;z-index:3;position: absolute;">逐鹿坪</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 641px;top: 511px;"
+          src="file://{{assetsPath}}/mapImg/{{data.盘龙坞.campId}}_盘龙坞.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 732px;top: 556px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.盘龙坞.campId}}_05.png" alt="">
+        <span class="u-name" style="left: 772px;top: 546px;z-index:3;position: absolute;">盘龙坞</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 453px;top: 611px;width: 288px;height: 196px;"
+          src="file://{{assetsPath}}/mapImg/{{data.千岩关.campId}}_千岩关.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 530px;top: 751px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.千岩关.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 570px;top: 741px;z-index:3;position: absolute;">千岩关</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 453px;top: 634px;width: 171px;height: 101px;"
+          src="file://{{assetsPath}}/mapImg/{{data.大理山城.campId}}_大理山城.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 487px;top: 660px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.大理山城.campId}}_04.png" alt="">
+        <span class="u-name" style="left: 527px;top: 650px;z-index:3;position: absolute;">大理山城</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 761px;top: 359px;"
+          src="file://{{assetsPath}}/mapImg/{{data.秋雨堡.campId}}_秋雨堡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 828px;top: 405px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.秋雨堡.campId}}_01.png" alt="">
+        <span class="u-name" style="left: 868px;top: 395px;z-index:3;position: absolute;">秋雨堡</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 745px;top: 300px;"
+          src="file://{{assetsPath}}/mapImg/{{data.红莲岗.campId}}_红莲岗.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 849px;top: 334px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.红莲岗.campId}}_02.png" alt="">
+        <span class="u-name" style="left: 889px;top: 324px;z-index:3;position: absolute;">红莲岗</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 701px;top: 466px;width: 251px;height: 272px;"
+          src="file://{{assetsPath}}/mapImg/{{data.武王城.campId}}_武王城.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 842px;top: 599px;"
+          src="file://{{assetsPath}}/mapImg/图标_{{data.武王城.campId}}_武王城.png" alt="">
+        <span class="u-name" style="left: 902px;top: 589px;z-index:3;position: absolute;">武王城</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%; left: 815px;top: 552px;"
+          src="file://{{assetsPath}}/mapImg/浩_浩气盟.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 887px;top: 661px;"
+          src="file://{{assetsPath}}/mapImg/图标_浩_浩气盟.png" alt="">
+        <span class="u-name" style="left: 957px;top: 671px;z-index:3;position: absolute;">浩气盟</span>
+      </div>
+      <div>
+        <img style="position: absolute;max-width: 100%;left: 418px;top: 180px;"
+          src="file://{{assetsPath}}/mapImg/昆仑.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 431px;top: 283px;"
+          src="file://{{assetsPath}}/mapImg/马嵬驿.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 332px;top: 328px;"
+          src="file://{{assetsPath}}/mapImg/融天岭.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 576px;top: 171px;"
+          src="file://{{assetsPath}}/mapImg/龙门荒漠.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 236px;top: 492px;"
+          src="file://{{assetsPath}}/mapImg/黑龙沼.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 462px;top: 478px;"
+          src="file://{{assetsPath}}/mapImg/白龙口.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 691px;top: 217px;"
+          src="file://{{assetsPath}}/mapImg/枫华谷战乱.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 607px;top: 424px;"
+          src="file://{{assetsPath}}/mapImg/瞿塘峡.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 321px;top: 687px;"
+          src="file://{{assetsPath}}/mapImg/无量山.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 879px;top: 211px;"
+          src="file://{{assetsPath}}/mapImg/金水镇.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 576px;top: 695px;"
+          src="file://{{assetsPath}}/mapImg/苍山洱海.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 749px;top: 486px;"
+          src="file://{{assetsPath}}/mapImg/巴陵县.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 815px;top: 349px;"
+          src="file://{{assetsPath}}/mapImg/洛道.png" alt="">
+        <img style="position: absolute;max-width: 100%;left: 810px;top: 571px;"
+          src="file://{{assetsPath}}/mapImg/南屏山.png" alt="">
+      </div>
+      <img src="file://{{assetsPath}}/mapImg/backgroud.png" alt="">
     </div>
+  </div>
 </body>
 
 </html>

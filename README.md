@@ -208,6 +208,7 @@ ctx.command("jx3.新指令 <参数>", "指令说明").action(async ({ session },
 
 - [Koishi](https://koishi.chat/) - 优秀的聊天机器人框架
 - [JX3API](https://www.jx3api.com/) - 剑网3数据接口
+- [团子机器人](https://github.com/JustUndertaker/mini_jx3_bot) - 剑网3团子机器人
 - 所有贡献者和使用者
 
 ## 📮 联系方式

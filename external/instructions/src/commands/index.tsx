@@ -1,5 +1,6 @@
 import { Command, Context } from "koishi";
 import dayjs from "dayjs";
+import fs from "fs";
 export const name = "instructions-commands";
 export interface Config {}
 
@@ -402,12 +403,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //区服掉落统计
   ctx.command("掉落 [server] [name]", "查询区服掉落统计").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getRewardStatistical({ server, name });
-
     if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3Render.render("RewardStatistical", { ...res, name, server }, `RewardStatistical-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
+  //角色详情查询
   ctx
     .command("角色详情 [server] [name]", "查询角色详情")
     .alias("角色")
@@ -441,11 +442,13 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //查询精耐
   ctx.command("精耐 [server] [name]", "查询角色精力信息").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getRoleMonster({ server, name });
-    if (res.msg !== "success") return <p>{res.msg}</p>;
+    if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
+    else if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3Render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
+  //沙盘
   ctx.command("沙盘 [server] ", "查询服务器沙盘信息").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getServerSand({ server });
     const data = {
@@ -460,5 +463,22 @@ export function instructionsCommands(ctx: Context, config: Config) {
     if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3Render.render("ServerSand", data, `ServerSand-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
+  });
+
+  ctx.command("成就 [server] [role] [name]", "查询角色成就信息").action(async ({ session }, server, role, name) => {
+    return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
+
+    const res = await ctx.jx3api.getRoleAchievement({ server, role, name });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    // const screenshot = await ctx.jx3Render.render("RoleAchievement", { ...res, name, role, server }, `RoleAchievement-${server}-${name}`, false);
+    // return <img src={"data:image/png;base64," + screenshot} />;
+  });
+  ctx.command("属性 [server] [name]", "查询角色属性信息").action(async ({ session }, server, name) => {
+    return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
+
+    const res = await ctx.jx3api.getRoleAttribute({ server, name });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    // const screenshot = await ctx.jx3Render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
+    // return <img src={"data:image/png;base64," + screenshot} />;
   });
 }
