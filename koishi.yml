@@ -63,7 +63,7 @@ plugins:
         width: 1400
         deviceScaleFactor: 1
       ignoreHTTPSErrors: true
-    jx3Render:gdwm18: {}
+    jx3render:gdwm18: {}
     instructions:wx7gxe: null
     jx3ws:dsyxdj:
       wsUrl: ws://socket.jx3api.com

@@ -4957,7 +4957,7 @@ __metadata:
     "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"
     handlebars: "npm:^4.7.8"
-    koishi-plugin-jx3Render: "workspace:*"
+    koishi-plugin-jx3render: "workspace:*"
     koishi-plugin-jx3api: "workspace:*"
     koishi-plugin-jx3ws: "workspace:*"
   peerDependencies:
@@ -4965,9 +4965,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"koishi-plugin-jx3Render@workspace:*, koishi-plugin-jx3Render@workspace:external/jx3render":
+"koishi-plugin-jx3render@workspace:*, koishi-plugin-jx3render@workspace:external/jx3render":
   version: 0.0.0-use.local
-  resolution: "koishi-plugin-jx3Render@workspace:external/jx3render"
+  resolution: "koishi-plugin-jx3render@workspace:external/jx3render"
   dependencies:
     "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"

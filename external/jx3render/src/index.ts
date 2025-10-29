@@ -71,8 +71,6 @@ export class RenderService extends Service {
     if (isCache && fs.existsSync(imageFile)) return fs.readFileSync(imageFile).toString("base64");
 
     // 添加 assets 绝对路径到数据对象
-    console.log(__dirname);
-
     const assetsPath = path.join(__dirname, "../assets").replace(/\\/g, "/");
     const renderData = { ...data, assetsPath };
 
@@ -90,7 +88,10 @@ export class RenderService extends Service {
     const page = await this.ctx.puppeteer.page();
 
     // 使用 goto 加载本地 HTML 文件，这样可以正确加载 file:// 协议的资源
-    await page.goto(`file://${tempHtmlFile}`);
+    // waitUntil 选项确保在 CSS、JS 等资源加载完成后再继续
+    await page.goto(`file://${tempHtmlFile}`, {
+      waitUntil: "networkidle0", // 等待网络完全空闲，确保所有资源已加载
+    });
 
     const screenshot = await page.screenshot({
       path: imageFile,

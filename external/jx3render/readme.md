@@ -1,4 +1,4 @@
-# koishi-plugin-jx3Render
+# koishi-plugin-jx3render
 
 基于 Koishi 的剑网3图片渲染服务插件，用于将 HTML 模板渲染为图片。
 
@@ -14,10 +14,10 @@
 
 ```bash
 # npm
-npm install koishi-plugin-jx3Render
+npm install koishi-plugin-jx3render
 
 # yarn
-yarn add koishi-plugin-jx3Render
+yarn add koishi-plugin-jx3render
 ```
 
 ## 🔧 依赖
@@ -37,7 +37,7 @@ const data = {
   // 你的模板数据
 };
 // 渲染图片
-const imageBase64 = await ctx.jx3Render.render(
+const imageBase64 = await ctx.jx3render.render(
   "templateName", // 模板名称
   data, // 模板数据
   "imageName", // 图片名称
@@ -50,7 +50,7 @@ return <img src="data:image/png;base64,${imageBase64}" />;
 ### 启用缓存
 
 ```typescript
-const imageBase64 = await ctx.jx3Render.render(
+const imageBase64 = await ctx.jx3render.render(
   "celebs",
   data,
   "celebs-20231015",
@@ -82,7 +82,7 @@ const imageBase64 = await ctx.jx3Render.render(
 **示例：**
 
 ```typescript
-const base64Image = await ctx.jx3Render.render(
+const base64Image = await ctx.jx3render.render(
   'ActiveList',
   { data: [...] },
   'activity-calendar',
@@ -104,7 +104,7 @@ const base64Image = await ctx.jx3Render.render(
 ## 📂 目录结构
 
 ```
-koishi-plugin-jx3Render/
+koishi-plugin-jx3render/
 ├── src/
 │   └── index.ts          # 主要源代码
 ├── templates/            # 模板目录

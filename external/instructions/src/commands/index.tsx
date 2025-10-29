@@ -44,28 +44,28 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("月历", "查询服务器活动月历").action(async () => {
     const res = await ctx.jx3api.getActiveListCalendar({ num: 15 });
     if (res.msg !== "success") return <p>查询服务器活动月历失败</p>;
-    const screenshot = await ctx.jx3Render.render("ActiveList", res.data, "ActiveList", false);
+    const screenshot = await ctx.jx3render.render("ActiveList", res.data, "ActiveList", false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //楚天社
   ctx.command("楚天社", "查询楚天社进度").action(async () => {
     const res = await ctx.jx3api.getActiveCelebs({ name: "楚天社" });
     if (res.msg !== "success") return <p>查询楚天社进度失败</p>;
-    const screenshot = await ctx.jx3Render.render("celebs", res.data, "celebs楚天社", false);
+    const screenshot = await ctx.jx3render.render("celebs", res.data, "celebs楚天社", false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //云从社
   ctx.command("云从社", "查询云从社进度").action(async () => {
     const res = await ctx.jx3api.getActiveCelebs({ name: "云从社" });
     if (res.msg !== "success") return <p>查询云从社进度失败</p>;
-    const screenshot = await ctx.jx3Render.render("celebs", res.data, "celebs云从社", false);
+    const screenshot = await ctx.jx3render.render("celebs", res.data, "celebs云从社", false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //披风会
   ctx.command("披风会", "查询披风会进度").action(async () => {
     const res = await ctx.jx3api.getActiveCelebs({ name: "披风会" });
     if (res.msg !== "success") return <p>查询披风会进度失败</p>;
-    const screenshot = await ctx.jx3Render.render("celebs", res.data, "celebs披风会", false);
+    const screenshot = await ctx.jx3render.render("celebs", res.data, "celebs披风会", false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -240,7 +240,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("百战", "查询百战异闻录").action(async () => {
     const res = await ctx.jx3api.getActiveMonster();
     if (res.msg !== "success") return <p>查询百战异闻录失败</p>;
-    const screenshot = await ctx.jx3Render.render("baizhan", res.data, `baizhan`, false);
+    const screenshot = await ctx.jx3render.render("baizhan", res.data, `baizhan`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -248,7 +248,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("烟花统计 [server] <num:number>", "查询烟花统计").action(async ({ session }, server, num = 1) => {
     const res = await ctx.jx3api.getFireworksCollect({ server, num });
     if (res.msg !== "success") return <p>未找到烟花统计：{server}</p>;
-    const screenshot = await ctx.jx3Render.render("FireworksRecords", res.data, `FireworksRecords-${server}`, false);
+    const screenshot = await ctx.jx3render.render("FireworksRecords", res.data, `FireworksRecords-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -256,7 +256,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("烟花记录 [server] [name]", "查询烟花记录").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getFireworksRecords({ server, name });
     if (res.msg !== "success") return <p>未找到烟花记录</p>;
-    const screenshot = await ctx.jx3Render.render("UserFireworksRecords", res.data, `UserFireworksRecords-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("UserFireworksRecords", res.data, `UserFireworksRecords-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -264,7 +264,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("拍卖纪录 [server] [name]", "查询拍卖纪录").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getAuctionRecords({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>查询拍卖纪录失败</p>;
-    const screenshot = await ctx.jx3Render.render("AuctionRecord", res.data, `AuctionRecord-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("AuctionRecord", res.data, `AuctionRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -275,7 +275,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .action(async ({ session }, server) => {
       const res = await ctx.jx3api.getDiluRecords({ server });
       if (!(Array.isArray(res.data) && res.data.length)) return <p>查询的卢记录失败</p>;
-      const screenshot = await ctx.jx3Render.render("DiluRecord", res.data, `DiluRecord-${server}`, false);
+      const screenshot = await ctx.jx3render.render("DiluRecord", res.data, `DiluRecord-${server}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
@@ -321,7 +321,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //奇遇统计查询
   ctx.command("奇遇统计 [server] [name]", "查询奇遇统计").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getLuckStatistical({ server, name });
-    const screenshot = await ctx.jx3Render.render("ServerQiyuRecord", res.data, `ServerQiyuRecord-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("ServerQiyuRecord", res.data, `ServerQiyuRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -329,7 +329,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("奇遇汇总 [server]", "查询奇遇汇总").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getLuckRecent({ server });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇数据</p>;
-    const screenshot = await ctx.jx3Render.render("ServerQiyuSummary", res.data, `ServerQiyuSummary-${server}`, false);
+    const screenshot = await ctx.jx3render.render("ServerQiyuSummary", res.data, `ServerQiyuSummary-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -337,7 +337,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("奇遇记录 [server] [name]", "查询奇遇记录").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getLuckAdventure({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇记录</p>;
-    const screenshot = await ctx.jx3Render.render("UserQiyuRecord", res.data, `UserQiyuRecord-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("UserQiyuRecord", res.data, `UserQiyuRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //未出奇遇查询
@@ -362,7 +362,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("招募 [server] [keyword]", "查询招募信息").action(async ({ session }, server, keyword) => {
     const res = await ctx.jx3api.getMemberRecruit({ server, keyword, table: 1 });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到招募信息</p>;
-    const screenshot = await ctx.jx3Render.render("MemberRecruit", res.data, `MemberRecruit-${server}-${keyword}`, false);
+    const screenshot = await ctx.jx3render.render("MemberRecruit", res.data, `MemberRecruit-${server}-${keyword}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -373,7 +373,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .action(async ({ session }, server, keyword) => {
       const res = await ctx.jx3api.getMemberTeacher({ server, keyword });
       if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到师父信息</p>;
-      const screenshot = await ctx.jx3Render.render("MemberTeacher", res.data, `MemberTeacher-${server}`, false);
+      const screenshot = await ctx.jx3render.render("MemberTeacher", res.data, `MemberTeacher-${server}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
@@ -381,14 +381,14 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("徒弟 [server] [keyword]", "查询徒弟信息").action(async ({ session }, server, keyword) => {
     const res = await ctx.jx3api.getMemberStudent({ server, keyword });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到徒弟信息</p>;
-    const screenshot = await ctx.jx3Render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
+    const screenshot = await ctx.jx3render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //副本进度
   ctx.command("副本 [server] [name]", "查询副本进度").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getTeamCdList({ server, name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
-    const screenshot = await ctx.jx3Render.render("TeamCdList", res.data, `TeamCdList-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("TeamCdList", res.data, `TeamCdList-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //全服掉落统计
@@ -396,7 +396,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const res = await ctx.jx3api.getRewardServerStatistical({ name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
     const data = { ...res, name };
-    const screenshot = await ctx.jx3Render.render("RewardServerStatistical", data, `RewardServerStatistical-${name}`, false);
+    const screenshot = await ctx.jx3render.render("RewardServerStatistical", data, `RewardServerStatistical-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -404,7 +404,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("掉落 [server] [name]", "查询区服掉落统计").action(async ({ session }, server, name) => {
     const res = await ctx.jx3api.getRewardStatistical({ server, name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
-    const screenshot = await ctx.jx3Render.render("RewardStatistical", { ...res, name, server }, `RewardStatistical-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("RewardStatistical", { ...res, name, server }, `RewardStatistical-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -435,7 +435,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const res = await ctx.jx3api.getSchoolForce({ name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
 
-    const screenshot = await ctx.jx3Render.render("SchoolForce", { ...res, name }, `SchoolForce-${name}`, false);
+    const screenshot = await ctx.jx3render.render("SchoolForce", { ...res, name }, `SchoolForce-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -444,7 +444,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const res = await ctx.jx3api.getRoleMonster({ server, name });
     if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
     else if (res.msg !== "success") return <p>{res.msg}</p>;
-    const screenshot = await ctx.jx3Render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
+    const screenshot = await ctx.jx3render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -461,7 +461,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       data.data[item.castleName] = { ...item, campId: item.campId === 1 ? "浩" : "恶" };
     });
     if (res.msg !== "success") return <p>{res.msg}</p>;
-    const screenshot = await ctx.jx3Render.render("ServerSand", data, `ServerSand-${server}`, false);
+    const screenshot = await ctx.jx3render.render("ServerSand", data, `ServerSand-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -470,7 +470,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
     const res = await ctx.jx3api.getRoleAchievement({ server, role, name });
     if (res.msg !== "success") return <>{res.msg}</>;
-    // const screenshot = await ctx.jx3Render.render("RoleAchievement", { ...res, name, role, server }, `RoleAchievement-${server}-${name}`, false);
+    // const screenshot = await ctx.jx3render.render("RoleAchievement", { ...res, name, role, server }, `RoleAchievement-${server}-${name}`, false);
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
   ctx.command("属性 [server] [name]", "查询角色属性信息").action(async ({ session }, server, name) => {
@@ -478,7 +478,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
     const res = await ctx.jx3api.getRoleAttribute({ server, name });
     if (res.msg !== "success") return <>{res.msg}</>;
-    // const screenshot = await ctx.jx3Render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
+    // const screenshot = await ctx.jx3render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
 
@@ -503,8 +503,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("诛恶 [server]", "查询服务器诛恶信息").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getServerAntivice({ server });
     if (res.msg !== "success") return <>{res.msg}</>;
-    console.log(res);
-    const screenshot = await ctx.jx3Render.render("ServerAntivice", { ...res, server }, `ServerAntivice-${server}`, false);
+    const screenshot = await ctx.jx3render.render("ServerAntivice", { ...res, server }, `ServerAntivice-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 }

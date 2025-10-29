@@ -44,13 +44,13 @@ JX3API WebSocket 服务，实时接收游戏事件推送。
 - `ctx.jx3ws` - WebSocket 连接管理
 - 事件推送（如：开服通知、新闻推送等）
 
-### koishi-plugin-jx3Render
+### koishi-plugin-jx3render
 
 图片渲染服务，使用 Puppeteer 将数据渲染为图片。
 
 **提供的服务：**
 
-- `ctx.jx3Render` - 模板渲染服务
+- `ctx.jx3render` - 模板渲染服务
 
 ### koishi-plugin-instructions
 
@@ -145,7 +145,7 @@ plugins:
     wsUrl: wss://socket.jx3api.com
     wstoken: ${{env.WS_TOKEN}}
 
-  jx3Render: {}
+  jx3render: {}
 
   instructions: {}
 

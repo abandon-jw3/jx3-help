@@ -21,7 +21,7 @@
     "@satorijs/element": "^3.1.8",
     "dayjs": "^1.11.18",
     "handlebars": "^4.7.8",
-    "koishi-plugin-jx3Render": "workspace:*",
+    "koishi-plugin-jx3render": "workspace:*",
     "koishi-plugin-jx3api": "workspace:*",
     "koishi-plugin-jx3ws": "workspace:*"
   },
@@ -31,7 +31,7 @@
         "jx3api",
         "jx3ws",
         "http",
-        "jx3Render"
+        "jx3render"
       ]
     }
   }

@@ -1,5 +1,5 @@
 {
-  "name": "koishi-plugin-jx3Render",
+  "name": "koishi-plugin-jx3render",
   "description": "jx3api图片渲染服务",
   "version": "0.0.1",
   "main": "lib/index.js",
@@ -28,7 +28,7 @@
         "puppeteer"
       ],
       "implements": [
-        "jx3Render"
+        "jx3render"
       ]
     }
   }
