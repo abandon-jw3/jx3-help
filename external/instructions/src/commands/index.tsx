@@ -481,4 +481,30 @@ export function instructionsCommands(ctx: Context, config: Config) {
     // const screenshot = await ctx.jx3Render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  ctx.command("阵眼 [name]", "查询心法阵眼信息").action(async ({ session }, name) => {
+    const res = await ctx.jx3api.getSchoolMatrix({ name });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return (
+      <>
+        <p>
+          {res.data.name}-{res.data.skillName}
+        </p>
+        <br />
+        {res.data.descs.map((item) => (
+          <>
+            <p>{item.name}</p>
+            <p>{item.desc}</p>
+          </>
+        ))}
+      </>
+    );
+  });
+  ctx.command("诛恶 [server]", "查询服务器诛恶信息").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getServerAntivice({ server });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    console.log(res);
+    const screenshot = await ctx.jx3Render.render("ServerAntivice", { ...res, server }, `ServerAntivice-${server}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
+  });
 }

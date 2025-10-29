@@ -972,7 +972,9 @@ export interface ServerAntivice extends JX3APIResponse {
     time: number;
   }>;
 }
-
+export interface ServerAntiviceParams {
+  server: string;
+}
 // 跨服阵营事件
 export interface ServerEvent extends JX3APIResponse {
   data: Array<{

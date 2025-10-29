@@ -79,6 +79,7 @@ import {
   ServerSand,
   ServerSandParams,
   ServerAntivice,
+  ServerAntiviceParams,
   ServerEvent,
   SchoolSeniority,
   SchoolSeniorityParams,
@@ -544,9 +545,10 @@ export class JX3_api_service extends Service {
 
   /**
    * 获取诛恶事件
+   * @param data.server 服务器名称
    */
-  getServerAntivice(): Promise<ServerAntivice> {
-    return this.http.post("/data/server/antivice");
+  getServerAntivice(data: ServerAntiviceParams): Promise<ServerAntivice> {
+    return this.http.post("/data/server/antivice", data);
   }
 
   /**

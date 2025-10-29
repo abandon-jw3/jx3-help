@@ -66,7 +66,7 @@ plugins:
     jx3Render:gdwm18: {}
     instructions:wx7gxe: null
     jx3ws:dsyxdj:
-      wsUrl: wss://socket.jx3api.com
+      wsUrl: ws://socket.jx3api.com
       wstoken: ${{env.WS_TOKEN}}
     jx3api:fw3i0f:
       token: ${{env.API_TOKEN}}

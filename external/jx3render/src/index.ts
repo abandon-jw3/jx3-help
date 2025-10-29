@@ -3,9 +3,13 @@ import { Service } from "koishi";
 import * as fs from "fs";
 import * as path from "path";
 import handlebars from "handlebars";
-import "koishi-plugin-puppeteer";
+import {} from "koishi-plugin-puppeteer";
 import dayjs from "dayjs";
-export const name = "jx3Render";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-cn";
+dayjs.extend(relativeTime);
+dayjs.locale("zh-cn");
+export const name = "jx3render";
 
 export interface Config {}
 export const inject = ["puppeteer"];
@@ -16,7 +20,7 @@ export class RenderService extends Service {
   template: Record<string, handlebars.TemplateDelegate<any>> = {};
   tempDir: string;
   constructor(ctx: Context) {
-    super(ctx, "jx3Render", true);
+    super(ctx, "jx3render", true);
     // 注册 helper：让索引从 1 开始
     handlebars.registerHelper("inc", function (value) {
       return parseInt(value) + 1;
@@ -31,6 +35,10 @@ export class RenderService extends Service {
     //格式化日期
     handlebars.registerHelper("formatDate", function (value) {
       return dayjs.unix(value).format("YYYY-MM-DD");
+    });
+    //格式化间隔时间
+    handlebars.registerHelper("formatInterval", function (value) {
+      return dayjs.unix(value).fromNow();
     });
     const templatePath = path.join(__dirname, "../templates");
     //读取目录下所有模板文件
@@ -56,13 +64,15 @@ export class RenderService extends Service {
    * @returns {Promise<Buffer>} 返回生成的图片Buffer。
    */
   async render(templateName: string, data: any, imgName: string, isCache: boolean = false): Promise<string> {
-    this.ctx.logger("jx3Render").info(`渲染模板: ${templateName}`);
+    this.ctx.logger("jx3render").info(`渲染模板: ${templateName}`);
     //图片缓存目录
     const imageFile = path.join(__dirname, "../screenshot", `${imgName}.png`);
     //如果缓存图片存在，则直接返回缓存图片
     if (isCache && fs.existsSync(imageFile)) return fs.readFileSync(imageFile).toString("base64");
 
     // 添加 assets 绝对路径到数据对象
+    console.log(__dirname);
+
     const assetsPath = path.join(__dirname, "../assets").replace(/\\/g, "/");
     const renderData = { ...data, assetsPath };
 
@@ -78,7 +88,6 @@ export class RenderService extends Service {
 
     //将html渲染为图片
     const page = await this.ctx.puppeteer.page();
-    // await page.setViewport({ width: 1400, height: 768 });
 
     // 使用 goto 加载本地 HTML 文件，这样可以正确加载 file:// 协议的资源
     await page.goto(`file://${tempHtmlFile}`);
@@ -88,16 +97,16 @@ export class RenderService extends Service {
       fullPage: true,
       encoding: "base64",
     });
-    // await page.close();
+    await page.close();
     // 删除临时 HTML 文件
-    fs.unlinkSync(tempHtmlFile);
+    // fs.unlinkSync(tempHtmlFile);
     return screenshot;
   }
 }
 
 declare module "koishi" {
   interface Context {
-    jx3Render: RenderService;
+    jx3render: RenderService;
   }
 }
 export function apply(ctx: Context) {
