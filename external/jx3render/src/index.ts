@@ -32,6 +32,9 @@ export class RenderService extends Service {
     handlebars.registerHelper("formatDateHour", function (value) {
       return dayjs.unix(value).format("YYYY-MM-DD HH");
     });
+    handlebars.registerHelper("time", function (value) {
+      return dayjs.unix(value).format("HH:mm:ss");
+    });
     //格式化日期
     handlebars.registerHelper("formatDate", function (value) {
       return dayjs.unix(value).format("YYYY-MM-DD");
@@ -39,6 +42,10 @@ export class RenderService extends Service {
     //格式化间隔时间
     handlebars.registerHelper("formatInterval", function (value) {
       return dayjs.unix(value).fromNow();
+    });
+
+    handlebars.registerHelper("eq", function (a, b) {
+      return a === b;
     });
     const templatePath = path.join(__dirname, "../templates");
     //读取目录下所有模板文件
@@ -60,7 +67,7 @@ export class RenderService extends Service {
    * @param {string} templateName - 模板名称，对应预编译的Handlebars模板。
    * @param {any} data - 传递给模板的数据对象。
    * @param {string} imgName - 生成图片的名称（当前参数在截图中未被直接使用）。
-   * @param {boolean} imgName - 当已经有缓存图片时是否缓存图片，默认为false。
+   * @param {boolean} isCache - 当已经有缓存图片时是否缓存图片，默认为false。
    * @returns {Promise<Buffer>} 返回生成的图片Buffer。
    */
   async render(templateName: string, data: any, imgName: string, isCache: boolean = false): Promise<string> {
@@ -100,7 +107,7 @@ export class RenderService extends Service {
     });
     await page.close();
     // 删除临时 HTML 文件
-    // fs.unlinkSync(tempHtmlFile);
+    fs.unlinkSync(tempHtmlFile);
     return screenshot;
   }
 }

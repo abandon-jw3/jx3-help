@@ -474,9 +474,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
   ctx.command("属性 [server] [name]", "查询角色属性信息").action(async ({ session }, server, name) => {
-    return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
+    // return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
 
     const res = await ctx.jx3api.getRoleAttribute({ server, name });
+    console.log(res);
+
     if (res.msg !== "success") return <>{res.msg}</>;
     // const screenshot = await ctx.jx3render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
     // return <img src={"data:image/png;base64," + screenshot} />;
@@ -505,5 +507,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
     if (res.msg !== "success") return <>{res.msg}</>;
     const screenshot = await ctx.jx3render.render("ServerAntivice", { ...res, server }, `ServerAntivice-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
+  });
+  ctx.command("关隘", "查询服务器关隘信息").action(async ({ session }) => {
+    const res = await ctx.jx3api.getServerLeader();
+    if (res.msg !== "success") return <>{res.msg}</>;
+    const screenshot = await ctx.jx3render.render("ServerLeader", res, `ServerLeader`, false);
+    return <img src={"data:image/png;base64," + screenshot} alt="服务器关隘信息" />;
   });
 }

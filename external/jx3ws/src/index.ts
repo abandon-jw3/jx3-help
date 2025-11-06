@@ -48,7 +48,7 @@ declare module "koishi" {
     jx3ws: JX3_ws_service;
   }
   interface Events {
-    [K: `jx3ws.${number}`]: (...args: any[]) => void;
+    [K: `jx3ws.${string}`]: (...args: any[]) => void;
   }
 }
 // 导出 apply 函数以注册插件

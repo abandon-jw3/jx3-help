@@ -183,7 +183,7 @@ declare module "koishi" {
   }
 
   interface Events {
-    [K: `jx3ws.${number}`]: (...args: any[]) => void;
+    [K: `jx3ws.${string}`]: (...args: any[]) => void;
   }
 }
 ```
