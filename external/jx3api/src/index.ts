@@ -598,7 +598,7 @@ export class JX3_api_service extends Service {
    * @param data.body 角色体型（可选）
    * @param data.force 门派名称（可选）
    */
-  getShowRandom(data: ShowRandomParams): Promise<ShowRandom> {
+  getShowRandom(data?: ShowRandomParams): Promise<ShowRandom> {
     return this.http.post("/data/show/random", data);
   }
 

@@ -1,6 +1,6 @@
 import { Command, Context } from "koishi";
 import dayjs from "dayjs";
-import fs from "fs";
+import { ArgParser, serverList } from "../tools";
 export const name = "instructions-commands";
 export interface Config {}
 
@@ -319,8 +319,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //奇遇统计查询
-  ctx.command("奇遇统计 [server] [name]", "查询奇遇统计").action(async ({ session }, server, name) => {
+  ctx.command("奇遇统计 [...arg]", "查询奇遇统计").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
     const res = await ctx.jx3api.getLuckStatistical({ server, name });
+    if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3render.render("ServerQiyuRecord", res.data, `ServerQiyuRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
@@ -334,7 +338,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //奇遇记录查询
-  ctx.command("奇遇记录 [server] [name]", "查询奇遇记录").action(async ({ session }, server, name) => {
+  ctx.command("奇遇记录 [...arg]", "查询奇遇记录").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
     const res = await ctx.jx3api.getLuckAdventure({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇记录</p>;
     const screenshot = await ctx.jx3render.render("UserQiyuRecord", res.data, `UserQiyuRecord-${server}-${name}`, false);
@@ -342,13 +349,19 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
   //未出奇遇查询
   ctx
-    .command("未出奇遇 [server] [name]", "查询缺失奇遇")
+    .command("未出奇遇 [...arg]", "查询缺失奇遇")
     .alias("缺失奇遇", "缺少奇遇")
-    .action(async ({ session }, server, name) => {
+    .action(async ({ session }, ...arg) => {
+      const parser = new ArgParser(arg);
+      const server = parser.tryMatch("server", serverList);
+      const name = parser.getRemaining()[0] || "";
       const res = await ctx.jx3api.getLuckUnfinished({ server, name });
       if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到缺失奇遇</p>;
       return (
         <>
+          <p>服务器：{server}</p>
+          <p>角色名：{name}</p>
+          <br />
           {res.data.map((item) => (
             <p>
               {item.type}-{item.name}
@@ -359,7 +372,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
     });
 
   //招募
-  ctx.command("招募 [server] [keyword]", "查询招募信息").action(async ({ session }, server, keyword) => {
+  ctx.command("招募 [...arg]", "查询招募信息").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const keyword = parser.getRemaining()[0] || "";
+    if (!server || !keyword) return <p>请输入服务器和关键词</p>;
+
     const res = await ctx.jx3api.getMemberRecruit({ server, keyword, table: 1 });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到招募信息</p>;
     const screenshot = await ctx.jx3render.render("MemberRecruit", res.data, `MemberRecruit-${server}-${keyword}`, false);
@@ -513,5 +531,63 @@ export function instructionsCommands(ctx: Context, config: Config) {
     if (res.msg !== "success") return <>{res.msg}</>;
     const screenshot = await ctx.jx3render.render("ServerLeader", res, `ServerLeader`, false);
     return <img src={"data:image/png;base64," + screenshot} alt="服务器关隘信息" />;
+  });
+
+  ctx.command("名片 [server] [name]", "查询服务器名片信息").action(async ({ session }, server, name) => {
+    const res = await ctx.jx3api.getShowCache({ server, name });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
+  });
+  ctx.command("随机名片", "查询随机名片信息").action(async ({ session }) => {
+    const res = await ctx.jx3api.getShowRandom();
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
+  });
+  ctx.command("名片墙 [server] [name]", "查询服务器名片墙信息").action(async ({ session }, server, name) => {
+    const res = await ctx.jx3api.getShowCard({ server, name });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
+  });
+  ctx.command("贴吧物价 [server] [name]", "查询服务器物价信息").action(async ({ session }, server, name) => {
+    const res = await ctx.jx3api.getTiebaItemRecords({ server, name, limit: 3 });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return (
+      <>
+        {res.data.map((item) => (
+          <>
+            <p>物品信息：{item.context}</p>
+            <p>来源链接：{`https://c.tieba.baidu.com/p/${item.url}?pid=${item.id}#${item.floor}`}</p>
+            <p>所在楼层：{item.floor}</p>
+            <p>发布时间：{dayjs.unix(item.time).format("YYYY-MM-DD")}</p>
+            <p>来源贴吧：{item.name}</p>
+          </>
+        ))}
+      </>
+    );
+  });
+
+  ctx.command("金价比例 [server]", "查询服务器金价比例信息").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getTradeDemon({ server, limit: 1 });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    console.log(res);
+
+    return (
+      <>
+        {res.data.map((item) => (
+          <>
+            <p>
+              {item.server} {item.date}
+            </p>
+            <p>万宝楼：{item.wanbaolou}</p>
+            <p>贴&nbsp;&nbsp;吧：{item.tieba}</p>
+            <p>dd373：{item.dd373}</p>
+          </>
+        ))}
+      </>
+    );
+  });
+  ctx.command("测试 [...arg]").action(async ({ session }, ...arg) => {
+    console.log(arg);
+    return;
   });
 }

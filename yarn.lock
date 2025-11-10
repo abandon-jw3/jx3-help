@@ -937,6 +937,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@koishijs/console@npm:^5.30.10":
+  version: 5.30.10
+  resolution: "@koishijs/console@npm:5.30.10"
+  peerDependencies:
+    koishi: ^4.18.9
+  checksum: 10c0/1fe22d735832bd27083d466b4c6056ff0f3435d1b3ade4b9e7a58e4b9c4dac3241de7ad5bd28603d0b9d5d6b5ddaf24ac663a7d2d141a92fe4cd4e8995105108
+  languageName: node
+  linkType: hard
+
 "@koishijs/core@npm:4.18.9":
   version: 4.18.9
   resolution: "@koishijs/core@npm:4.18.9"
@@ -1074,21 +1083,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/plugin-console@npm:^5.30.4":
-  version: 5.30.9
-  resolution: "@koishijs/plugin-console@npm:5.30.9"
+"@koishijs/plugin-console@npm:5.30.10":
+  version: 5.30.10
+  resolution: "@koishijs/plugin-console@npm:5.30.10"
   dependencies:
-    "@koishijs/console": "npm:^5.30.9"
+    "@koishijs/console": "npm:^5.30.10"
     open: "npm:^8.4.2"
     uuid: "npm:^8.3.2"
     ws: "npm:^8.16.0"
   peerDependencies:
-    "@koishijs/client": ^5.30.9
-    koishi: ^4.18.8
+    "@koishijs/client": ^5.30.10
+    koishi: ^4.18.9
   peerDependenciesMeta:
     "@koishijs/client":
       optional: true
-  checksum: 10c0/971207d958e315a4d8588c1999d6bcfdfe491577039120628dba5ec0d3e4cc8427aa340deab4ae8a0610e8a29f6a74f0c817b1ce91cfb0c39cbd40de520999c5
+  checksum: 10c0/66f6a49d655fc1ffee46d3de5b2ac0a3a0440f282235d68da4f3c3db47115a314f3f4c2b691e8f4a3e32ebb7cb9e1a62f43f95b14aaeabfabe779af7c2cf60f1
   languageName: node
   linkType: hard
 
@@ -1205,11 +1214,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/plugin-market@npm:^2.11.4":
-  version: 2.11.6
-  resolution: "@koishijs/plugin-market@npm:2.11.6"
+"@koishijs/plugin-market@npm:2.11.8":
+  version: 2.11.8
+  resolution: "@koishijs/plugin-market@npm:2.11.8"
   dependencies:
-    "@koishijs/console": "npm:^5.30.7"
+    "@koishijs/console": "npm:^5.30.10"
     "@koishijs/registry": "npm:^7.0.3"
     execa: "npm:^5.1.1"
     get-registry: "npm:^1.2.0"
@@ -1218,12 +1227,12 @@ __metadata:
     semver: "npm:^7.6.3"
     which-pm-runs: "npm:^1.1.0"
   peerDependencies:
-    "@koishijs/plugin-console": ^5.30.7
-    koishi: ^4.18.7
+    "@koishijs/plugin-console": ^5.30.10
+    koishi: ^4.18.9
   peerDependenciesMeta:
     "@koishijs/plugin-console":
       optional: true
-  checksum: 10c0/cab747bad1af49dcbfdd1c96815940d4eae97e7ef98cafe53c75cdc02f1a589f9ab84b601efce42191f2805b715ce7f78002253008142ef3583a7d39b23d542f
+  checksum: 10c0/b0f81db860edca26364ca8a60362d36a7eb2369ae3fbd0fcf9a0c102719d807d93987f0a1c071dde67cacbb6b389b948d9c97e0615eb08ac4caa29baa6e98452
   languageName: node
   linkType: hard
 
@@ -4779,7 +4788,7 @@ __metadata:
     "@koishijs/plugin-bind": "npm:^1.5.1"
     "@koishijs/plugin-commands": "npm:^3.5.4"
     "@koishijs/plugin-config": "npm:^2.8.6"
-    "@koishijs/plugin-console": "npm:^5.30.4"
+    "@koishijs/plugin-console": "npm:5.30.10"
     "@koishijs/plugin-database-postgres": "npm:2.6.0"
     "@koishijs/plugin-explorer": "npm:^1.5.5"
     "@koishijs/plugin-help": "npm:^2.4.5"
@@ -4789,7 +4798,7 @@ __metadata:
     "@koishijs/plugin-inspect": "npm:^1.1.7"
     "@koishijs/plugin-locales": "npm:^2.5.3"
     "@koishijs/plugin-logger": "npm:^2.6.9"
-    "@koishijs/plugin-market": "npm:^2.11.4"
+    "@koishijs/plugin-market": "npm:2.11.8"
     "@koishijs/plugin-notifier": "npm:^1.2.1"
     "@koishijs/plugin-oobe": "npm:^0.0.2"
     "@koishijs/plugin-proxy-agent": "npm:^0.3.3"
@@ -4807,6 +4816,7 @@ __metadata:
     koishi: "npm:^4.18.7"
     koishi-plugin-adapter-onebot: "npm:6.8.0"
     koishi-plugin-android: "npm:^0.0.1"
+    koishi-plugin-crazy-thursday: "npm:1.0.4"
     koishi-plugin-dataview: "npm:^2.6.1"
     koishi-plugin-desktop: "npm:^1.0.0"
     koishi-plugin-puppeteer: "npm:^3.9.0"
@@ -4928,6 +4938,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"koishi-plugin-crazy-thursday@npm:1.0.4":
+  version: 1.0.4
+  resolution: "koishi-plugin-crazy-thursday@npm:1.0.4"
+  peerDependencies:
+    koishi: ^4.8.3
+  checksum: 10c0/691ba01c688ba2de05a5eee75f4230c6fc5e0c30c1f7925d2e4a24564d176640c9538f52086a7f4f37199ba01cb912d6e6561acb28324445a98cb186b04f5c22
+  languageName: node
+  linkType: hard
+
 "koishi-plugin-dataview@npm:^2.6.1":
   version: 2.7.8
   resolution: "koishi-plugin-dataview@npm:2.7.8"
@@ -4957,9 +4976,17 @@ __metadata:
     "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"
     handlebars: "npm:^4.7.8"
-    koishi-plugin-jx3render: "workspace:*"
     koishi-plugin-jx3api: "workspace:*"
+    koishi-plugin-jx3render: "workspace:*"
     koishi-plugin-jx3ws: "workspace:*"
+  peerDependencies:
+    koishi: ^4.18.7
+  languageName: unknown
+  linkType: soft
+
+"koishi-plugin-jx3api@workspace:*, koishi-plugin-jx3api@workspace:external/jx3api":
+  version: 0.0.0-use.local
+  resolution: "koishi-plugin-jx3api@workspace:external/jx3api"
   peerDependencies:
     koishi: ^4.18.7
   languageName: unknown
@@ -4972,14 +4999,6 @@ __metadata:
     "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"
     handlebars: "npm:^4.7.8"
-  peerDependencies:
-    koishi: ^4.18.7
-  languageName: unknown
-  linkType: soft
-
-"koishi-plugin-jx3api@workspace:*, koishi-plugin-jx3api@workspace:external/jx3api":
-  version: 0.0.0-use.local
-  resolution: "koishi-plugin-jx3api@workspace:external/jx3api"
   peerDependencies:
     koishi: ^4.18.7
   languageName: unknown

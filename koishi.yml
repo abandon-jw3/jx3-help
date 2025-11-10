@@ -33,7 +33,7 @@ plugins:
     explorer:0gzgbx: {}
     logger:5vygxu: {}
     insight:row0d8: {}
-    ~market:sstlz9:
+    market:sstlz9:
       search:
         endpoint: https://registry.koishi.t4wefan.pub/index.json
       registry: {}
@@ -73,3 +73,4 @@ plugins:
       apiUrl: https://www.jx3api.com
       ticket: ${{env.API_TICKET}}
     $label: 剑网3
+  crazy-thursday:gfxpfh: {}
