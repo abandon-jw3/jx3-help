@@ -279,7 +279,7 @@ export interface FireworksCollect extends JX3APIResponse {
 
 export interface FireworksCollectParams {
   server: string;
-  num?: number;
+  num?: number | string;
 }
 
 // 烟花记录

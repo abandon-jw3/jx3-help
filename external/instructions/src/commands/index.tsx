@@ -245,15 +245,19 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //烟花统计
-  ctx.command("烟花统计 [server] <num:number>", "查询烟花统计").action(async ({ session }, server, num = 1) => {
-    const res = await ctx.jx3api.getFireworksCollect({ server, num });
+  ctx.command("烟花统计 [server]", "查询烟花统计").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getFireworksCollect({ server, num: 7 });
     if (res.msg !== "success") return <p>未找到烟花统计：{server}</p>;
     const screenshot = await ctx.jx3render.render("FireworksRecords", res.data, `FireworksRecords-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 
   //烟花记录查询
-  ctx.command("烟花记录 [server] [name]", "查询烟花记录").action(async ({ session }, server, name) => {
+  ctx.command("烟花记录 [...arg]", "查询烟花记录").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和角色名</p>;
     const res = await ctx.jx3api.getFireworksRecords({ server, name });
     if (res.msg !== "success") return <p>未找到烟花记录</p>;
     const screenshot = await ctx.jx3render.render("UserFireworksRecords", res.data, `UserFireworksRecords-${server}-${name}`, false);
@@ -261,7 +265,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //拍卖纪录查询
-  ctx.command("拍卖纪录 [server] [name]", "查询拍卖纪录").action(async ({ session }, server, name) => {
+  ctx.command("拍卖纪录 [...arg]", "查询拍卖纪录").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和物品名</p>;
     const res = await ctx.jx3api.getAuctionRecords({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>查询拍卖纪录失败</p>;
     const screenshot = await ctx.jx3render.render("AuctionRecord", res.data, `AuctionRecord-${server}-${name}`, false);
@@ -386,9 +394,13 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
   //师父
   ctx
-    .command("师父 [server] [keyword]", "查询师父信息")
+    .command("师父 [...arg]", "查询师父信息")
     .alias("拜师")
-    .action(async ({ session }, server, keyword) => {
+    .action(async ({ session }, ...arg) => {
+      const parser = new ArgParser(arg);
+      const server = parser.tryMatch("server", serverList);
+      const keyword = parser.getRemaining()[0] || "";
+      if (!server || !keyword) return <p>请输入服务器和关键词</p>;
       const res = await ctx.jx3api.getMemberTeacher({ server, keyword });
       if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到师父信息</p>;
       const screenshot = await ctx.jx3render.render("MemberTeacher", res.data, `MemberTeacher-${server}`, false);
@@ -396,14 +408,22 @@ export function instructionsCommands(ctx: Context, config: Config) {
     });
 
   //徒弟
-  ctx.command("徒弟 [server] [keyword]", "查询徒弟信息").action(async ({ session }, server, keyword) => {
+  ctx.command("徒弟 [...arg]", "查询徒弟信息").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const keyword = parser.getRemaining()[0] || "";
+    if (!server || !keyword) return <p>请输入服务器和关键词</p>;
     const res = await ctx.jx3api.getMemberStudent({ server, keyword });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到徒弟信息</p>;
     const screenshot = await ctx.jx3render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
   //副本进度
-  ctx.command("副本 [server] [name]", "查询副本进度").action(async ({ session }, server, name) => {
+  ctx.command("副本 [...arg]", "查询副本进度").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和副本名</p>;
     const res = await ctx.jx3api.getTeamCdList({ server, name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3render.render("TeamCdList", res.data, `TeamCdList-${server}-${name}`, false);
@@ -419,7 +439,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //区服掉落统计
-  ctx.command("掉落 [server] [name]", "查询区服掉落统计").action(async ({ session }, server, name) => {
+  ctx.command("掉落 [...arg]", "查询区服掉落统计").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和副本名</p>;
     const res = await ctx.jx3api.getRewardStatistical({ server, name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3render.render("RewardStatistical", { ...res, name, server }, `RewardStatistical-${server}-${name}`, false);
@@ -428,9 +452,13 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
   //角色详情查询
   ctx
-    .command("角色详情 [server] [name]", "查询角色详情")
+    .command("角色详情 [...arg]", "查询角色详情")
     .alias("角色")
-    .action(async ({ session }, server, name) => {
+    .action(async ({ session }, ...arg) => {
+      const parser = new ArgParser(arg);
+      const server = parser.tryMatch("server", serverList);
+      const name = parser.getRemaining()[0] || "";
+      if (!server || !name) return <p>请输入服务器和角色名</p>;
       const res = await ctx.jx3api.getRoleDetailed({ server, name });
       if (res.msg !== "success") return <p>{res.msg}</p>;
       return (
@@ -458,7 +486,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //查询精耐
-  ctx.command("精耐 [server] [name]", "查询角色精力信息").action(async ({ session }, server, name) => {
+  ctx.command("精耐 [...arg]", "查询角色精力信息").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和角色名</p>;
     const res = await ctx.jx3api.getRoleMonster({ server, name });
     if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
     else if (res.msg !== "success") return <p>{res.msg}</p>;
@@ -492,16 +524,15 @@ export function instructionsCommands(ctx: Context, config: Config) {
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
   ctx.command("属性 [server] [name]", "查询角色属性信息").action(async ({ session }, server, name) => {
-    // return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
+    return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
 
     const res = await ctx.jx3api.getRoleAttribute({ server, name });
-    console.log(res);
-
     if (res.msg !== "success") return <>{res.msg}</>;
     // const screenshot = await ctx.jx3render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
 
+  //心法阵眼
   ctx.command("阵眼 [name]", "查询心法阵眼信息").action(async ({ session }, name) => {
     const res = await ctx.jx3api.getSchoolMatrix({ name });
     if (res.msg !== "success") return <>{res.msg}</>;
@@ -520,12 +551,16 @@ export function instructionsCommands(ctx: Context, config: Config) {
       </>
     );
   });
+
+  //诛恶查询
   ctx.command("诛恶 [server]", "查询服务器诛恶信息").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getServerAntivice({ server });
     if (res.msg !== "success") return <>{res.msg}</>;
     const screenshot = await ctx.jx3render.render("ServerAntivice", { ...res, server }, `ServerAntivice-${server}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
+
+  //关隘查询
   ctx.command("关隘", "查询服务器关隘信息").action(async ({ session }) => {
     const res = await ctx.jx3api.getServerLeader();
     if (res.msg !== "success") return <>{res.msg}</>;
@@ -533,22 +568,39 @@ export function instructionsCommands(ctx: Context, config: Config) {
     return <img src={"data:image/png;base64," + screenshot} alt="服务器关隘信息" />;
   });
 
-  ctx.command("名片 [server] [name]", "查询服务器名片信息").action(async ({ session }, server, name) => {
+  //名片查询
+  ctx.command("名片 [...arg]", "查询服务器名片信息").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和角色名</p>;
     const res = await ctx.jx3api.getShowCache({ server, name });
     if (res.msg !== "success") return <>{res.msg}</>;
     return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
   });
+
+  //随机名片
   ctx.command("随机名片", "查询随机名片信息").action(async ({ session }) => {
     const res = await ctx.jx3api.getShowRandom();
     if (res.msg !== "success") return <>{res.msg}</>;
     return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
   });
-  ctx.command("名片墙 [server] [name]", "查询服务器名片墙信息").action(async ({ session }, server, name) => {
+  //名片墙
+  ctx.command("名片墙 [...arg]", "查询服务器名片墙信息").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和角色名</p>;
     const res = await ctx.jx3api.getShowCard({ server, name });
     if (res.msg !== "success") return <>{res.msg}</>;
     return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
   });
-  ctx.command("贴吧物价 [server] [name]", "查询服务器物价信息").action(async ({ session }, server, name) => {
+  //贴吧物价
+  ctx.command("贴吧物价 [...arg]", "查询服务器物价信息").action(async ({ session }, ...arg) => {
+    const parser = new ArgParser(arg);
+    const server = parser.tryMatch("server", serverList);
+    const name = parser.getRemaining()[0] || "";
+    if (!server || !name) return <p>请输入服务器和物品名</p>;
     const res = await ctx.jx3api.getTiebaItemRecords({ server, name, limit: 3 });
     if (res.msg !== "success") return <>{res.msg}</>;
     return (
@@ -566,6 +618,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     );
   });
 
+  //金价比例
   ctx.command("金价比例 [server]", "查询服务器金价比例信息").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getTradeDemon({ server, limit: 1 });
     if (res.msg !== "success") return <>{res.msg}</>;
@@ -585,9 +638,5 @@ export function instructionsCommands(ctx: Context, config: Config) {
         ))}
       </>
     );
-  });
-  ctx.command("测试 [...arg]").action(async ({ session }, ...arg) => {
-    console.log(arg);
-    return;
   });
 }
