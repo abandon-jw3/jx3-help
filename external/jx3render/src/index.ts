@@ -19,6 +19,7 @@ export const Config: Schema<Config> = Schema.object({});
 export class RenderService extends Service {
   template: Record<string, handlebars.TemplateDelegate<any>> = {};
   dataDir: string;
+  imgDir: string;
   constructor(ctx: Context) {
     super(ctx, "jx3render", true);
     // 注册 helper：让索引从 1 开始
@@ -68,8 +69,9 @@ export class RenderService extends Service {
       this.template[fileName] = handlebars.compile(fs.readFileSync(fullPath, "utf-8"));
     });
     this.dataDir = path.join(ctx.baseDir, "data", "jx3render", "public");
+    this.imgDir = path.join(ctx.baseDir, "data", "jx3render", "img");
     fs.mkdirSync(this.dataDir, { recursive: true });
-
+    fs.mkdirSync(this.imgDir, { recursive: true });
     // 确保截图目录存在
     const screenshotDir = path.join(__dirname, "../screenshot");
     if (!fs.existsSync(screenshotDir)) {
@@ -88,33 +90,28 @@ export class RenderService extends Service {
   async render(templateName: string, data: any, imgName: string, isCache: boolean = false): Promise<string> {
     this.ctx.logger("jx3render").info(`渲染模板: ${templateName}`);
     //图片缓存目录
-    const imageFile = path.join(__dirname, "../screenshot", `${imgName}.png`);
+    const imageFile = path.join(this.imgDir, `${imgName}.png`);
     //如果缓存图片存在，则直接返回缓存图片
     if (isCache && fs.existsSync(imageFile)) return fs.readFileSync(imageFile).toString("base64");
 
-    //根据数据编译成html
-    const html = this.template[templateName](data);
-
-    //随机生成一个16位文件名
-    const randomName = Math.random().toString(36).substring(2, 15);
-
-    // 将 HTML 保存为临时文件，以便支持 file:// 协议加载本地资源
-    const tempHtmlFile = path.join(this.dataDir, `${randomName}.html`);
+    const html = this.template[templateName](data); //根据数据编译成html
+    const randomName = `${templateName}-${Math.random().toString(36).substring(2, 15)}`; //随机生成一个16位文件名
+    const tempHtmlFile = path.join(this.dataDir, `${randomName}.html`); // 将 HTML 保存为临时文件
     fs.writeFileSync(tempHtmlFile, html, "utf-8");
 
-    //将html渲染为图片
-    const page = await this.ctx.puppeteer.page();
+    const page = await this.ctx.puppeteer.page(); //创建游览器标签页实例
     try {
       await page.goto(`http://localhost:5140/jx3html/${randomName}.html`, {
         waitUntil: "networkidle0", // 等待网络完全空闲，确保所有资源已加载
       });
-
       const screenshot = await page.screenshot({
         path: imageFile,
         fullPage: true,
-        encoding: "base64",
+        // encoding: "base64",//不能直接使用base64，否则无法自动保存图片
       });
-      return screenshot;
+
+      const base64 = screenshot.toString("base64");
+      return base64;
     } finally {
       await page.close();
       // 删除临时 HTML 文件
