@@ -99,6 +99,9 @@ JX3API WebSocket 服务，实时接收游戏事件推送。
    API_TOKEN=your_jx3api_token
    API_TICKET=your_jx3api_ticket
    WS_TOKEN=your_jx3ws_token
+
+   # 管理员配置
+   ADMIN_ID = "管理员QQ"
    ```
 
 4. **启动机器人**
@@ -175,9 +178,9 @@ ctx.command("jx3.新指令 <参数>", "指令说明").action(async ({ session },
    corepack enable
    ##安装依赖
    yarn
-   ##构建
+   ##构建依赖
    yarn build
-   yarn start
+   yarn dev
    ```
 
 ## 🔨 可用脚本
