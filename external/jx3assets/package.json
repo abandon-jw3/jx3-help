@@ -1,0 +1,34 @@
+{
+  "name": "koishi-plugin-jx3assets",
+  "description": "jx3api静态资源",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.18.7"
+  },
+  "dependencies": {
+    "koa-mount": "^4.2.0",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/koa-mount": "^4"
+  },
+  "koishi": {
+    "service": {
+      "required": [
+        "server"
+      ]
+    }
+  }
+}

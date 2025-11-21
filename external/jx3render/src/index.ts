@@ -18,7 +18,7 @@ export const Config: Schema<Config> = Schema.object({});
 
 export class RenderService extends Service {
   template: Record<string, handlebars.TemplateDelegate<any>> = {};
-  tempDir: string;
+  dataDir: string;
   constructor(ctx: Context) {
     super(ctx, "jx3render", true);
     // 注册 helper：让索引从 1 开始
@@ -58,8 +58,8 @@ export class RenderService extends Service {
       //预编译模板
       this.template[fileName] = handlebars.compile(fs.readFileSync(fullPath, "utf-8"));
     });
-    this.tempDir = path.join(ctx.baseDir, "temp", "jx3render");
-    fs.mkdirSync(this.tempDir, { recursive: true });
+    this.dataDir = path.join(ctx.baseDir, "data", "jx3render", "public");
+    fs.mkdirSync(this.dataDir, { recursive: true });
   }
   /**
    * 根据指定模板名称与数据渲染HTML，并生成该HTML的图片截图。
@@ -77,18 +77,14 @@ export class RenderService extends Service {
     //如果缓存图片存在，则直接返回缓存图片
     if (isCache && fs.existsSync(imageFile)) return fs.readFileSync(imageFile).toString("base64");
 
-    // 添加 assets 绝对路径到数据对象
-    const assetsPath = path.join(__dirname, "../assets").replace(/\\/g, "/");
-    const renderData = { ...data, assetsPath };
-
     //根据数据编译成html
-    const html = this.template[templateName](renderData);
+    const html = this.template[templateName](data);
 
     //随机生成一个16位文件名
     const randomName = Math.random().toString(36).substring(2, 15);
 
     // 将 HTML 保存为临时文件，以便支持 file:// 协议加载本地资源
-    const tempHtmlFile = path.join(this.tempDir, `${randomName}.html`);
+    const tempHtmlFile = path.join(this.dataDir, `${randomName}.html`);
     fs.writeFileSync(tempHtmlFile, html, "utf-8");
 
     //将html渲染为图片
@@ -96,7 +92,9 @@ export class RenderService extends Service {
 
     // 使用 goto 加载本地 HTML 文件，这样可以正确加载 file:// 协议的资源
     // waitUntil 选项确保在 CSS、JS 等资源加载完成后再继续
-    await page.goto(`file://${tempHtmlFile}`, {
+    console.log(`http://localhost:5140/jx3html/${randomName}.html`);
+
+    await page.goto(`http://localhost:5140/jx3html/${randomName}.html`, {
       waitUntil: "networkidle0", // 等待网络完全空闲，确保所有资源已加载
     });
 
@@ -105,9 +103,9 @@ export class RenderService extends Service {
       fullPage: true,
       encoding: "base64",
     });
-    await page.close();
+    // await page.close();
     // 删除临时 HTML 文件
-    fs.unlinkSync(tempHtmlFile);
+    // fs.unlinkSync(tempHtmlFile);
     return screenshot;
   }
 }

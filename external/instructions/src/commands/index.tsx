@@ -1,6 +1,8 @@
 import { Command, Context } from "koishi";
 import dayjs from "dayjs";
 import { ArgParser, serverList } from "../tools";
+import isoWeek from "dayjs/plugin/isoWeek";
+dayjs.extend(isoWeek);
 export const name = "instructions-commands";
 export interface Config {}
 
@@ -43,6 +45,9 @@ export function instructionsCommands(ctx: Context, config: Config) {
   // 基础命令
   ctx.command("月历", "查询服务器活动月历").action(async () => {
     const res = await ctx.jx3api.getActiveListCalendar({ num: 15 });
+    const week = dayjs(res.data.data[0].date).isoWeekday();
+    const arr = Array.from({ length: week - 1 }).fill(false);
+    res.data.data.unshift(...(arr as any));
     if (res.msg !== "success") return <p>查询服务器活动月历失败</p>;
     const screenshot = await ctx.jx3render.render("ActiveList", res.data, "ActiveList", false);
     return <img src={"data:image/png;base64," + screenshot} />;
@@ -257,6 +262,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const parser = new ArgParser(arg);
     const server = parser.tryMatch("server", serverList);
     const name = parser.getRemaining()[0] || "";
+
     if (!server || !name) return <p>请输入服务器和角色名</p>;
     const res = await ctx.jx3api.getFireworksRecords({ server, name });
     if (res.msg !== "success") return <p>未找到烟花记录</p>;
@@ -266,9 +272,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
   //拍卖纪录查询
   ctx.command("拍卖纪录 [...arg]", "查询拍卖纪录").action(async ({ session }, ...arg) => {
-    const parser = new ArgParser(arg);
-    const server = parser.tryMatch("server", serverList);
-    const name = parser.getRemaining()[0] || "";
+    const parser = new ArgParser(arg); //创建参数解析器
+    const server = parser.tryMatch("server", serverList); //尝试匹配服务器
+    const name = parser.getRemaining()[0] || ""; //获取剩余参数
+
     if (!server || !name) return <p>请输入服务器和物品名</p>;
     const res = await ctx.jx3api.getAuctionRecords({ server, name });
     if (!(Array.isArray(res.data) && res.data.length)) return <p>查询拍卖纪录失败</p>;
@@ -622,8 +629,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("金价比例 [server]", "查询服务器金价比例信息").action(async ({ session }, server) => {
     const res = await ctx.jx3api.getTradeDemon({ server, limit: 1 });
     if (res.msg !== "success") return <>{res.msg}</>;
-    console.log(res);
-
     return (
       <>
         {res.data.map((item) => (
@@ -638,5 +643,34 @@ export function instructionsCommands(ctx: Context, config: Config) {
         ))}
       </>
     );
+  });
+
+  //骚话
+  ctx.command("骚话", "查询骚话随机信息").action(async ({ session }) => {
+    const res = await ctx.jx3api.getSaohuaRandom();
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return <p>{res.data.text}</p>;
+  });
+
+  //舔狗日记
+  ctx.command("舔狗日记", "查询舔狗日记信息").action(async ({ session }) => {
+    const res = await ctx.jx3api.getSaohuaContent();
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return <p>{res.data.text}</p>;
+  });
+
+  //扶摇
+  ctx.command("扶摇 [server]", "查询扶摇信息").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getActiveNextEvent({ server });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    if (res.data[0].status === 0) {
+      return (
+        <p>
+          {res.data[0].server} 下次梅花桩试炼的时间为：{dayjs.unix(res.data[0].time).format("YYYY年MM月DD日 HH时mm分ss秒")}
+        </p>
+      );
+    } else {
+      return <p>{res.data[0].server} 梅花桩试炼已开始</p>;
+    }
   });
 }

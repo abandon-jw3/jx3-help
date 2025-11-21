@@ -1,215 +1,286 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>楚天社或云从社的进度</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Microsoft YaHei', 'SimSun', sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动时刻表 - 楚天社/云从社/披风会</title>
+  <style>
+    /* 全局重置 */
+    :root {
+      --primary-color: #4f46e5;
+      /* 现代蓝紫色 */
+      --accent-color: #f59e0b;
+      /* 活力琥珀色 */
+      --text-main: #1f2937;
+      --text-secondary: #6b7280;
+      --bg-body: #f3f4f6;
+      --bg-card: #ffffff;
+      --highlight-bg: #eef2ff;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
 
-        .progress-container {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-body);
+      background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      width: 1440px;
+      padding: 18px;
+    }
 
-        .title {
-            display: flex;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
+    /* 主容器：固定宽度 1440px */
+    .container {
+      width: 1440px;
+      max-width: 100%;
+      background-color: var(--bg-card);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .title-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            background: #4a90e2;
-            border-radius: 4px;
-        }
+    /* 顶部装饰条 */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    }
 
-        .current-time {
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            color: #666;
-        }
+    .header {
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 20px;
+    }
 
-        .time-icon {
-            width: 16px;
-            height: 16px;
-            margin-right: 5px;
-            background: #999;
-            border-radius: 50%;
-        }
+    .title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      position: relative;
+      display: inline-block;
+    }
 
-        .progress-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+    /* 标题旁边的小标签 */
+    .badge {
+      background-color: var(--highlight-bg);
+      color: var(--primary-color);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-left: 16px;
+      vertical-align: middle;
+    }
 
-        .table-header {
-            background: #f8f9fa;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-        }
+    /* 表格样式重构 */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      /* 关键：分离边框以实现圆角行 */
+      border-spacing: 0 12px;
+      /* 行与行之间的间距 */
+      table-layout: fixed;
+    }
 
-        .table-header th {
-            padding: 12px 8px;
-            border: 1px solid #e0e0e0;
-            font-size: 14px;
-        }
+    thead th {
+      text-align: left;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 32px 12px 32px;
+    }
 
-        .progress-row {
-            border: 1px solid #e0e0e0;
-        }
+    tbody tr {
+      background-color: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
 
-        .progress-row:hover {
-            background: #f8f9fa;
-        }
+    /* 每一行都是一个卡片 */
+    tbody td {
+      padding: 24px 32px;
+      background-color: #fff;
+      /* 必须在TD上设背景色以覆盖border-spacing的空隙 */
+      border-top: 1px solid #f3f4f6;
+      border-bottom: 1px solid #f3f4f6;
+      color: var(--text-main);
+      font-size: 18px;
+    }
 
-        .progress-row.current {
-            background: #e8f5e8;
-        }
+    /* 处理圆角 */
+    tbody td:first-child {
+      border-left: 1px solid #f3f4f6;
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+    }
 
-        .progress-row.current td {
-            color: #2e7d32;
-            font-weight: bold;
-        }
+    tbody td:last-child {
+      border-right: 1px solid #f3f4f6;
+      border-top-right-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
 
-        .progress-row td {
-            padding: 10px 8px;
-            border: 1px solid #e0e0e0;
-            text-align: center;
-            font-size: 13px;
-            vertical-align: middle;
-        }
+    /* 悬停效果 */
+    tbody tr:hover td {
+      background-color: #fafafa;
+      border-color: #e5e7eb;
+      transform: translateY(-1px);
+    }
 
-        .time-cell {
-            font-weight: bold;
-            color: #333;
-        }
+    /* 列宽微调 */
+    th:nth-child(1) {
+      width: 15%;
+    }
 
-        .map-cell {
-            color: #555;
-        }
+    th:nth-child(2) {
+      width: 20%;
+    }
 
-        .location-cell {
-            color: #666;
-        }
+    th:nth-child(3) {
+      width: 25%;
+    }
 
-        .event-cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
+    th:nth-child(4) {
+      width: 40%;
+    }
 
-        .event-icon {
-            width: 20px;
-            height: 20px;
-            background: #8b4513;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-        }
+    /* 特殊样式：时间列 */
+    .time-cell {
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-weight: 600;
+      color: var(--text-main);
+    }
 
-        .event-text {
-            color: #333;
-        }
+    /* 特殊样式：地图与地点 */
+    .location-tag {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 500;
+    }
 
-        .notification-bell {
-            width: 16px;
-            height: 16px;
-            background: #4caf50;
-            border-radius: 50%;
-            margin-left: 5px;
-        }
+    /* =========================================
+       当前状态 (Active State) 的核心样式
+       ========================================= */
+    tr.current {
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.15);
+      /* 柔和的投影 */
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-style: italic;
-        }
+    tr.current td {
+      background-color: var(--primary-color);
+      /* 深色背景 */
+      color: white;
+      border-color: var(--primary-color);
+    }
 
-        .footer-line1 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
+    /* 消除当前行的默认悬停背景变化，保持高亮 */
+    tr.current:hover td {
+      background-color: #4338ca;
+      transform: translateY(-2px);
+    }
 
-        .footer-line2 {
-            font-size: 14px;
-        }
-    </style>
+    /* 当前行的时间列 */
+    tr.current .time-cell {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* 进度条/状态文字样式 */
+    .stage-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* 呼吸灯效果 */
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #d1d5db;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    tr.current .status-dot {
+      background-color: var(--accent-color);
+      box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    }
+
+    /* 针对当前行的文字增强 */
+    tr.current .stage-text {
+      font-weight: 700;
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="progress-container">
-        <div class="header">
-            <div class="title">
-                <div class="title-icon"></div>
-                楚天社
-            </div>
-            <div class="current-time">
-                <div class="time-icon"></div>
-                {{currentTime}}
-            </div>
-        </div>
-
-        <table class="progress-table">
-            <thead class="table-header">
-                <tr>
-                    <th>时间</th>
-                    <th>地图</th>
-                    <th>地点</th>
-                    <th>事件进度</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each this}}
-                <tr class="progress-row {{#if isCurrent}}current{{/if}}">
-                    <td class="time-cell">{{time}}</td>
-                    <td class="map-cell">{{map}}</td>
-                    <td class="location-cell">{{site}}</td>
-                    <td class="event-cell">
-                        {{!-- <div class="event-icon">{{icon}}</div> --}}
-                        <span class="event-text">{{stage}}</span>
-                        {{#if isCurrent}}
-                        <div class="notification-bell"></div>
-                        {{/if}}
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-
-        <div class="footer">
-            <div class="footer-line1">萌萌</div>
-            <div class="footer-line2">你一笑，便是春天</div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h2 class="title">
+          事件追踪
+          <span class="badge">楚天社 / 云从社 / 披风会</span>
+        </h2>
+      </div>
+      <!-- 可选：显示当前时间 -->
+      <!-- <div style="font-size: 14px; color: #6b7280;">实时监控中</div> -->
     </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>地图</th>
+          <th>地点</th>
+          <th>事件进度</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this}}
+        <!-- 注意：HTML结构稍微调整以支持圆角和样式 -->
+        <tr class="{{#if isCurrent}}current{{/if}}">
+          <td>
+            <div class="time-cell">{{this.time}}</div>
+          </td>
+          <td>
+            <div class="location-tag">{{map}}</div>
+          </td>
+          <td>{{site}}</td>
+          <td>
+            <div class="stage-content">
+              <!-- 状态圆点 -->
+              <span class="status-dot"></span>
+              <span class="stage-text">{{stage}}</span>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </body>
+
 </html>

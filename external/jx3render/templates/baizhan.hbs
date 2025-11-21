@@ -4,191 +4,98 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>百战异闻录</title>
-  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
+  <link href="http://localhost:5140/jx3assets/layui/css/layui.css" rel="stylesheet">
+  <script src="http://localhost:5140/jx3assets/layui/layui.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    body {
+      background-color: #1f2937;
+      width: 1080px;
+      padding: 4px;
     }
 
-    body {
-      margin: 0;
-      font-family: "Microsoft YaHei", "SimSun", sans-serif;
+    .container {
+      color: #c2c3ff;
+      display: flex;
       padding: 20px;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .progress-container {
-      border-radius: 16px;
-      width: 1400px;
-      margin: 0 auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      background: rgba(255, 255, 255, 0.95);
-      overflow: hidden;
-    }
-
-    .header-container {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 30px 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .header-container .header {
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-      letter-spacing: 2px;
-    }
-
-    .header-container .time,
-    .header-container .footer {
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-
-    .progress-list {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
-      gap: 16px;
-      padding: 24px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(240, 240, 250, 0.9));
+      gap: 8px;
+      color: #c2c3ff;
     }
 
     .progress-item {
+      position: relative;
+      border-radius: 10px;
+      background: #373f5f;
+      color: #c2c3ff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      border-radius: 12px;
-      background: rgb(229, 255, 229);
-      height: 150px;
-      padding: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .progress-item::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    .progress-item:hover::before {
-      transform: scaleX(1);
-    }
-
-    .progress-item>div:first-child {
-      font-size: 0.85rem;
-      color: #667eea;
-      font-weight: 600;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      width: 100px;
+      height: 100px;
     }
 
     .progress-item .level {
-      font-size: 16px;
-      font-weight: 500;
-      color: #2d3748;
-      text-align: center;
+      color: #c2c3ff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .progress-item .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #373f5f;
+    }
+
+    .progress-item:nth-child(10n) .icon {
+      border: 2px solid #fff;
+
     }
 
     .progress-item .name {
-      font-size: 22px;
-      font-weight: 700;
-      color: #2d3748;
-      margin: 0;
-      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: #c2c3ff;
     }
 
-    .progress-item .info {
-      font-size: 14px;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .progress-item .text-danger {
-      font-weight: 600;
-      color: #e53e3e;
-      font-size: 0.9rem;
-      padding: 6px 12px;
-      background: rgba(229, 62, 62, 0.1);
-      border-radius: 20px;
-      text-align: center;
-    }
-
-    .progress-item .text-black-50 {
-      color: #718096;
-      font-size: 0.85rem;
-      padding: 6px 12px;
-      background: rgba(113, 128, 150, 0.1);
-      border-radius: 20px;
-    }
-
-    @media (max-width: 1200px) {
-      .progress-list {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
-      }
-
-      .progress-item {
-        height: 130px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      .progress-list {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 10px;
-        padding: 16px;
-      }
-
-      .progress-item {
-        height: 120px;
-        font-size: 0.9rem;
-      }
+    .progress-item .icon img {
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 
 <body>
+  <div class="container">
+    <span>{{formatDate start}} ~ {{formatDate end}}</span>
+    <h2>百战异闻录</h2>
+    <span>剑荡恩仇：{{boss}}</span>
+  </div>
   <div class="progress-container">
-    <div class="header-container">
-      <div class="header text-center h4">百战异闻录</div>
-      <div class="time text-center h6">{{formatDate start}} ~ {{formatDate end}}</div>
-      <div class="footer text-center h6">剑荡恩仇：{{boss}}</div>
-    </div>
-    <div class="progress-list">
-      {{#each data}}
-      <div class="progress-item">
-        <div class="level">{{level}}</div>
-        <div class="name">{{name}}</div>
-        {{#if data.list.length}}
-        <div class="info text-danger">{{data.list}}</div>
-        {{else}}
-        <div class="info text-black-50">免消耗</div>
-        {{/if}}
+    {{#each data}}
+    <div class=" progress-item">
+      <div class="level">{{level}}</div>
+      <div class="icon">
+        <img src="http://localhost:5140/jx3assets/images/baizhan/bosss/{{name}}.png" alt="{{name}}" />
       </div>
-      {{/each}}
+      <div class="name">{{name}}</div>
+      {{#if data.list.length}}
+      <div class="info text-danger">{{data.list}}</div>
+      {{/if}}
     </div>
+    {{/each}}
+  </div>
 
   </div>
 </body>

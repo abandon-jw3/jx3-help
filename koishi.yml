@@ -39,7 +39,6 @@ plugins:
       registry: {}
     notifier:g6bdvu: {}
     oobe:01jmeo: {}
-    sandbox:fg4yjn: {}
     status:ccfiol: {}
     theme-vanilla:yecs3l: {}
   group:storage:
@@ -60,9 +59,14 @@ plugins:
   group:bgk8b7:
     puppeteer:rdco9y:
       defaultViewport:
-        width: 1400
+        width: 720
         deviceScaleFactor: 1
+        height: 360
       ignoreHTTPSErrors: true
+      args:
+        - '--disable-web-security'
+        - '--disable-features=IsolateOrigins,site-per-process'
+    jx3assets:8wh8dw: {}
     jx3render:gdwm18: {}
     instructions:wx7gxe: null
     jx3ws:dsyxdj:
@@ -74,3 +78,4 @@ plugins:
       ticket: ${{env.API_TICKET}}
     $label: 剑网3
   crazy-thursday:gfxpfh: {}
+  ~public:r27bk4: {}
