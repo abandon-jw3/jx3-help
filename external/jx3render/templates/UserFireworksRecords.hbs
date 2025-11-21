@@ -1,105 +1,197 @@
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>角色烟花记录</title>
-  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 40px;
+      color: #333;
+      line-height: 1.5;
+      width: 960px;
+    }
+
+    /* Card Container */
+    .card {
+      width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 32px;
+      background: linear-gradient(to right, #f8f9fa, #ffffff);
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .icon-fireworks {
+      color: #e91e63;
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    thead {
+      background-color: #f8fafc;
+    }
+
+    th {
+      padding: 20px 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 20px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 22px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* Column Specific Styles */
+    .text-time {
+      color: #475569;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 20px;
+    }
+
+    .col-meta {
+      color: #718096;
+      font-size: 20px;
+    }
+
+    .badge-firework {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #fff1f2;
+      color: #e11d48;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 20px;
+      border: 1px solid rgba(225, 29, 72, 0.1);
+    }
+
+    .text-sender {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .text-receiver {
+      color: #059669;
+      font-weight: 600;
+    }
+
+    /* Footer/Bottom Spacing */
+    .footer-space {
+      height: 16px;
+      background: #fff;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container-fluid py-4">
-    <div class="card shadow-sm">
-      <div class="card-header bg-light text-dark">
-        <h4 class="mb-0 text-center">
-          <i class="bi bi-stars"></i>烟花记录
-        </h4>
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped mb-0">
-            <thead class="table-light">
-              <tr>
-                <th scope="col" class="text-center" style="width: 20%;">时间</th>
-                <th scope="col" class="text-center" style="width: 20%;">地图</th>
-                <th scope="col" class="text-center" style="width: 20%;">烟花名称</th>
-                <th scope="col" class="text-center" style="width: 20%;">发送者</th>
-                <th scope="col" class="text-center" style="width: 20%;">接收者</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each this}}
-              <tr>
-                <td class="text-center align-middle">
-                  <small class="text-muted">{{formatTime time}}</small>
-                </td>
-                <td class="text-center align-middle">
-                  <small class="text-muted">{{map_name}}</small>
-                </td>
-                <td class="text-center align-middle">
-                  <span class="badge bg-success fs-5">{{name}}</span>
-                </td>
-                <td class="text-center align-middle">
-                  <strong class="text-primary">{{sender}}</strong>
-                </td>
-                <td class="text-center align-middle">
-                  <strong class="text-success">{{receive}}</strong>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="card">
+    <div class="header">
+      <h1>
+        <!-- SVG Icon for Fireworks -->
+        <svg class="icon-fireworks" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M11.25 2h1.5v4.5h-1.5V2zm5.8 1.7l1.06 1.06-3.18 3.18-1.06-1.06 3.18-3.18zM19.5 9.75v1.5h-4.5V9.75h4.5zm-1.7 5.8l-1.06 1.06-3.18-3.18 1.06-1.06 3.18 3.18zM12 17.25c-2.9 0-5.25-2.35-5.25-5.25S9.1 6.75 12 6.75 17.25 9.1 17.25 12 14.9 17.25 12 17.25zM6.2 16.61l-1.06-1.06 3.18-3.18 1.06 1.06-3.18 3.18zM4.5 12.75h-2.5v-1.5h2.5v1.5zm.64-6.94l1.06-1.06 3.18 3.18-1.06 1.06-3.18-3.18zM12 13.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z" />
+          <path d="M12 20l-2 4h4l-2-4z" />
+        </svg>
+        烟花记录
+      </h1>
     </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%">时间</th>
+            <th style="width: 20%">地图</th>
+            <th style="width: 20%">烟花名称</th>
+            <th style="width: 20%">发送者</th>
+            <th style="width: 20%">接收者</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this}}
+          <tr>
+            <td>
+              <span class="text-time">{{formatTime time}}</span>
+            </td>
+            <td class="col-meta">{{map_name}}</td>
+            <td>
+              <span class="badge-firework">{{name}}</span>
+            </td>
+            <td>
+              <span class="text-sender">{{sender}}</span>
+            </td>
+            <td>
+              <span class="text-receiver">{{receive}}</span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-space"></div>
   </div>
-
-  <style>
-    body {
-      font-family: "Microsoft YaHei", Arial, sans-serif;
-    }
-
-    .card {
-      border-radius: 15px;
-      border: none;
-    }
-
-    .card-header {
-      border-radius: 15px 15px 0 0 !important;
-      padding: 16px;
-    }
-
-    .table {
-      font-size: 24px;
-    }
-
-    .table thead th {
-      font-weight: 600;
-      border-bottom: 2px solid #dee2e6;
-      padding: 16px;
-    }
-
-    .table tbody td {
-      padding: 16px;
-    }
-
-    .table-hover tbody tr:hover {
-      background-color: rgba(102, 126, 234, 0.1);
-    }
-
-    .badge {
-      padding: 0.5rem 0.75rem;
-      font-weight: 500;
-    }
-
-    .card-footer {
-      background-color: #f8f9fa;
-      border-radius: 0 0 15px 15px !important;
-      padding: 1rem;
-    }
-  </style>
 </body>
 
 </html>

@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>百战异闻录</title>
-  <link href="http://localhost:5140/jx3assets/layui/css/layui.css" rel="stylesheet">
-  <script src="http://localhost:5140/jx3assets/layui/layui.js"></script>
   <style>
     body {
       background-color: #1f2937;
@@ -39,6 +37,7 @@
       justify-content: center;
       width: 100px;
       height: 100px;
+      gap: 5px;
     }
 
     .progress-item .level {
@@ -60,12 +59,16 @@
 
     .progress-item:nth-child(10n) .icon {
       border: 2px solid #fff;
-
     }
 
     .progress-item .name {
       font-size: 12px;
       font-weight: bold;
+      color: #c2c3ff;
+    }
+
+    .progress-item .info {
+      font-size: 10px;
       color: #c2c3ff;
     }
 
@@ -84,14 +87,14 @@
   </div>
   <div class="progress-container">
     {{#each data}}
-    <div class=" progress-item">
+    <div class="progress-item">
       <div class="level">{{level}}</div>
       <div class="icon">
         <img src="http://localhost:5140/jx3assets/images/baizhan/bosss/{{name}}.png" alt="{{name}}" />
       </div>
       <div class="name">{{name}}</div>
       {{#if data.list.length}}
-      <div class="info text-danger">{{data.list}}</div>
+      <div class="info">{{data.list}}</div>
       {{/if}}
     </div>
     {{/each}}

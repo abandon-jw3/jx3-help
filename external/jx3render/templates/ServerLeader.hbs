@@ -1,110 +1,226 @@
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>服务器关隘首领</title>
-  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
-  {{!--
-  <link href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css" rel="stylesheet" /> --}}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 40px;
+      color: #333;
+      line-height: 1.5;
+      width: 960px;
+    }
+
+    /* Card Container */
+    .card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 32px;
+      background: linear-gradient(to right, #f8f9fa, #ffffff);
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .header .sub-title {
+      font-size: 18px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-flag {
+      color: #e67e22;
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /* No thead styles needed as there is no thead */
+
+    td {
+      padding: 20px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 20px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* Column Specific Styles */
+    .col-server {
+      font-weight: 700;
+      color: #2c3e50;
+      font-size: 22px;
+      border-right: 1px solid #edf2f7;
+      background-color: #fcfcfc;
+      width: 140px;
+    }
+
+    .cell-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .castle-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .camp-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    .status-active {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .status-inactive {
+      color: #64748b;
+    }
+
+    .time-info {
+      font-size: 16px;
+      color: #94a3b8;
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    /* Footer/Bottom Spacing */
+    .footer-space {
+      height: 16px;
+      background: #fff;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container-fluid py-4">
-    <div class="card shadow-sm">
-      <div class="card-header bg-light text-dark">
-
-        <span>
-          <i class="bi bi-exclamation-triangle"></i>
-          <span>服务器关隘首领</span>
-        </span>
-        <span>
-          <i class="bi bi-globe"></i>
-          <span>{{formatTime time}}</span>
-        </span>
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped mb-0">
-            <tbody>
-              {{#each data}}
-              <tr>
-                <td class="text-center align-middle">
-                  <div>{{server}}</div>
-                </td>
-                {{#each data}}
-                <td class="text-center align-middle">
-                  <div>
-                    <img src="file://{{@root.assetsPath}}/imgs/{{camp_name}}.png" alt="{{camp_name}}" />
-                    {{castle}}
-                  </div>
-                  <div>{{str_status}}</div>
-                  {{#if (eq status 1)}}
-                  <div>{{time start_time}}({{formatInterval start_time}})</div>
-                  {{else}}
-                  <div>{{time end_time}}({{formatInterval end_time}})</div>
-                  {{/if}}
-                </td>
-                {{/each}}
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+  <div class="card">
+    <div class="header">
+      <h1>
+        <!-- SVG Icon for Flag/Leader -->
+        <svg class="icon-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z" />
+        </svg>
+        服务器关隘首领
+      </h1>
+      <div class="sub-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+        </svg>
+        {{formatTime time}}
       </div>
     </div>
+
+    <div class="table-container">
+      <table>
+        <tbody>
+          {{#each data}}
+          <tr>
+            <td class="col-server">
+              {{server}}
+            </td>
+            {{#each data}}
+            <td>
+              <div class="cell-content">
+                <div class="castle-info">
+                  {{#if (eq camp_name '浩气盟')}}
+                  <img class="camp-icon"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAARCAYAAAAyhueAAAADAElEQVQYGW3BT2jXdRzH8efr/f1tQxRCscGsg1FtskNgVNvBiqAgukiHLlER9AfCDlkSHYSE8KKHkIJGUIKdkg6dqutoC4VRdggiC60lgZNBbmr5+31er5xO8NDjoZEn3n5EVU8H9qkbaqpuCLEsdXOqOo3qDFXnpVpF2qSqUVTbpRqnahdoi0p91HWSDiN92SM+ETOLdDatf0Soj3g44gfIk1SQAwpUEYMEKZBzP1V96CB+JWivqHd6cZOUz6jagUU0ANWqFAIWFIIUYJAgBQoErdKCEEgToM9DqNhTibfF3hlC3MDtdGJwez/Nm+P2XOxTxM8Tb8btUGxwfiFR3Ig9TTJKMlUk87Eb9hTxu9hHEoP9O8l7xKuxd+O2M/ZTTruU5CBuZ5IG8Qex9xNPxx7E/q5HbKLjKfoyB1IgM5fiLM5lqhuI+jphVuYYqT5FUjUvs5hij4CYb1R8QZRe4oBGZb5P8RfmZYpHZe5M6QCN4xRHBSNRPlFxX8wzwH7EoqBFfKpiMeYOwIUDdiXtBey9xOfj9mbcLuIcJVmI2x7cZkhejf0j8THivxO/FXs59huxn8WtcKMXrjsoeyliReQCqsMUP8UMVBlAfZiwHWufKo5zl2Ac5RCVZeBioteEZrimQIAAfUzyWOytxMT+KvEg9qnE47FfJ20i9iyx4vYRMbG3xO1x4hnW9fCANQYkzQsRgwpwCmUEMpbKAmabxIZAJ7ExgApIvo0bTVdZo5p6iXWbJJ2kalLqQJpD2qUqUKEqUIdKoEJVJ1BNqzqo+lnoIcgKiB4x6yZCTcoh1e6Rut9Aw0luF9mKs4FqV+JuSZUlQh9yd9x+FdmR6iYJJyFID77IupL0J6rbRDZSPTQ0zBqpkApKoA5VB1VAEFqh6jKqMcBcUySQQFIkYyTnkpBBH9oAqfhfbmAT+w/sUdwKN3CjB2HdIM45FfdyXWj/XqGTUG+YG8SaeMBNkiYTLhAGrOuRcIsHEk8hsSZp+Oo/dN0wFDckQLgpZDfWArf4D1yLEqq3335+AAAAAElFTkSuQmCC"
+                    alt="浩气盟" />
+                  {{else if (eq camp_name '恶人谷')}}
+                  <img class="camp-icon"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAQCAYAAAAS7Y8mAAADI0lEQVR42mSUS0iVQRTHz3z3alg+gsKyh0kPF0UZpT2wcNGDoFUUFFHkIiQig2qTUW5b2sZoYZuiRRgV1CIIW4gQkZBtogckbuxKgtDDq1fvnH5n5jOMPu7cc+Y8/nNeM66zukzsU3HiXGClBCYb+dqMc7WwA7bNJthAWbshOdawGSVIUEnqHr6kGECD0E5oY5UqAlaZFxkpqr717GdZMzCzLH6D2H3FsTzFyaa+i/4CF0Cw5UXzkFFk0/AlADUYoA97WSbx4BJENT6eYQHtjKA6Az8B/1vTQC0DInAVhQCizwG/gNObomgbolveIlfNqagHcJY1yr4SehN9K2sAvoPMen0M1rJw2aJKnRMddupKKcuMOu2mZkMJDhifhc9T8hacjquqy4jbq05+AD5EUzqcyn6C67P+IMtg/xPgTQZ8IeMsfG3w4rbDbIHPS2xmD5rXHNrPQd04rPBOlkA34PLQGoHNYcCOcMAnDuwna8/+apZUrpDuZ4TZRPWOWQIilEISDX0+QRadFHKzdd/k4B0z3n6JyiX0lJFAVJqp7TvATyeE/4s0KwBfAO31oZHyETKZ8ifR7QrTIDYR2gjbGnmZQv+hGPvzDJJFthQ6laDoxriGOAoIH1m3qe0h6r3Kh8bqOnQtxcCHMWxGXh8nRldDD4RJUHnCfhp+DbL7ZCJ3I4AcNAMf/cdo1AS0OtXVxQOtRLLWMoFdDhkHbNzGG52N4J6QiTAAAHwxIACu4bASYXlIxWZG5TvONrfnkG2kvutxvgg4keqYi1eWTLUCmyrWdfRMjLzPWgdw3gr5hvM++C4fum1NVFPnmIpKmjKoMf0qNWdQM2mjLRByaBJ1i7GvS6+iFUByjGgXxgslpinMm2SCgQNAtyGu1wjUCOYru+KTXJmyJMyHuY2TYo96GZm74+mnlwEvk3SM0sfGArLb107ER8mEqXJ9HHgbRTt19fYclIZ74G7wl9e5t0L+/fLz+CYbZ+raTu3OwD9mPQX8FDU+b33kgB2z6Vsj4VLNe93kvy/OFORFMabIQ6P35hk8ALypGCfopZkW0lGa/2z+EWAAWvv2iQcw3kwAAAAASUVORK5CYII="
+                    alt="恶人谷" />
+                  {{/if}}
+                  <span>{{castle}}</span>
+                </div>
+
+                <div class="{{#if (eq status 1)}}status-active{{else}}status-inactive{{/if}}">
+                  {{str_status}}
+                </div>
+
+                <div class="time-info">
+                  {{#if (eq status 1)}}
+                  {{time start_time}} ({{formatInterval start_time}})
+                  {{else}}
+                  {{time end_time}} ({{formatInterval end_time}})
+                  {{/if}}
+                </div>
+              </div>
+            </td>
+            {{/each}}
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-space"></div>
   </div>
-
-  <style>
-    body {
-      font-family: "Microsoft YaHei", Arial, sans-serif;
-    }
-
-    .card {
-      border-radius: 15px;
-      border: none;
-    }
-
-    .card-header {
-      border-radius: 15px 15px 0 0 !important;
-      padding: 16px;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      font-size: 22px;
-    }
-
-    .table {
-      font-size: 22px;
-    }
-
-    .table thead th {
-      font-weight: 600;
-      border-bottom: 2px solid #dee2e6;
-      padding: 16px;
-    }
-
-    .table tbody td {
-      padding: 16px;
-    }
-
-    .table-hover tbody tr:hover {
-      background-color: rgba(102, 126, 234, 0.1);
-    }
-
-    .badge {
-      padding: 0.5rem 0.75rem;
-      font-weight: 500;
-    }
-
-    .card-footer {
-      background-color: #f8f9fa;
-      border-radius: 0 0 15px 15px !important;
-      padding: 1rem;
-    }
-  </style>
 </body>
 
 </html>

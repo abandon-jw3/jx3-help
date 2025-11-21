@@ -2,6 +2,7 @@ import { Command, Context } from "koishi";
 import dayjs from "dayjs";
 import { ArgParser, serverList } from "../tools";
 import isoWeek from "dayjs/plugin/isoWeek";
+import fs from "fs";
 dayjs.extend(isoWeek);
 export const name = "instructions-commands";
 export interface Config {}
@@ -289,6 +290,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .alias("的卢记录")
     .action(async ({ session }, server) => {
       const res = await ctx.jx3api.getDiluRecords({ server });
+
       if (!(Array.isArray(res.data) && res.data.length)) return <p>查询的卢记录失败</p>;
       const screenshot = await ctx.jx3render.render("DiluRecord", res.data, `DiluRecord-${server}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
@@ -339,6 +341,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const server = parser.tryMatch("server", serverList);
     const name = parser.getRemaining()[0] || "";
     const res = await ctx.jx3api.getLuckStatistical({ server, name });
+
     if (res.msg !== "success") return <p>{res.msg}</p>;
     const screenshot = await ctx.jx3render.render("ServerQiyuRecord", res.data, `ServerQiyuRecord-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
@@ -407,7 +410,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       const parser = new ArgParser(arg);
       const server = parser.tryMatch("server", serverList);
       const keyword = parser.getRemaining()[0] || "";
-      if (!server || !keyword) return <p>请输入服务器和关键词</p>;
+      if (!server) return <p>请输入服务器和关键词</p>;
       const res = await ctx.jx3api.getMemberTeacher({ server, keyword });
       if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到师父信息</p>;
       const screenshot = await ctx.jx3render.render("MemberTeacher", res.data, `MemberTeacher-${server}`, false);
@@ -419,7 +422,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     const parser = new ArgParser(arg);
     const server = parser.tryMatch("server", serverList);
     const keyword = parser.getRemaining()[0] || "";
-    if (!server || !keyword) return <p>请输入服务器和关键词</p>;
+    if (!server) return <p>请输入服务器和关键词</p>;
     const res = await ctx.jx3api.getMemberStudent({ server, keyword });
     if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到徒弟信息</p>;
     const screenshot = await ctx.jx3render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
@@ -487,7 +490,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx.command("奇穴 [name]", "查询心法奇穴信息").action(async ({ session }, name) => {
     const res = await ctx.jx3api.getSchoolForce({ name });
     if (res.msg !== "success") return <p>{res.msg}</p>;
-
     const screenshot = await ctx.jx3render.render("SchoolForce", { ...res, name }, `SchoolForce-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
@@ -531,12 +533,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
     // return <img src={"data:image/png;base64," + screenshot} />;
   });
   ctx.command("属性 [server] [name]", "查询角色属性信息").action(async ({ session }, server, name) => {
-    return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
-
     const res = await ctx.jx3api.getRoleAttribute({ server, name });
     if (res.msg !== "success") return <>{res.msg}</>;
-    // const screenshot = await ctx.jx3render.render("RoleAttribute", { ...res, name, role, server }, `RoleAttribute-${server}-${name}`, false);
-    // return <img src={"data:image/png;base64," + screenshot} />;
+    const screenshot = await ctx.jx3render.render("RoleAttribute", res.data, `RoleAttribute-${server}-${name}`, false);
+    return <img src={"data:image/png;base64," + screenshot} />;
   });
 
   //心法阵眼

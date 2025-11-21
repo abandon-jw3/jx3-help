@@ -1,101 +1,114 @@
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>角色奇遇记录</title>
-  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
-</head>
-
-<body>
-  <div class="container-fluid py-4">
-    <div class="card shadow-sm">
-      <div class="card-header bg-light text-dark">
-        <h4 class="mb-0 text-center">
-          <i class="bi bi-stars"></i>角色奇遇记录
-        </h4>
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped mb-0">
-            <thead class="table-light">
-              <tr>
-                <th scope="col" class="text-center" style="width: 120px;">服务器</th>
-                <th scope="col" class="text-center" style="width: 120px;">角色名称</th>
-                <th scope="col" class="text-center" style="width: 120px;">奇遇</th>
-                <th scope="col" class="text-center" style="width: 220px;">时间</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each this}}
-              <tr>
-                <td class="text-center align-middle">
-                  <div>{{server}}</div>
-                </td>
-                <td class="text-center align-middle">
-                  <div class="text-info">{{name}}</div>
-                </td>
-                <td class="text-center align-middle">
-                  <div class="text-success">{{event}}</div>
-                </td>
-                <td class="text-center align-middle">
-                  <div>{{formatTime time}}</div>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: "Microsoft YaHei", Arial, sans-serif;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #f0f2f5;
+
+    }
+
+    .container {
+      width: 1080px;
+      box-sizing: border-box;
+      padding: 0 18px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .header h1::before,
+    .header h1::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #333, transparent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
     }
 
     .card {
-      border-radius: 15px;
-      border: none;
+      background: #fff;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(0, 0, 0, 0.02);
     }
 
-    .card-header {
-      border-radius: 15px 15px 0 0 !important;
-      padding: 16px;
+    .qiyu-img {
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .table {
-      font-size: 24px;
+    .qiyu-img img {
+
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     }
 
-    .table thead th {
-      font-weight: 600;
-      border-bottom: 2px solid #dee2e6;
-      padding: 16px;
-    }
-
-    .table tbody td {
-      padding: 16px;
-    }
-
-    .table-hover tbody tr:hover {
-      background-color: rgba(102, 126, 234, 0.1);
-    }
-
-    .badge {
-      padding: 0.5rem 0.75rem;
-      font-weight: 500;
-    }
-
-    .card-footer {
-      background-color: #f8f9fa;
-      border-radius: 0 0 15px 15px !important;
-      padding: 1rem;
+    .time {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      background-color: #e9ecef;
+      padding: 8px 20px;
+      border-radius: 24px;
+      white-space: nowrap;
     }
   </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>角色奇遇记录</h1>
+    </div>
+    <div class="grid">
+      {{#each this}}
+      <div class="card">
+        <div class="qiyu-img">
+          <img src="http://localhost:5140/jx3assets/images/qiyu/{{event}}.png" alt="{{event}}">
+        </div>
+        <div class="time">{{default (formatTime time) "太久啦！已经忘记了！"}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
 </body>
 
 </html>

@@ -1,112 +1,189 @@
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>副本记录</title>
-
-  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
-</head>
-
-<body>
-  <div class="container-fluid py-4">
-    <div class="card shadow-sm">
-      <div class="card-header bg-light text-dark">
-        <span>
-          <i class="bi bi-house-heart-fill"></i>
-          <span>服务器：{{serverName}}</span>
-        </span>
-        <span>
-          <i class="bi bi-grid-3x3-gap-fill"></i>
-          <span>副本记录</span>
-        </span>
-        <span>
-          <i class="bi bi-emoji-sunglasses-fill"></i>
-          <span>{{roleName}}</span>
-        </span>
-      </div>
-    </div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-hover table-striped mb-0 w-100">
-          <thead class="table-light w-100">
-            <tr>
-              <th scope="col" class="text-center" style="width: 20%;">副本名称</th>
-              <th scope="col" class="text-center" style="width: 80%;">进度</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
-            <tr>
-              <td class="text-center align-middle">
-                <div>{{mapName}}-{{mapType}}</div>
-              </td>
-              <td class="text-center align-middle">
-                <div>
-                  {{#each bossProgress}}
-                  <span class="badge {{#if finished}}bg-success{{else}}bg-warning{{/if}}">{{name}}</span>
-                  {{/each}}
-                </div>
-              </td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  </div>
-
   <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: "Microsoft YaHei", Arial, sans-serif;
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 18px;
+      color: #333;
+      line-height: 1.5;
+      width: 960px;
     }
 
+    /* Card Container */
     .card {
-      border-radius: 15px;
-      border: none;
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
     }
 
-    .card-header {
-      border-radius: 15px 15px 0 0 !important;
-      padding: 16px;
+    /* Header */
+    .header {
+      padding: 24px 32px;
+      background: linear-gradient(to right, #f8f9fa, #ffffff);
+      border-bottom: 1px solid #eaeaea;
       display: flex;
-      justify-content: space-evenly;
       align-items: center;
-      font-size: 22px;
+      justify-content: center;
     }
 
-    .table {
-      font-size: 24px;
-    }
-
-    .table thead th {
+    .header h1 {
+      font-size: 28px;
       font-weight: 600;
-      border-bottom: 2px solid #dee2e6;
-      padding: 16px;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
     }
 
-    .table tbody td {
-      padding: 16px;
+    .icon-dungeon {
+      color: #e74c3c;
+      width: 32px;
+      height: 32px;
     }
 
-    .table-hover tbody tr:hover {
-      background-color: rgba(102, 126, 234, 0.1);
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
     }
 
-    .badge {
-      padding: 0.5rem 0.75rem;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    thead {
+      background-color: #f8fafc;
+    }
+
+    th {
+      padding: 20px 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 20px 16px;
+      vertical-align: middle;
+      font-size: 20px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* Column Specific Styles */
+    .col-map {
+      font-weight: 600;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .progress-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .boss-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 16px;
       font-weight: 500;
     }
 
-    .card-footer {
-      background-color: #f8f9fa;
-      border-radius: 0 0 15px 15px !important;
-      padding: 1rem;
+    .boss-finished {
+      background-color: #ecfdf5;
+      color: #059669;
+      border: 1px solid rgba(5, 150, 105, 0.2);
+    }
+
+    .boss-pending {
+      background-color: #fffbeb;
+      color: #d97706;
+      border: 1px solid rgba(217, 119, 6, 0.2);
+    }
+
+    /* Footer/Bottom Spacing */
+    .footer-space {
+      height: 16px;
+      background: #fff;
     }
   </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>
+        <!-- SVG Icon for Dungeon/Grid -->
+        <svg class="icon-dungeon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z" />
+        </svg>
+        {{serverName}} {{roleName}} 副本记录
+      </h1>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%">副本名称</th>
+            <th style="width: 80%">进度</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data}}
+          <tr>
+            <td class="col-map">{{mapName}}-{{mapType}}</td>
+            <td>
+              <div class="progress-container">
+                {{#each bossProgress}}
+                <span class="boss-badge {{#if finished}}boss-finished{{else}}boss-pending{{/if}}">
+                  {{name}}
+                </span>
+                {{/each}}
+              </div>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-space"></div>
+  </div>
 </body>
 
 </html>

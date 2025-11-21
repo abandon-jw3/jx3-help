@@ -1,105 +1,245 @@
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>服务器烟花记录</title>
-  <link href="file://{{assetsPath}}/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="file://{{assetsPath}}/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="file://{{assetsPath}}/bootstrap-icons-1.13.1/bootstrap-icons.min.css">
-</head>
-
-<body>
-  <div class="container-fluid py-4">
-    <div class="card shadow-sm">
-      <div class="card-header bg-light text-dark">
-        <h4 class="mb-0 text-center">
-          <i class="bi bi-stars"></i>烟花记录
-        </h4>
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped mb-0">
-            <thead class="table-light">
-              <tr>
-                <th scope="col" class="text-center" style="width: 20%;">时间</th>
-                <th scope="col" class="text-center" style="width: 20%;">地图</th>
-                <th scope="col" class="text-center" style="width: 20%;">烟花名称</th>
-                <th scope="col" class="text-center" style="width: 20%;">发送者</th>
-                <th scope="col" class="text-center" style="width: 20%;">接收者</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each this}}
-              <tr>
-                <td class="text-center align-middle">
-                  <small class="text-muted">{{formatTime time}}</small>
-                </td>
-                <td class="text-center align-middle">
-                  <small class="text-muted">{{map_name}}</small>
-                </td>
-                <td class="text-center align-middle">
-                  <span class="badge bg-success fs-5">{{name}}</span>
-                </td>
-                <td class="text-center align-middle">
-                  <strong class="text-primary">{{sender}}</strong>
-                </td>
-                <td class="text-center align-middle">
-                  <strong class="text-success">{{receive}}</strong>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <title>服务器烟花统计</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: "Microsoft YaHei", Arial, sans-serif;
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #fff5f7;
+      padding: 40px;
+      color: #333;
+      line-height: 1.5;
+      width: 1440px;
+      margin: 0 auto;
     }
 
-    .card {
-      border-radius: 15px;
-      border: none;
+    .main-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(244, 63, 94, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 600px;
     }
 
-    .card-header {
-      border-radius: 15px 15px 0 0 !important;
-      padding: 16px;
+    .header {
+      padding: 24px 32px;
+      background: linear-gradient(to right, #fff0f5, #ffffff);
+      border-bottom: 1px solid #fce7f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .table {
-      font-size: 24px;
-    }
-
-    .table thead th {
+    .header h1 {
+      font-size: 28px;
       font-weight: 600;
-      border-bottom: 2px solid #dee2e6;
-      padding: 16px;
+      color: #831843;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
     }
 
-    .table tbody td {
-      padding: 16px;
+    .icon-star {
+      color: #f472b6;
+      width: 32px;
+      height: 32px;
     }
 
-    .table-hover tbody tr:hover {
-      background-color: rgba(102, 126, 234, 0.1);
+    .content-area {
+      padding: 32px;
+      flex: 1;
     }
 
-    .badge {
-      padding: 0.5rem 0.75rem;
-      font-weight: 500;
+    .record-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .record-item {
+      background: #fff;
+      border: 1px solid #fce7f3;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .record-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(236, 72, 153, 0.1);
+      border-color: #fbcfe8;
+    }
+
+    .record-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #f472b6, #fb7185);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .record-item:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .firework-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #be185d;
+      background-color: #fce7f3;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(190, 24, 93, 0.1);
+    }
+
+    .firework-count {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: Consolas, Monaco, monospace;
+      color: #9333ea;
+      background: #f3e8ff;
+      padding: 4px 12px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+
+    .card-people {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #fff9fc;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #fdf2f8;
+    }
+
+    .person-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+    }
+
+    .label {
+      color: #9d174d;
+      font-size: 14px;
+      width: 40px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .person-name {
+      font-weight: 600;
+      color: #701a75;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .arrow-divider {
+      text-align: center;
+      color: #f472b6;
+      font-size: 14px;
+      line-height: 1;
     }
 
     .card-footer {
-      background-color: #f8f9fa;
-      border-radius: 0 0 15px 15px !important;
-      padding: 1rem;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px dashed #fbcfe8;
+      text-align: right;
+    }
+
+    .time-tag {
+      font-size: 16px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .time-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      color: #f472b6;
     }
   </style>
+</head>
+
+<body>
+  <div class="main-card">
+    <div class="header">
+      <h1>
+        <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        烟花统计
+      </h1>
+    </div>
+
+    <div class="content-area">
+      <div class="record-grid">
+        {{#each this}}
+        <div class="record-item">
+          <div class="card-top">
+            <span class="firework-name">{{name}}</span>
+            <span class="firework-count">x{{count}}</span>
+          </div>
+
+          <div class="card-people">
+            <div class="person-row">
+              <span class="label">赠：</span>
+              <span class="person-name">{{sender}}</span>
+            </div>
+            <div class="person-row">
+              <span class="label">予：</span>
+              <span class="person-name">{{receive}}</span>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <span class="time-tag">
+              <svg class="time-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+              </svg>
+              {{formatTime time}}
+            </span>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

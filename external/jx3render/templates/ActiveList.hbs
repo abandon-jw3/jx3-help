@@ -4,76 +4,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="http://localhost:5140/jx3assets/layui/css/layui.css" rel="stylesheet">
-  <script src="http://localhost:5140/jx3assets/layui/layui.js"></script>
   <title>活动日历</title>
   <style>
+    :root {
+      --bg-color: #f6f8fa;
+      --card-bg: #ffffff;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --accent-war: #e74c3c;
+      --accent-battle: #e67e22;
+      --accent-school: #27ae60;
+      --border-color: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+    }
+
     .container {
-      width: 1440px;
+      width: 1400px;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow-md);
     }
 
-    .calendar-grid,
-    .title-week {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-    }
-
-    .layui-panel {
-      padding: 20px;
+    .calendar-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .calendar-title {
-      text-align: center;
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 1px;
     }
 
+    .week-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
 
-
-    .title-week .day-number {
+    .week-day {
       text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 10px 0;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      box-sizing: border-box;
     }
 
     .calendar-item {
-      border-radius: 10px;
-      padding: 10px;
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+
+    .calendar-item.empty {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .date-header {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 8px;
+    }
+
+    .date-week {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: normal;
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .activity-row {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      min-width: 40px;
+      flex-shrink: 0;
+    }
+
+    .badge.war {
+      background-color: var(--accent-war);
+    }
+
+    .badge.battle {
+      background-color: var(--accent-battle);
+    }
+
+    .badge.school {
+      background-color: var(--accent-school);
+    }
+
+    .activity-text {
+      color: #555;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   </style>
 </head>
 
 <body>
-  <div class="layui-panel container">
-    <h2 class="calendar-title">活动日历</h2>
-    <br>
-    <div class="title-week">
-      <div class="day-number">星期一</div>
-      <div class="day-number">星期二</div>
-      <div class="day-number">星期三</div>
-      <div class="day-number">星期四</div>
-      <div class="day-number">星期五</div>
-      <div class="day-number">星期六</div>
-      <div class="day-number">星期日</div>
+  <div class="container">
+    <div class="calendar-header">
+      <h2 class="calendar-title">活动日历</h2>
     </div>
+
+    <div class="week-header">
+      <div class="week-day">星期一</div>
+      <div class="week-day">星期二</div>
+      <div class="week-day">星期三</div>
+      <div class="week-day">星期四</div>
+      <div class="week-day">星期五</div>
+      <div class="week-day">星期六</div>
+      <div class="week-day">星期日</div>
+    </div>
+
     <div class="calendar-grid">
       {{#each data}}
       {{#if this}}
-      <div class="layui-panel calendar-item">
-        <div class="">{{date}}&nbsp;星期{{week}}</div>
-        {{#if war}}
-        <div class="">大战: {{war}}</div>
-        {{/if}}
-        {{#if battle}}
-        <div class="">战场: {{battle}}</div>
-        {{/if}}
-        {{#if school}}
-        <div class="">宗门: {{school}}</div>
-        {{/if}}
+      <div class="calendar-item">
+        <div class="date-header">
+          {{date}}
+          <span class="date-week">星期{{week}}</span>
+        </div>
+
+        <div class="activity-list">
+          {{#if war}}
+          <div class="activity-row">
+            <span class="badge war">大战</span>
+            <span class="activity-text">{{war}}</span>
+          </div>
+          {{/if}}
+
+          {{#if battle}}
+          <div class="activity-row">
+            <span class="badge battle">战场</span>
+            <span class="activity-text">{{battle}}</span>
+          </div>
+          {{/if}}
+
+          {{#if school}}
+          <div class="activity-row">
+            <span class="badge school">门派</span>
+            <span class="activity-text">{{school}}</span>
+          </div>
+          {{/if}}
+        </div>
       </div>
       {{else}}
-      <div>
-      </div>
+      <div class="calendar-item empty"></div>
       {{/if}}
-
-
       {{/each}}
     </div>
   </div>
