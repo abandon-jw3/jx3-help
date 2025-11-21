@@ -16,6 +16,7 @@ export interface ActiveCalendar extends JX3APIResponse {
     luck: string[];
     card: string[];
     team: string[];
+    draw: string;
   };
 }
 

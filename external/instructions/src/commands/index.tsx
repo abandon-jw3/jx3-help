@@ -30,13 +30,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
           <p>福源宠物：{res.data.luck.join(";")}</p>
           {["二", "四"].includes(res.data.week) ? <p>小攻防：20:00-22:00</p> : null}
           {["六", "日"].includes(res.data.week) ? <p>大攻防：13:00-15:00,17:00-19:00</p> : null}
+          {res.data.draw ? <p>美人画像：{res.data.draw} </p> : null}
           <br />
           <p>家园声望·加倍道具</p>
           <p>{res.data.card.join(";")}</p>
           <p>武林通鉴·公共任务</p>
           <p>{res.data.team[0]}</p>
-          <p>武林通鉴·秘境任务</p>
-          <p>{res.data.team[1]}</p>
           <p>武林通鉴·团队秘境</p>
           <p>{res.data.team[2]}</p>
         </>
