@@ -1,6 +1,5 @@
 plugins:
   group:server:
-    $collapsed: true
     server:77kuvb:
       port: 5140
       maxPort: 5149
@@ -55,7 +54,8 @@ plugins:
   group:develop:
     $if: env.NODE_ENV === 'development'
     hmr:1phdm8:
-      root: .
+      root:
+        - .
   group:bgk8b7:
     puppeteer:rdco9y:
       defaultViewport:
@@ -78,4 +78,3 @@ plugins:
       ticket: ${{env.API_TICKET}}
     $label: 剑网3
   crazy-thursday:gfxpfh: {}
-  ~public:r27bk4: {}

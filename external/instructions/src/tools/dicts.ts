@@ -32,3 +32,5 @@ export const serverList = [
   "飞龙在天",
   "青梅煮酒",
 ];
+
+export const jjcModel = ["22", "33", "55"];

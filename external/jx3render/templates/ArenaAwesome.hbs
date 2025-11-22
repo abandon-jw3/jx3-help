@@ -1,0 +1,230 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>名剑大会排行</title>
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 18px;
+      color: #333;
+      line-height: 1.5;
+      width: 960px;
+    }
+
+    /* Card Container */
+    .card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 32px;
+      background: linear-gradient(to right, #f8f9fa, #ffffff);
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+    }
+
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    thead {
+      background-color: #f8fafc;
+    }
+
+    th {
+      padding: 20px 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 20px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 22px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* Column Specific Styles */
+    .col-rank {
+      font-weight: 700;
+      font-size: 24px;
+      color: #718096;
+    }
+
+    .rank-1 {
+      color: #e67e22;
+      font-size: 28px;
+    }
+
+    .rank-2 {
+      color: #95a5a6;
+      font-size: 26px;
+    }
+
+    .rank-3 {
+      color: #d35400;
+      font-size: 25px;
+    }
+
+    .col-player {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid #eaeaea;
+    }
+
+    .player-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+
+    .role-name {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 20px;
+    }
+
+    .force-name {
+      font-size: 14px;
+      color: #718096;
+    }
+
+    .text-server {
+      color: #718096;
+      font-size: 20px;
+    }
+
+    .text-score {
+      font-weight: 600;
+      color: #9b59b6;
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    .text-winrate {
+      color: #27ae60;
+      font-weight: 500;
+    }
+
+    .text-up {
+      font-size: 18px;
+      color: #e74c3c;
+    }
+
+    /* Footer/Bottom Spacing */
+    .footer-space {
+      height: 16px;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>
+        ⚔️ 名剑大会排行
+      </h1>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 10%">排名</th>
+            <th style="width: 30%">选手</th>
+            <th style="width: 20%">服务器</th>
+            <th style="width: 15%">积分</th>
+            <th style="width: 15%">胜率</th>
+            <th style="width: 10%">变动</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this}}
+          <tr>
+            <td class="col-rank rank-{{rankNum}}">{{rankNum}}</td>
+            <td>
+              <div class="col-player">
+                <img src="{{avatarUrl}}" class="avatar" alt="avatar" referrerpolicy="no-referrer" />
+                <div class="player-info">
+                  <span class="role-name">{{roleName}}</span>
+                  <span class="force-name">{{forceName}}</span>
+                </div>
+              </div>
+            </td>
+            <td class="text-server">{{serverName}}</td>
+            <td class="text-score">{{score}}</td>
+            <td class="text-winrate">{{winRate}}</td>
+            <td class="text-up">{{#if upNum}}↑{{upNum}}{{else}}-{{/if}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-space"></div>
+  </div>
+</body>
+
+</html>

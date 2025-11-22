@@ -1411,16 +1411,16 @@ export interface ArchivedPendantParams {
 // 宠物出现记录
 export interface ArchivedPetEvent extends JX3APIResponse {
   data: Array<{
-    zone: string;
-    server: string;
-    name: string;
+    zone: string; //区服
+    server: string; //服务器
+    name: string; //宠物名称
     data: {
-      npc_name: string;
-      map_name: string;
+      npc_name: string; //触发NPC名称
+      map_name: string; //地图名称
       min_time: number;
       max_time: number;
     };
-    time: number;
+    time: number; //触发时间
   }>;
 }
 
@@ -1432,20 +1432,20 @@ export interface ArchivedPetEventParams {
 export interface ArenaAwesome extends JX3APIResponse {
   data: Array<{
     zoneName: string;
-    serverName: string;
-    roleName: string;
-    forceName: string;
-    avatarUrl: string;
-    rankNum: string;
-    score: string;
-    upNum: string;
-    winRate: string;
+    serverName: string; //服务器名称
+    roleName: string; //角色名称
+    forceName: string; //门派
+    avatarUrl: string; //头像URL
+    rankNum: string; //排名
+    score: string; //积分
+    upNum: string; //上升名次
+    winRate: string; //胜率
   }>;
 }
 
 export interface ArenaAwesomeParams {
-  mode?: number;
-  limit?: number;
+  mode?: number | string;
+  limit?: number | string;
   ticket?: string;
 }
 

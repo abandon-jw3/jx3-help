@@ -770,7 +770,7 @@ export class JX3_api_service extends Service {
   }
 
   /**
-   * 统计角色近期的名剑战绩数据
+   * 统计门派名剑大会表现
    * @param data.mode 比赛模式，默认33
    * @param data.ticket 推栏ticket
    */

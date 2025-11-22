@@ -1,0 +1,169 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宠物触发记录</title>
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 18px;
+      color: #333;
+      line-height: 1.5;
+      width: 960px;
+    }
+
+    /* Card Container */
+    .card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 32px;
+      background: linear-gradient(to right, #f8f9fa, #ffffff);
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+    }
+
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    thead {
+      background-color: #f8fafc;
+    }
+
+    th {
+      padding: 20px 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 20px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 22px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* Column Specific Styles */
+    .col-meta {
+      color: #718096;
+      font-size: 20px;
+    }
+
+    .text-event {
+      font-weight: 600;
+      color: #9b59b6;
+    }
+
+    .text-info {
+      color: #2c3e50;
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    .text-time {
+      color: #475569;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 20px;
+    }
+
+    /* Footer/Bottom Spacing */
+    .footer-space {
+      height: 16px;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>
+        🐾 宠物触发记录
+      </h1>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%">服务器</th>
+            <th style="width: 20%">宠物</th>
+            <th style="width: 20%">地图</th>
+            <th style="width: 20%">NPC</th>
+            <th style="width: 25%">时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this}}
+          <tr>
+            <td class="col-meta">{{server}}</td>
+            <td class="text-event">{{name}}</td>
+            <td class="text-info">{{data.map_name}}</td>
+            <td class="text-info">{{data.npc_name}}</td>
+            <td>
+              <span class="text-time">{{formatInterval time}}</span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-space"></div>
+  </div>
+</body>
+
+</html>

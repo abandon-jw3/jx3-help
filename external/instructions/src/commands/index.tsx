@@ -1,6 +1,6 @@
 import { Command, Context } from "koishi";
 import dayjs from "dayjs";
-import { ArgParser, serverList } from "../tools";
+import { ArgParser, serverList, jjcModel } from "../tools";
 import isoWeek from "dayjs/plugin/isoWeek";
 import fs from "fs";
 dayjs.extend(isoWeek);
@@ -672,4 +672,48 @@ export function instructionsCommands(ctx: Context, config: Config) {
       return <p>{res.data[0].server} 梅花桩试炼已开始</p>;
     }
   });
+
+  //查询挂件信息
+  ctx.command("挂件 [name] ", "查询挂件信息").action(async ({ session }, name) => {
+    const res = await ctx.jx3api.getArchivedPendant({ name });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    return (
+      <>
+        {res.data.map((item) => (
+          <>
+            <p>名称：{item.name}</p>
+            <p>描述：{item.desc}</p>
+            <p>来源：{item.source}</p>
+            <p>类型：{item.class}</p>
+            <br />
+          </>
+        ))}
+      </>
+    );
+  });
+
+  //查询服务器宠物记录
+  ctx.command("蹲宠 [server]", "查询服务器宠物记录").action(async ({ session }, server) => {
+    const res = await ctx.jx3api.getArchivedPetEvent({ server });
+    if (res.msg !== "success") return <>{res.msg}</>;
+    const screenshot = await ctx.jx3render.render("ArchivedPetEvent", res.data, `ArchivedPetEvent-${server}`, false);
+    return (
+      <>
+        <p>蹲宠：{server}</p>
+        <img src={"data:image/png;base64," + screenshot} />
+      </>
+    );
+  });
+
+  //查询名剑大会排行榜
+  ctx
+    .command("名剑排行 [mode]", "查询名剑大会排行榜")
+    .alias("jjc排行")
+    .action(async ({ session }, mode) => {
+      const res = await ctx.jx3api.getArenaAwesome({ mode, limit: 50 });
+
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("ArenaAwesome", res.data, `ArenaAwesome-${mode}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
 }
