@@ -625,24 +625,27 @@ export function instructionsCommands(ctx: Context, config: Config) {
   });
 
   //金价比例
-  ctx.command("金价比例 [server]", "查询服务器金价比例信息").action(async ({ session }, server) => {
-    const res = await ctx.jx3api.getTradeDemon({ server, limit: 1 });
-    if (res.msg !== "success") return <>{res.msg}</>;
-    return (
-      <>
-        {res.data.map((item) => (
-          <>
-            <p>
-              {item.server} {item.date}
-            </p>
-            <p>万宝楼：{item.wanbaolou}</p>
-            <p>贴&nbsp;&nbsp;吧：{item.tieba}</p>
-            <p>dd373：{item.dd373}</p>
-          </>
-        ))}
-      </>
-    );
-  });
+  ctx
+    .command("金价比例 [server]", "查询服务器金价比例信息")
+    .alias("金价")
+    .action(async ({ session }, server) => {
+      const res = await ctx.jx3api.getTradeDemon({ server, limit: 1 });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      return (
+        <>
+          {res.data.map((item) => (
+            <>
+              <p>
+                {item.server} {item.date}
+              </p>
+              <p>万宝楼：{item.wanbaolou}</p>
+              <p>贴&nbsp;吧：{item.tieba}</p>
+              <p>dd373：{item.dd373}</p>
+            </>
+          ))}
+        </>
+      );
+    });
 
   //骚话
   ctx.command("骚话", "查询骚话随机信息").action(async ({ session }) => {
@@ -711,7 +714,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .alias("jjc排行")
     .action(async ({ session }, mode) => {
       const res = await ctx.jx3api.getArenaAwesome({ mode, limit: 50 });
-
       if (res.msg !== "success") return <>{res.msg}</>;
       const screenshot = await ctx.jx3render.render("ArenaAwesome", res.data, `ArenaAwesome-${mode}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;

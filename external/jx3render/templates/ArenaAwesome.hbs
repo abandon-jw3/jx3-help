@@ -18,12 +18,12 @@
       padding: 18px;
       color: #333;
       line-height: 1.5;
-      width: 960px;
+      width: 1080px;
     }
 
     /* Card Container */
     .card {
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
       background: #ffffff;
       border-radius: 16px;
@@ -123,7 +123,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .avatar {
@@ -134,22 +134,17 @@
       border: 2px solid #eaeaea;
     }
 
-    .player-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      line-height: 1.2;
-    }
-
     .role-name {
       font-weight: 600;
       color: #2c3e50;
       font-size: 20px;
     }
 
-    .force-name {
-      font-size: 14px;
-      color: #718096;
+    .text-force img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
     }
 
     .text-server {
@@ -194,10 +189,11 @@
         <thead>
           <tr>
             <th style="width: 10%">排名</th>
-            <th style="width: 30%">选手</th>
-            <th style="width: 20%">服务器</th>
-            <th style="width: 15%">积分</th>
-            <th style="width: 15%">胜率</th>
+            <th style="width: 35%">选手</th>
+            <th style="width: 10%">门派</th>
+            <th style="width: 15%">服务器</th>
+            <th style="width: 10%">积分</th>
+            <th style="width: 10%">胜率</th>
             <th style="width: 10%">变动</th>
           </tr>
         </thead>
@@ -208,11 +204,11 @@
             <td>
               <div class="col-player">
                 <img src="{{avatarUrl}}" class="avatar" alt="avatar" referrerpolicy="no-referrer" />
-                <div class="player-info">
-                  <span class="role-name">{{roleName}}</span>
-                  <span class="force-name">{{forceName}}</span>
-                </div>
+                <span class="role-name">{{roleName}}</span>
               </div>
+            </td>
+            <td class="text-force">
+              <img src="http://localhost:5140/jx3assets/images/xinfa/{{forceName}}.png" alt="{{forceName}}" srcset="">
             </td>
             <td class="text-server">{{serverName}}</td>
             <td class="text-score">{{score}}</td>
