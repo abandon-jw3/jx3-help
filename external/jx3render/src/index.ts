@@ -57,6 +57,24 @@ export class RenderService extends Service {
     handlebars.registerHelper("default", function (value, defaultValue) {
       return value || defaultValue;
     });
+
+    handlebars.registerHelper("json", function (value) {
+      return JSON.stringify(value);
+    });
+
+    handlebars.registerHelper("tradeType", function (value) {
+      const map = {
+        "1": "出售",
+        "2": "收购",
+        "3": "想出",
+        "4": "想收",
+        "5": "成交",
+        "6": "正出",
+        "7": "公示",
+      };
+      return map[String(value)] || value;
+    });
+
     const templatePath = path.join(__dirname, "../templates");
     //读取目录下所有模板文件
     const templateFiles = fs.readdirSync(templatePath);

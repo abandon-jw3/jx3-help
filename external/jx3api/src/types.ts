@@ -1504,21 +1504,21 @@ export interface ArenaRecent extends JX3APIResponse {
 export interface ArenaRecentParams {
   server: string;
   name: string;
-  mode?: number;
+  mode?: number | string;
   ticket?: string;
 }
 
 // 名剑大会各门派表现
 export interface ArenaSchool extends JX3APIResponse {
   data: Array<{
-    name: string;
-    this: number;
-    last: number;
+    name: string; //门派名称
+    this: number; //当前排名
+    last: number; //上周排名
   }>;
 }
 
 export interface ArenaSchoolsParams {
-  mode?: number;
+  mode?: number | string;
   ticket?: string;
 }
 

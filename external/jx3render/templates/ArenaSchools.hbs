@@ -1,0 +1,144 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>门派竞技场前100队伍角色数量</title>
+  <script src="http://localhost:5140/jx3assets/echarts/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 40px;
+      width: 1440px;
+      color: #333;
+    }
+
+    .card {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      padding: 32px;
+    }
+
+    .header {
+      margin-bottom: 32px;
+      text-align: center;
+      border-bottom: 1px solid #eaeaea;
+      padding-bottom: 24px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    #chart {
+      width: 100%;
+      height: 800px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>门派竞技场前100队伍角色数量</h1>
+    </div>
+    <div id="chart"></div>
+  </div>
+
+  <script>
+    // 构建数据
+    const rawData = {{{ json this}}};
+
+    // 初始化 ECharts
+    const chartDom = document.getElementById('chart');
+    const myChart = echarts.init(chartDom);
+
+    const option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        data: ['本周', '上周'],
+        bottom: 0,
+        textStyle: {
+          fontSize: 14
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '5%',
+        top: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01],
+        axisLabel: {
+          fontSize: 14
+        }
+      },
+      yAxis: {
+        type: 'category',
+        data: rawData.map(item => item.name),
+        inverse: true, // 让排名靠前的显示在上面
+        axisLabel: {
+          fontSize: 14,
+          fontWeight: 'bold'
+        }
+      },
+      series: [
+        {
+          name: '本周',
+          type: 'bar',
+          data: rawData.map(item => item.current),
+          itemStyle: {
+            color: '#5470c6',
+            borderRadius: [0, 4, 4, 0]
+          },
+          label: {
+            show: true,
+            position: 'right',
+            fontSize: 14
+          },
+          barCategoryGap: '40%'
+        },
+        {
+          name: '上周',
+          type: 'bar',
+          data: rawData.map(item => item.last),
+          itemStyle: {
+            color: '#91cc75',
+            borderRadius: [0, 4, 4, 0]
+          },
+          label: {
+            show: true,
+            position: 'right',
+            fontSize: 14
+          }
+        }
+      ]
+    };
+
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>

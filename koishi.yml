@@ -1,38 +1,30 @@
 plugins:
+  proxy-agent:uhcizj: {}
   group:server:
     server:77kuvb:
       port: 5140
       maxPort: 5149
-    ~server-satori:phz4hn: {}
     ~server-temp:gpokvu: {}
   group:basic:
-    ~admin:d5f7jd: {}
-    ~bind:3hwi9x: {}
-    commands:wer0ll: {}
     help:ibqzvf: {}
     http:ao7d8n: {}
     ~inspect:hf0mgv: {}
-    locales:nyzp6h: {}
-    ~proxy-agent:dhupp2: {}
     rate-limit:f4szha: {}
     telemetry:ee3p6t:
       mode: 'off'
   group:console:
     actions:gflpgg: {}
-    analytics:8iw30z: {}
     android:wa6lby:
       $if: env.KOISHI_AGENT?.includes('Android')
-    ~auth:xsxg1v: {}
     config:j8g6hu: {}
     console:83p9ft:
       open: true
-    dataview:7x2v7s: {}
     desktop:qq6osy:
       $if: env.KOISHI_AGENT?.includes('Desktop')
     explorer:0gzgbx: {}
     logger:5vygxu: {}
     insight:row0d8: {}
-    market:sstlz9:
+    ~market:sstlz9:
       search:
         endpoint: https://registry.koishi.t4wefan.pub/index.json
       registry: {}
@@ -57,6 +49,7 @@ plugins:
       root:
         - .
   group:bgk8b7:
+    crazy-thursday:gfxpfh: {}
     puppeteer:rdco9y:
       defaultViewport:
         width: 720
@@ -77,4 +70,3 @@ plugins:
       apiUrl: https://www.jx3api.com
       ticket: ${{env.API_TICKET}}
     $label: 剑网3
-  crazy-thursday:gfxpfh: {}
