@@ -605,7 +605,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //   return <img src={res.data.showAvatar} alt={`${res.data.serverName}-${res.data.roleName}`} />;
   // });
   //贴吧物价
-  ctx.command("贴吧物价 [...arg]", "查询服务器物价信息").action(async (_, ...arg) => {
+  ctx.command("贴吧物价 [...arg]", "查询服务器贴吧物价信息").action(async (_, ...arg) => {
     const parser = new ArgParser(arg);
     const server = parser.tryMatch("server", serverList);
     const name = parser.getRemaining()[0] || "";
@@ -723,16 +723,17 @@ export function instructionsCommands(ctx: Context, config: Config) {
     });
 
   ctx.command("战绩 [...arg]", "查询角色战绩信息").action(async (_, ...arg) => {
-    return "战绩查询功能暂不可用，我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱";
     const parser = new ArgParser(arg);
     const server = parser.tryMatch("server", serverList);
-    const mode = parser.tryMatch("mode", jjcModel);
+    const mode = parser.tryMatch("mode", jjcModel) || 33; //22 33 55 默认33
     const name = parser.getRemaining()[0] || "";
     if (!server || !name) return <p>你发送的格式不正确，请按格式发送[战绩 服务器 角色名]...</p>;
     const res = await ctx.jx3api.getArenaRecent({ server, name, mode });
-    return;
     if (res.msg !== "success") return <>{res.msg}</>;
-    const screenshot = await ctx.jx3render.render("ArenaRecent", res.data, `ArenaRecent-${server}-${name}`, false);
+    const pvpType = parseInt(String(mode)[0]);
+    const key = `${pvpType}v${pvpType}`;
+    const performance = res.data.performance[key];
+    const screenshot = await ctx.jx3render.render("ArenaRecent", { ...res.data, performance }, `ArenaRecent-${server}-${name}`, false);
     return <img src={"data:image/png;base64," + screenshot} />;
   });
 

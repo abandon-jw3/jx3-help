@@ -26,10 +26,23 @@ export class RenderService extends Service {
     handlebars.registerHelper("inc", function (value) {
       return parseInt(value) + 1;
     });
+
+    //计算两个时间之间时长
+    handlebars.registerHelper("duration", function (start, end) {
+      if (!start || !end) return "";
+
+      const totalSeconds = dayjs.unix(end).diff(dayjs.unix(start), "second");
+      if (totalSeconds >= 60) {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return minutes + "分" + seconds + "秒";
+      }
+      return totalSeconds + "秒";
+    });
     //格式化时间
-    handlebars.registerHelper("formatTime", function (value) {
+    handlebars.registerHelper("formatTime", function (value, format: string = "YYYY-MM-DD HH:mm:ss") {
       if (!value) return "";
-      return dayjs.unix(value).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs.unix(value).format(format);
     });
     handlebars.registerHelper("formatDateHour", function (value) {
       if (!value) return "";
