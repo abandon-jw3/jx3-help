@@ -70,3 +70,4 @@ plugins:
       apiUrl: https://www.jx3api.com
       ticket: ${{env.API_TICKET}}
     $label: 剑网3
+  jx3auth:2po1qs: {}
