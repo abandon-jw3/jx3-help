@@ -24,7 +24,6 @@ export function initTable(ctx: Context) {
       type: "string",
       length: 16,
       initial: null,
-      legacy: ["defaultServer"],
     },
   });
   ctx.model.extend("user", {
@@ -33,14 +32,12 @@ export function initTable(ctx: Context) {
       type: "string",
       length: 32,
       initial: null,
-      legacy: ["role"],
     },
     //默认区服
     userServer: {
       type: "string",
       length: 16,
       initial: null,
-      legacy: ["defaultServer"],
     },
   });
 }

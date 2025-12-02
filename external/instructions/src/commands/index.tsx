@@ -6,6 +6,15 @@ dayjs.extend(isoWeek);
 export const name = "instructions-commands";
 export interface Config {}
 
+const getDefaultServerAndName = (session) => {
+  const { groupServer } = session.channel;
+  const { userServer, roleName } = session.user;
+  return {
+    groupServer,
+    userServer,
+    roleName,
+  };
+};
 export function instructionsCommands(ctx: Context, config: Config) {
   //服务器活动日历查询
   ctx
@@ -452,14 +461,13 @@ export function instructionsCommands(ctx: Context, config: Config) {
       );
     });
 
-  ctx
-    .guild()
-    .command("奇遇汇总 [server]", "查询奇遇汇总")
-    .action(async (_, server) => {
-      const res = await ctx.jx3api.getLuckCollect({ server });
-      if (res.msg !== "success") return <>{res.msg}</>;
-      console.log(res);
-    });
+  // ctx
+  //   .guild()
+  //   .command("奇遇汇总 [server]", "查询奇遇汇总")
+  //   .action(async (_, server) => {
+  //     const res = await ctx.jx3api.getLuckCollect({ server });
+  //     if (res.msg !== "success") return <>{res.msg}</>;
+  //   });
   //招募
   ctx
     .guild()
@@ -690,11 +698,15 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //名片查询
   ctx
     .guild()
-    .command("名片 [...arg]", "查询服务器名片信息")
-    .action(async (_, ...arg) => {
+    .command("名片 [服务器] [角色名]", "查询服务器名片信息")
+    .userFields(["userServer", "roleName"])
+    .channelFields(["groupServer", "expireTime"])
+    .action(async ({ session }, ...arg) => {
+      const { groupServer, userServer, roleName } = getDefaultServerAndName(session);
       const parser = new ArgParser(arg);
-      const server = parser.tryMatch("server", serverList);
-      const name = parser.getRemaining()[0] || "";
+      const server = parser.tryMatch("server", serverList) || groupServer || userServer;
+      const name = parser.getRemaining()[0] || roleName || "";
+
       if (!server || !name) return <p>请输入服务器和角色名</p>;
       const res = await ctx.jx3api.getShowCache({ server, name });
       if (res.msg !== "success") return <>{res.msg}</>;
@@ -860,7 +872,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
   ctx
     .guild()
-    .command("战绩 [...arg]", "查询角色战绩信息")
+    .command("战绩 [服务器] [模式] [角色名]", "查询角色战绩信息")
     .action(async (_, ...arg) => {
       const parser = new ArgParser(arg);
       const server = parser.tryMatch("server", serverList);
@@ -878,7 +890,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
 
   ctx
     .guild()
-    .command("门派表现 [mode]", "查询门派jjc表现信息")
+    .command("门派表现 [模式]", "查询门派jjc表现信息")
     .action(async (_, mode) => {
       const res = await ctx.jx3api.getArenaSchools({ mode });
       if (res.msg !== "success") return <>{res.msg}</>;
@@ -909,8 +921,13 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //服务器马场信息
   ctx
     .guild()
-    .command("马场 [server]", "查询马场信息")
-    .action(async (_, server) => {
+    .command("马场 [服务器]", "查询马场信息")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      const { groupServer, userServer } = getDefaultServerAndName(session);
+      server = server || groupServer || userServer;
+      if (!server) return <p>请输入服务器</p>;
       const res = await ctx.jx3api.getHorseRanch({ server });
       if (res.msg !== "success") return <>{res.msg}</>;
       return (
@@ -952,11 +969,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .channelFields(["expireTime", "groupServer"])
     .userFields(["userServer", "roleName"])
     .action(async ({ session }, ...arg) => {
-      const { groupServer } = session.channel;
-      const { userServer, roleName } = session.user;
+      const { groupServer, userServer, roleName } = getDefaultServerAndName(session);
       const parser = new ArgParser(arg);
       const server = parser.tryMatch("server", serverList) || groupServer || userServer;
       const name = parser.getRemaining()[0] || roleName || "";
+
       if (!server || !name) return <p>请输入服务器和角色名</p>;
       const res = await ctx.jx3api.getShowRecords({ server, name });
       if (res.msg !== "success") return <>{res.msg}</>;
