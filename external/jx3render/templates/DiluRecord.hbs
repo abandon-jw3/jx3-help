@@ -1,203 +1,211 @@
 <html lang="zh-CN">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>的卢拍卖记录</title>
-  <style>
-    /* Reset & Base */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>的卢拍卖记录</title>
+    <style>
+      /* Reset & Base */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f0f2f5;
-      padding: 40px;
-      color: #333;
-      line-height: 1.5;
-      width: 1440px;
-    }
+      body {
+        font-family:
+          "Microsoft YaHei",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        background-color: #f0f2f5;
+        padding: 40px;
+        color: #333;
+        line-height: 1.5;
+        width: 1440px;
+      }
 
-    /* Card Container */
-    .card {
-      max-width: 1400px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-    }
+      /* Card Container */
+      .card {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
 
-    /* Header */
-    .header {
-      padding: 24px 32px;
-      background: linear-gradient(to right, #f8f9fa, #ffffff);
-      border-bottom: 1px solid #eaeaea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      /* Header */
+      .header {
+        padding: 24px 32px;
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
+        border-bottom: 1px solid #eaeaea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .header h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #2c3e50;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0;
-    }
+      .header h1 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+      }
 
-    .icon-star {
-      color: #f1c40f;
-      width: 32px;
-      height: 32px;
-    }
+      .icon-star {
+        color: #f1c40f;
+        width: 32px;
+        height: 32px;
+      }
 
-    /* Table Styling */
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-    }
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
 
-    thead {
-      background-color: #f8fafc;
-    }
+      thead {
+        background-color: #f8fafc;
+      }
 
-    th {
-      padding: 20px 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 20px;
-      color: #64748b;
-      border-bottom: 2px solid #e2e8f0;
-      white-space: nowrap;
-    }
+      th {
+        padding: 20px 16px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 20px;
+        color: #64748b;
+        border-bottom: 2px solid #e2e8f0;
+        white-space: nowrap;
+      }
 
-    td {
-      padding: 20px 16px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 22px;
-      border-bottom: 1px solid #edf2f7;
-    }
+      td {
+        padding: 20px 16px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 22px;
+        border-bottom: 1px solid #edf2f7;
+      }
 
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
 
-    tbody tr:hover {
-      background-color: #f8fafc;
-    }
+      tbody tr:hover {
+        background-color: #f8fafc;
+      }
 
-    tbody tr:nth-child(even) {
-      background-color: #fafafa;
-    }
+      tbody tr:nth-child(even) {
+        background-color: #fafafa;
+      }
 
-    /* Column Specific Styles */
-    .col-meta {
-      color: #718096;
-      font-size: 20px;
-      line-height: 1.6;
-    }
+      /* Column Specific Styles */
+      .col-meta {
+        color: #718096;
+        font-size: 20px;
+        line-height: 1.6;
+      }
 
-    .text-amount {
-      color: #2563eb;
-      font-weight: 700;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 24px;
-    }
+      .text-amount {
+        color: #2563eb;
+        font-weight: 700;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 24px;
+      }
 
-    .footer-space {
-      height: 16px;
-      background: #fff;
-    }
+      .footer-space {
+        height: 16px;
+        background: #fff;
+      }
 
-    /* Custom for DiluRecord */
-    .map-name {
-      color: #0891b2;
-      font-weight: 600;
-    }
+      /* Custom for DiluRecord */
+      .map-name {
+        color: #0891b2;
+        font-weight: 600;
+      }
 
-    .role-name {
-      font-weight: 500;
-      color: #334155;
-    }
+      .role-name {
+        font-weight: 500;
+        color: #334155;
+      }
 
-    .camp-name {
-      font-size: 18px;
-      color: #94a3b8;
-      margin-top: 4px;
-    }
-  </style>
-</head>
+      .camp-name {
+        font-size: 18px;
+        color: #94a3b8;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="card">
-    <div class="header">
-      <h1>
-        <!-- SVG Icon for Stars -->
-        <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-        的卢拍卖记录
-      </h1>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h1>
+          <!-- SVG Icon for Stars -->
+          <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+          的卢拍卖记录
+        </h1>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%">周期</th>
+              <th style="width: 30%">关键时间</th>
+              <th style="width: 11%">地图</th>
+              <th style="width: 12%">捕获角色</th>
+              <th style="width: 12%">购买角色</th>
+              <th style="width: 15%">成交金额</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this}}
+              <tr>
+                <td class="col-meta">
+                  <div>开始：{{default (formatTime start_time "YYYY-MM-DD HH") "-"}}</div>
+                  <div>结束：{{default (formatTime end_time "YYYY-MM-DD HH") "-"}}</div>
+                </td>
+                <td class="col-meta">
+                  <div>刷新：{{default (formatTime refresh_time "YYYY-MM-DD HH:mm") "-"}}</div>
+                  <div>捕获：{{default (formatTime capture_time "YYYY-MM-DD HH:mm") "-"}}</div>
+                  <div>拍卖：{{default (formatTime auction_time "YYYY-MM-DD HH:mm") "-"}}</div>
+                </td>
+                <td>
+                  <span class="map-name">{{map_name}}</span>
+                </td>
+                <td>
+                  <div class="role-name">{{default capture_role_name "-"}}</div>
+                  <div class="camp-name">[{{default capture_camp_name "-"}}]</div>
+                </td>
+                <td>
+                  <div class="role-name">{{default auction_role_name "-"}}</div>
+                  <div class="camp-name">[{{default auction_camp_name "-"}}]</div>
+                </td>
+                <td>
+                  <span class="text-amount">{{default auction_amount "-"}}</span>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-space"></div>
     </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%">周期</th>
-            <th style="width: 30%">关键时间</th>
-            <th style="width: 11%">地图</th>
-            <th style="width: 12%">捕获角色</th>
-            <th style="width: 12%">购买角色</th>
-            <th style="width: 15%">成交金额</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this}}
-          <tr>
-            <td class="col-meta">
-              <div>开始：{{default (formatDateHour start_time) "-"}}</div>
-              <div>结束：{{default (formatDateHour end_time) "-"}}</div>
-            </td>
-            <td class="col-meta">
-              <div>刷新：{{default (formatTime refresh_time) "-"}}</div>
-              <div>捕获：{{default (formatTime capture_time) "-"}}</div>
-              <div>拍卖：{{default (formatTime auction_time) "-"}}</div>
-            </td>
-            <td>
-              <span class="map-name">{{map_name}}</span>
-            </td>
-            <td>
-              <div class="role-name">{{default capture_role_name "-"}}</div>
-              <div class="camp-name">[{{default capture_camp_name "-"}}]</div>
-            </td>
-            <td>
-              <div class="role-name">{{default auction_role_name "-"}}</div>
-              <div class="camp-name">[{{default auction_camp_name "-"}}]</div>
-            </td>
-            <td>
-              <span class="text-amount">{{default auction_amount "-"}}</span>
-            </td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-    <div class="footer-space"></div>
-  </div>
-</body>
+  </body>
 
 </html>

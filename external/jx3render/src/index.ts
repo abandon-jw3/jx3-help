@@ -40,22 +40,9 @@ export class RenderService extends Service {
       return totalSeconds + "秒";
     });
     //格式化时间
-    handlebars.registerHelper("formatTime", function (value, format: string = "YYYY-MM-DD HH:mm:ss") {
+    handlebars.registerHelper("formatTime", function (value, format) {
       if (!value) return "";
       return dayjs.unix(value).format(format);
-    });
-    handlebars.registerHelper("formatDateHour", function (value) {
-      if (!value) return "";
-      return dayjs.unix(value).format("YYYY-MM-DD HH");
-    });
-    handlebars.registerHelper("time", function (value) {
-      if (!value) return "";
-      return dayjs.unix(value).format("HH:mm:ss");
-    });
-    //格式化日期
-    handlebars.registerHelper("formatDate", function (value) {
-      if (!value) return "";
-      return dayjs.unix(value).format("YYYY-MM-DD");
     });
     //格式化间隔时间
     handlebars.registerHelper("formatInterval", function (value) {
@@ -82,7 +69,7 @@ export class RenderService extends Service {
         "3": "想出",
         "4": "想收",
         "5": "成交",
-        "6": "正出",
+        "6": "在售",
         "7": "公示",
       };
       return map[String(value)] || value;

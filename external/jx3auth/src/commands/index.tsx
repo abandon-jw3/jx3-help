@@ -10,9 +10,7 @@ export function jx3AuthCommands(ctx: Context, config: Config) {
     .channelFields(["groupServer"])
     .alias("绑定")
     .action(async ({ session }, server) => {
-      // 获取当前会话角色列表
       const roles = session.author?.roles || [];
-      // 判断是否为群主或管理员
       const isAdmin = roles.includes("admin");
       const isOwner = roles.includes("owner");
       if (!isAdmin && !isOwner) return "你没有权限执行此操作。";

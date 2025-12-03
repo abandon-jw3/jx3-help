@@ -1,183 +1,192 @@
 <html lang="zh-CN">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>全服掉落信息</title>
-  <style>
-    /* Reset & Base */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>全服掉落信息</title>
+    <style>
+      /* Reset & Base */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f0f2f5;
-      padding: 40px;
-      color: #333;
-      line-height: 1.5;
-      width: 1440px;
-    }
+      body {
+        font-family:
+          "Microsoft YaHei",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        background-color: #f0f2f5;
+        padding: 40px;
+        color: #333;
+        line-height: 1.5;
+        width: 1440px;
+      }
 
-    /* Card Container */
-    .card {
-      max-width: 1400px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-    }
+      /* Card Container */
+      .card {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
 
-    /* Header */
-    .header {
-      padding: 24px 32px;
-      background: linear-gradient(to right, #f8f9fa, #ffffff);
-      border-bottom: 1px solid #eaeaea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      /* Header */
+      .header {
+        padding: 24px 32px;
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
+        border-bottom: 1px solid #eaeaea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .header h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #2c3e50;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0;
-    }
+      .header h1 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+      }
 
-    .icon-star {
-      color: #f1c40f;
-      width: 32px;
-      height: 32px;
-    }
+      .icon-star {
+        color: #f1c40f;
+        width: 32px;
+        height: 32px;
+      }
 
-    /* Table Styling */
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-    }
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
 
-    thead {
-      background-color: #f8fafc;
-    }
+      thead {
+        background-color: #f8fafc;
+      }
 
-    th {
-      padding: 20px 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 20px;
-      color: #64748b;
-      border-bottom: 2px solid #e2e8f0;
-      white-space: nowrap;
-    }
+      th {
+        padding: 20px 16px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 20px;
+        color: #64748b;
+        border-bottom: 2px solid #e2e8f0;
+        white-space: nowrap;
+      }
 
-    td {
-      padding: 20px 16px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 22px;
-      border-bottom: 1px solid #edf2f7;
-    }
+      td {
+        padding: 20px 16px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 22px;
+        border-bottom: 1px solid #edf2f7;
+      }
 
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
 
-    tbody tr:hover {
-      background-color: #f8fafc;
-    }
+      tbody tr:hover {
+        background-color: #f8fafc;
+      }
 
-    tbody tr:nth-child(even) {
-      background-color: #fafafa;
-    }
+      tbody tr:nth-child(even) {
+        background-color: #fafafa;
+      }
 
-    /* Column Specific Styles */
-    .col-meta {
-      color: #718096;
-      font-size: 20px;
-    }
+      /* Column Specific Styles */
+      .col-meta {
+        color: #718096;
+        font-size: 20px;
+      }
 
-    .badge-item {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #ecfdf5;
-      color: #059669;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 20px;
-      border: 1px solid rgba(5, 150, 105, 0.1);
-    }
+      .badge-item {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #ecfdf5;
+        color: #059669;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 20px;
+        border: 1px solid rgba(5, 150, 105, 0.1);
+      }
 
-    .text-amount {
-      color: #2563eb;
-      font-weight: 700;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 24px;
-    }
+      .text-amount {
+        color: #2563eb;
+        font-weight: 700;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 24px;
+      }
 
-    .text-time {
-      color: #475569;
-      font-size: 20px;
-    }
+      .text-time {
+        color: #475569;
+        font-size: 20px;
+      }
 
-    /* Footer/Bottom Spacing */
-    .footer-space {
-      height: 16px;
-      background: #fff;
-    }
-  </style>
-</head>
+      /* Footer/Bottom Spacing */
+      .footer-space {
+        height: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="card">
-    <div class="header">
-      <h1>
-        <!-- SVG Icon for Stars -->
-        <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-        {{name}} 掉落信息
-      </h1>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h1>
+          <!-- SVG Icon for Stars -->
+          <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+          {{name}}
+          掉落信息
+        </h1>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%">服务器</th>
+              <th style="width: 20%">角色名称</th>
+              <th style="width: 30%">地图名称</th>
+              <th style="width: 30%">时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each data}}
+              <tr>
+                <td class="col-meta">{{server}}</td>
+                <td>{{role_name}}</td>
+                <td class="col-meta">{{map_name}}</td>
+                <td>
+                  <span class="text-time">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-space"></div>
     </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%">服务器</th>
-            <th style="width: 20%">角色名称</th>
-            <th style="width: 30%">地图名称</th>
-            <th style="width: 30%">时间</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each data}}
-          <tr>
-            <td class="col-meta">{{server}}</td>
-            <td>{{role_name}}</td>
-            <td class="col-meta">{{map_name}}</td>
-            <td>
-              <span class="text-time">{{formatTime time}}</span>
-            </td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-    <div class="footer-space"></div>
-  </div>
-</body>
+  </body>
 
 </html>

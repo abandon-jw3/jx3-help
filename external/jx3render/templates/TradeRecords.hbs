@@ -1,260 +1,258 @@
-<!DOCTYPE html>
 <html lang="zh-cn">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>物价</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>物价</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      width: 1300px;
-      margin: 0 auto;
-      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-      background-color: #fff;
-    }
+      body {
+        width: 1300px;
+        margin: 0 auto;
+        font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+        background-color: #fff;
+      }
 
-    .container {
-      width: 100%;
-      background-image: url("http://localhost:5140/jx3assets/images/common/bg.png");
-      background-size: cover;
-      padding: 20px;
-      min-height: 100vh;
-    }
+      .container {
+        width: 100%;
+        background-image: url("http://localhost:5140/jx3assets/images/common/bg.png");
+        background-size: cover;
+        padding: 20px;
+        min-height: 100vh;
+      }
 
-    .card-box {
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
+      .card-box {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
 
-    .header {
-      text-align: center;
-      padding: 25px 0;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-bottom: 1px solid #eee;
-    }
+      .header {
+        text-align: center;
+        padding: 25px 0;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid #eee;
+      }
 
-    .title {
-      font-size: 32px;
-      font-weight: bold;
-      color: #333;
-    }
+      .title {
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+      }
 
-    .content {
-      padding: 18px;
-    }
+      .content {
+        padding: 18px;
+      }
 
-    .item-view {
-      text-align: center;
-      margin-bottom: 18px;
-      height: 535px;
-    }
+      .item-view {
+        text-align: center;
+        margin-bottom: 18px;
+        height: 535px;
+      }
 
-    .item-view img {
-      height: 100%;
-      border-radius: 4px;
-    }
+      .item-view img {
+        height: 100%;
+        border-radius: 4px;
+      }
 
-    .description {
-      background-color: #f1f3f5;
-      color: #495057;
-      padding: 20px;
-      border-radius: 6px;
-      text-align: center;
-      font-size: 22px;
-      margin-bottom: 18px;
-      border: 1px solid #e9ecef;
-    }
+      .description {
+        background-color: #f1f3f5;
+        color: #495057;
+        padding: 20px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 18px;
+        border: 1px solid #e9ecef;
+      }
 
-    .grid-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-    }
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
 
-    .section-card {
-      background: #fff;
-      border: 1px solid #e9ecef;
-      border-radius: 6px;
-      overflow: hidden;
-    }
+      .section-card {
+        background: #fff;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        overflow: hidden;
+      }
 
-    .section-header {
-      background-color: #f8f9fa;
-      padding: 15px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: #495057;
-      border-bottom: 2px solid #e9ecef;
-    }
+      .section-header {
+        background-color: #f8f9fa;
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #495057;
+        border-bottom: 2px solid #e9ecef;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
 
-    td {
-      padding: 10px;
-      text-align: center;
-      font-size: 18px;
-      border-bottom: 1px solid #f1f3f5;
-    }
+      td {
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+        border-bottom: 1px solid #f1f3f5;
+      }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
+      tr:last-child td {
+        border-bottom: none;
+      }
 
-    tr:nth-child(even) {
-      background-color: #f8f9fa;
-    }
+      tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
 
-    .date-cell {
-      color: #b58900;
-      font-family: monospace;
-      font-size: 18px;
-    }
+      .date-cell {
+        color: #b58900;
+        font-family: monospace;
+        font-size: 18px;
+      }
 
-    .server-cell {
-      color: #212529;
-      font-weight: 500;
-    }
+      .server-cell {
+        color: #212529;
+        font-weight: 500;
+      }
 
-    .price-cell {
-      color: #007bff;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-    }
+      .price-cell {
+        color: #007bff;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+      }
 
-    .type-cell {
-      color: #6c757d;
-    }
+      .type-cell {
+        color: #6c757d;
+      }
 
-    .footer {
-      text-align: center;
-      color: #adb5bd;
-      font-size: 14px;
-      padding: 15px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-top: 1px solid #eee;
-    }
-  </style>
-</head>
+      .footer {
+        text-align: center;
+        color: #adb5bd;
+        font-size: 14px;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-top: 1px solid #eee;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="container">
-    <div class="card-box">
-      <div class="header">
-        <div class="title">{{name}}({{subalias}})</div>
-      </div>
-
-      <div class="content">
-        <div class="item-view">
-          <img src="{{view}}" alt="物品图片" />
-        </div>
-        <div class="description">
-          {{desc}}
+  <body>
+    <div class="container">
+      <div class="card-box">
+        <div class="header">
+          <div class="title">{{name}}({{subalias}})</div>
         </div>
 
-        <div class="grid-container">
-          <!-- 万宝楼·公示< -->
-          <div class="section-card">
-            <div class="section-header">万宝楼·公示</div>
-            <table>
-              <tbody>
-                {{#each list.[3]}}
-                <tr>
-                  <td class="date-cell">{{date}}</td>
-                  <td class="server-cell">{{server}}</td>
-                  <td class="price-cell">{{value}}</td>
-                  <td class="type-cell">{{tradeType sale}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
+        <div class="content">
+          <div class="item-view">
+            <img src="{{view}}" alt="物品图片" />
           </div>
-          <!-- 万宝楼·正售 -->
-          <div class="section-card">
-            <div class="section-header">万宝楼·正售</div>
-            <table>
-              <tbody>
-                {{#each list.[4]}}
-                <tr>
-                  <td class="date-cell">{{date}}</td>
-                  <td class="server-cell">{{server}}</td>
-                  <td class="price-cell">{{value}}</td>
-                  <td class="type-cell">{{tradeType sale}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-          <!-- 电信区 -->
-          <div class="section-card">
-            <div class="section-header">电信区</div>
-            <table>
-              <tbody>
-                {{#each list.[0]}}
-                <tr>
-                  <td class="date-cell">{{date}}</td>
-                  <td class="server-cell">{{server}}</td>
-                  <td class="price-cell">{{value}}</td>
-                  <td class="type-cell">{{tradeType sale}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
+          <div class="description">
+            {{desc}}
           </div>
 
-          <!-- 双线区 -->
-          <div class="section-card">
-            <div class="section-header">双线区</div>
-            <table>
-              <tbody>
-                {{#each list.[1]}}
-                <tr>
-                  <td class="date-cell">{{date}}</td>
-                  <td class="server-cell">{{server}}</td>
-                  <td class="price-cell">{{value}}</td>
-                  <td class="type-cell">{{tradeType sale}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
+          <div class="grid-container">
+            <!-- 万宝楼·公示< -->
+            <div class="section-card">
+              <div class="section-header">万宝楼·公示</div>
+              <table>
+                <tbody>
+                  {{#each list.[3]}}
+                    <tr>
+                      <td class="date-cell">{{date}}</td>
+                      <td class="server-cell">{{server}}</td>
+                      <td class="price-cell">{{value}}</td>
+                      <td class="type-cell">{{tradeType sale}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+            <!-- 万宝楼·在售 -->
+            <div class="section-card">
+              <div class="section-header">万宝楼·在售</div>
+              <table>
+                <tbody>
+                  {{#each list.[4]}}
+                    <tr>
+                      <td class="date-cell">{{date}}</td>
+                      <td class="server-cell">{{server}}</td>
+                      <td class="price-cell">{{value}}</td>
+                      <td class="type-cell">{{tradeType sale}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+            <!-- 电信区 -->
+            <div class="section-card">
+              <div class="section-header">电信区</div>
+              <table>
+                <tbody>
+                  {{#each list.[0]}}
+                    <tr>
+                      <td class="date-cell">{{date}}</td>
+                      <td class="server-cell">{{server}}</td>
+                      <td class="price-cell">{{value}}</td>
+                      <td class="type-cell">{{tradeType sale}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 双线区 -->
+            <div class="section-card">
+              <div class="section-header">双线区</div>
+              <table>
+                <tbody>
+                  {{#each list.[1]}}
+                    <tr>
+                      <td class="date-cell">{{date}}</td>
+                      <td class="server-cell">{{server}}</td>
+                      <td class="price-cell">{{value}}</td>
+                      <td class="type-cell">{{tradeType sale}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 无界区 -->
+            <div class="section-card">
+              <div class="section-header">无界区</div>
+              <table>
+                <tbody>
+                  {{#each list.[2]}}
+                    <tr>
+                      <td class="date-cell">{{date}}</td>
+                      <td class="server-cell">{{server}}</td>
+                      <td class="price-cell">{{value}}</td>
+                      <td class="type-cell">{{tradeType sale}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+
           </div>
-
-          <!-- 无界区 -->
-          <div class="section-card">
-            <div class="section-header">无界区</div>
-            <table>
-              <tbody>
-                {{#each list.[2]}}
-                <tr>
-                  <td class="date-cell">{{date}}</td>
-                  <td class="server-cell">{{server}}</td>
-                  <td class="price-cell">{{value}}</td>
-                  <td class="type-cell">{{tradeType sale}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-
-
         </div>
-      </div>
-      <div class="footer">
-        数据来源：www.jx3api.com
+        <div class="footer">
+          数据来源：www.jx3api.com
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 
 </html>

@@ -45,7 +45,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: main
 
       - name: Set up Node
         if: ${{ !matrix.target.emulate }}
@@ -75,8 +75,8 @@ jobs:
       - name: Upload asset
         shell: bash
         run: >
-          bash .github/workflows/upload.sh
-          '${{ matrix.target.platform }}-${{ steps.vars.outputs.ARCH }}-node${{ steps.vars.outputs.NODE_VERSION }}'
+          bash .github/workflows/upload.sh '${{ matrix.target.platform }}-${{ steps.vars.outputs.ARCH }}-node${{ steps.vars.outputs.NODE_VERSION }}'
+
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
 

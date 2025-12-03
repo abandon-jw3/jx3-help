@@ -1,4 +1,4 @@
-import { Context } from "koishi";
+import { Context, Session } from "koishi";
 import dayjs from "dayjs";
 import { ArgParser, serverList, jjcModel } from "../tools";
 import isoWeek from "dayjs/plugin/isoWeek";
@@ -19,7 +19,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //服务器活动日历查询
   ctx
     .guild()
-    .command("日常 [服务器:string]", "查询服务器活动日历")
+    .command("日常 [服务器]", "查询服务器活动日历")
     .channelFields(["groupServer"])
     .userFields(["userServer"])
     .alias("每日")
@@ -156,7 +156,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("器物谱 [地图]", "查阅地图产出的家具")
-    .action(async (_, name) => {
+    .action(async ({ session }, name) => {
+      if (!name) {
+        await session.send("请输入地图名称：");
+        name = await session.prompt();
+        if (!name) return "输入超时。";
+      }
       const res = await ctx.jx3api.getHomeTravel({ name });
       if (res.msg !== "success") return <p>未找到家具：{name}</p>;
       return (
@@ -212,7 +217,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("开服 [服务器]", "查询服务器开服信息")
-    .action(async (_, server) => {
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
       const res = await ctx.jx3api.getServerCheck({ server });
       if (res.msg !== "success") return <p>查询服务器开服信息失败</p>;
       return (
@@ -226,7 +234,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("服务器 [服务器]", "查询服务器状态")
-    .action(async (_, server) => {
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
       const res = await ctx.jx3api.getServerStatus({ server });
       if (res.msg !== "success") return <p>查询服务器状态失败</p>;
       return (
@@ -302,7 +313,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("烟花统计 [服务器]", "查询烟花统计")
-    .action(async (_, server) => {
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
       const res = await ctx.jx3api.getFireworksCollect({ server, num: 7 });
       if (res.msg !== "success") return <p>未找到烟花统计：{server}</p>;
       const screenshot = await ctx.jx3render.render("FireworksRecords", res.data, `FireworksRecords-${server}`, false);
@@ -312,13 +326,19 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //烟花记录查询
   ctx
     .guild()
-    .command("烟花记录 [...arg]", "查询烟花记录")
-    .action(async (_, ...arg) => {
+    .command("烟花记录 [服务器] [角色名]", "查询烟花记录")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, ...arg) => {
       const parser = new ArgParser(arg);
-      const server = parser.tryMatch("server", serverList);
-      const name = parser.getRemaining()[0] || "";
-
-      if (!server || !name) return <p>请输入服务器和角色名</p>;
+      let server = parser.tryMatch("server", serverList);
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      let name = parser.getRemaining()[0] || "";
+      if (!name) {
+        await session.send("请输入角色名：");
+        name = await session.prompt();
+        if (!name) return "输入超时。";
+      }
       const res = await ctx.jx3api.getFireworksRecords({ server, name });
       if (res.msg !== "success") return <p>未找到烟花记录</p>;
       const screenshot = await ctx.jx3render.render("UserFireworksRecords", res.data, `UserFireworksRecords-${server}-${name}`, false);

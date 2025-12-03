@@ -24,7 +24,7 @@ plugins:
     explorer:0gzgbx: {}
     logger:5vygxu: {}
     insight:row0d8: {}
-    ~market:sstlz9:
+    market:sstlz9:
       search:
         endpoint: https://registry.koishi.t4wefan.pub/index.json
       registry: {}
@@ -40,7 +40,7 @@ plugins:
   group:adapter:
     adapter-onebot:vzydl8:
       selfId: ${{env.ADMIN_ID}}
-      token: sfxeeegez
+      token: OK7VCm+WZLBeSX4x
       protocol: ws
       endpoint: ws://127.0.0.1:3001
   group:develop:
