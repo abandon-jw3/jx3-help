@@ -4,7 +4,8 @@ on:
   release:
     types:
       - deleted
-
+permissions:
+  contents: write
 jobs:
   clean:
     runs-on: ubuntu-latest

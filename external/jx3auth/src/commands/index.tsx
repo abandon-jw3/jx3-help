@@ -9,6 +9,7 @@ export function jx3AuthCommands(ctx: Context, config: Config) {
     .command("绑定区服 <服务器>", "绑定群聊默认区服")
     .channelFields(["groupServer"])
     .alias("绑定")
+    .alias("绑定服务器")
     .action(async ({ session }, server) => {
       const roles = session.author?.roles || [];
       const isAdmin = roles.includes("admin");

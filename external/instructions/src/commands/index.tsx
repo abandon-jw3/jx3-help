@@ -326,14 +326,14 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //烟花记录查询
   ctx
     .guild()
-    .command("烟花记录 [服务器] [角色名]", "查询烟花记录")
+    .command("烟花记录 [服务器] [角色]", "查询烟花记录")
     .channelFields(["groupServer"])
-    .userFields(["userServer"])
+    .userFields(["userServer", "roleName"])
     .action(async ({ session }, ...arg) => {
       const parser = new ArgParser(arg);
       let server = parser.tryMatch("server", serverList);
       if (!server) server = session.channel.groupServer || session.user.userServer;
-      let name = parser.getRemaining()[0] || "";
+      let name = parser.getRemaining()[0] || session.user.roleName;
       if (!name) {
         await session.send("请输入角色名：");
         name = await session.prompt();
@@ -348,13 +348,19 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //拍卖纪录查询
   ctx
     .guild()
-    .command("拍卖纪录 [...arg]", "查询拍卖纪录")
-    .action(async (_, ...arg) => {
+    .command("拍卖纪录 [服务器] [物品名]", "查询拍卖纪录")
+    .channelFields(["groupServer"])
+    .userFields(["userServer", "roleName"])
+    .action(async ({ session }, ...arg) => {
       const parser = new ArgParser(arg); //创建参数解析器
-      const server = parser.tryMatch("server", serverList); //尝试匹配服务器
-      const name = parser.getRemaining()[0] || ""; //获取剩余参数
-
-      if (!server || !name) return <p>请输入服务器和物品名</p>;
+      let server = parser.tryMatch("server", serverList); //尝试匹配服务器
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      let name = parser.getRemaining()[0] || session.user.roleName; //获取剩余参数
+      if (!name) {
+        await session.send("请输入物品名称：");
+        name = await session.prompt();
+        if (!name) return "输入超时。";
+      }
       const res = await ctx.jx3api.getAuctionRecords({ server, name });
       if (!(Array.isArray(res.data) && res.data.length)) return <p>查询拍卖纪录失败</p>;
       const screenshot = await ctx.jx3render.render("AuctionRecord", res.data, `AuctionRecord-${server}-${name}`, false);
@@ -365,21 +371,32 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("的卢 [server]", "查询的卢记录")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
     .alias("的卢记录")
-    .action(async (_, server) => {
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
       const res = await ctx.jx3api.getDiluRecords({ server });
-      if (!server) return <p>请输入服务器</p>;
-
       if (!(Array.isArray(res.data) && res.data.length)) return <p>查询的卢记录失败</p>;
       const screenshot = await ctx.jx3render.render("DiluRecord", res.data, `DiluRecord-${server}`, false);
-      return <img src={"data:image/png;base64," + screenshot} />;
+      return (
+        <>
+          <p>的卢-{server}</p>
+          <img src={"data:image/png;base64," + screenshot} />
+        </>
+      );
     });
 
   //黑历史查询
   ctx
     .guild()
-    .command("查人 [uid:number]", "查询qq号黑历史")
-    .action(async (_, uid) => {
+    .command("查人 [uid]", "查询qq号黑历史")
+    .action(async ({ session }, uid) => {
+      if (!uid) {
+        await session.send("请输入QQ号：");
+        uid = await session.prompt();
+        if (!uid) return "输入超时。";
+      }
       const res = await ctx.jx3api.getFraudDetailed({ uid });
       if (!res.data.records.length) return <p>未找到{uid}的qq号贴吧黑历史</p>;
       res.data.records.forEach((item) => {
@@ -420,11 +437,19 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //奇遇统计查询
   ctx
     .guild()
-    .command("奇遇统计 [...arg]", "查询奇遇统计")
-    .action(async (_, ...arg) => {
+    .command("奇遇统计 [服务器] [奇遇名称]", "查询奇遇统计")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, ...arg) => {
       const parser = new ArgParser(arg);
-      const server = parser.tryMatch("server", serverList);
-      const name = parser.getRemaining()[0] || "";
+      let server = parser.tryMatch("server", serverList);
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      let name = parser.getRemaining()[0] || "";
+      if (!name) {
+        await session.send("请输入要查询的奇遇名称：");
+        name = await session.prompt();
+        if (!name) return "输入超时。";
+      }
       const res = await ctx.jx3api.getLuckStatistical({ server, name });
 
       if (res.msg !== "success") return <p>{res.msg}</p>;
@@ -435,8 +460,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //奇遇汇总查询
   ctx
     .guild()
-    .command("奇遇汇总 [server]", "查询奇遇汇总")
-    .action(async (_, server) => {
+    .command("奇遇汇总 [server]", "查询服务器奇遇汇总")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
       const res = await ctx.jx3api.getLuckRecent({ server });
       if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇数据</p>;
       const screenshot = await ctx.jx3render.render("ServerQiyuSummary", res.data, `ServerQiyuSummary-${server}`, false);

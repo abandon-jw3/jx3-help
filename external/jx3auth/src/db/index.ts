@@ -23,7 +23,7 @@ export function initTable(ctx: Context) {
     groupServer: {
       type: "string",
       length: 16,
-      initial: null,
+      initial: "梦江南",
     },
   });
   ctx.model.extend("user", {

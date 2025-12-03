@@ -388,7 +388,7 @@ export interface FraudDetailed extends JX3APIResponse {
 }
 
 export interface FraudDetailedParams {
-  uid: number;
+  uid: number | string;
 }
 
 // 奇遇统计查询
