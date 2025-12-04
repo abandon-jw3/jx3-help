@@ -2,7 +2,7 @@ import { Context, Schema } from "koishi";
 import koaStatic from "koa-static";
 import koaMount from "koa-mount";
 import path from "path";
-import {} from "@koishijs/plugin-server";
+import "@koishijs/plugin-server";
 export const inject = ["server"];
 
 export const name = "jx3assets";

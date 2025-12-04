@@ -946,7 +946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/console@npm:^5.30.11":
+"@koishijs/console@npm:^5.30.11, @koishijs/console@npm:^5.30.8":
   version: 5.30.11
   resolution: "@koishijs/console@npm:5.30.11"
   peerDependencies:
@@ -1004,6 +1004,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@koishijs/plugin-admin@npm:2.0.0-beta.4":
+  version: 2.0.0-beta.4
+  resolution: "@koishijs/plugin-admin@npm:2.0.0-beta.4"
+  dependencies:
+    throttle-debounce: "npm:^3.0.1"
+  peerDependencies:
+    "@koishijs/plugin-console": ^5.25.6
+    koishi: ^4.16.4
+  peerDependenciesMeta:
+    "@koishijs/plugin-console":
+      optional: true
+  checksum: 10c0/0853c610d6d586bb6fe6edcc72dffeaa54026619755fe3b38c208a45b501b13c57ee32227ac83fdf13147379d86dbe3859bd58157fbabfcb4119abe6e70b35a8
+  languageName: node
+  linkType: hard
+
 "@koishijs/plugin-analytics@npm:^2.0.6":
   version: 2.0.6
   resolution: "@koishijs/plugin-analytics@npm:2.0.6"
@@ -1025,6 +1040,21 @@ __metadata:
     "@koishijs/plugin-console": ^5.30.9
     koishi: ^4.18.8
   checksum: 10c0/e077ed41e199870697b834195c8992db10cc3b1dfcd54e43d48410fee8026b92270de4e1667f9cfeccb65daff6c35bfe7b0a3e0754c2e62e58e087b82e48f85d
+  languageName: node
+  linkType: hard
+
+"@koishijs/plugin-commands@npm:3.5.5":
+  version: 3.5.5
+  resolution: "@koishijs/plugin-commands@npm:3.5.5"
+  dependencies:
+    "@koishijs/console": "npm:^5.30.8"
+  peerDependencies:
+    "@koishijs/plugin-console": ^5.30.8
+    koishi: ^4.18.8
+  peerDependenciesMeta:
+    "@koishijs/plugin-console":
+      optional: true
+  checksum: 10c0/ee88f71babb6036e51da01e50d266b65e59ef376e685ff0dffe1d2c980f62adecea31007729e5251cdc1e029d94b84ff57fe16adc18e8dee8034ff90c663238d
   languageName: node
   linkType: hard
 
@@ -4718,8 +4748,10 @@ __metadata:
   dependencies:
     "@koishijs/client": "npm:^5.30.4"
     "@koishijs/plugin-actions": "npm:^0.0.2"
+    "@koishijs/plugin-admin": "npm:2.0.0-beta.4"
     "@koishijs/plugin-analytics": "npm:^2.0.6"
     "@koishijs/plugin-auth": "npm:^4.1.6"
+    "@koishijs/plugin-commands": "npm:3.5.5"
     "@koishijs/plugin-config": "npm:^2.8.6"
     "@koishijs/plugin-console": "npm:5.30.11"
     "@koishijs/plugin-database-postgres": "npm:2.6.0"
@@ -4920,6 +4952,7 @@ __metadata:
     koishi-plugin-jx3render: "workspace:*"
     koishi-plugin-jx3ws: "workspace:*"
   peerDependencies:
+    "@koishijs/plugin-server": ^3.2.7
     koishi: ^4.18.7
   languageName: unknown
   linkType: soft
@@ -4940,6 +4973,7 @@ __metadata:
     koa-mount: "npm:^4.2.0"
     koa-static: "npm:^5.0.0"
   peerDependencies:
+    "@koishijs/plugin-server": ^3.2.7
     koishi: ^4.18.7
   languageName: unknown
   linkType: soft
@@ -4963,6 +4997,7 @@ __metadata:
     handlebars: "npm:^4.7.8"
   peerDependencies:
     koishi: ^4.18.7
+    koishi-plugin-puppeteer: ^3.9.0
   languageName: unknown
   linkType: soft
 

@@ -3,7 +3,7 @@ import { Service } from "koishi";
 import * as fs from "fs";
 import * as path from "path";
 import handlebars from "handlebars";
-import {} from "koishi-plugin-puppeteer";
+import "koishi-plugin-puppeteer";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-cn";

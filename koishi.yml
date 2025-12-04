@@ -1,5 +1,5 @@
 plugins:
-  proxy-agent:uhcizj: {}
+  ~proxy-agent:uhcizj: {}
   group:server:
     server:77kuvb:
       port: 5140
@@ -8,8 +8,10 @@ plugins:
   group:basic:
     help:ibqzvf: {}
     http:ao7d8n: {}
+    auth:naw2dl:
+      admin:
+        password: wei5475688
     ~inspect:hf0mgv: {}
-    rate-limit:f4szha: {}
     telemetry:ee3p6t:
       mode: 'off'
   group:console:
@@ -69,5 +71,19 @@ plugins:
       token: ${{env.API_TOKEN}}
       apiUrl: https://www.jx3api.com
       ticket: ${{env.API_TICKET}}
+    jx3auth:2po1qs: {}
     $label: 剑网3
-  jx3auth:2po1qs: {}
+  commands:ujnv2t:
+    timer:
+      config:
+        permissions:
+          - authority:0
+    plugin:
+      config:
+        permissions:
+          - authority:3
+    status:
+      config:
+        permissions:
+          - authority:3
+  admin:jav47v: {}
