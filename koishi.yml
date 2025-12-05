@@ -10,10 +10,10 @@ plugins:
     http:ao7d8n: {}
     auth:naw2dl:
       admin:
-        password: ""
+        password: ''
     ~inspect:hf0mgv: {}
     telemetry:ee3p6t:
-      mode: "off"
+      mode: 'off'
   group:console:
     actions:gflpgg: {}
     android:wa6lby:
@@ -59,8 +59,8 @@ plugins:
         height: 360
       ignoreHTTPSErrors: true
       args:
-        - "--disable-web-security"
-        - "--disable-features=IsolateOrigins,site-per-process"
+        - '--disable-web-security'
+        - '--disable-features=IsolateOrigins,site-per-process'
     jx3assets:8wh8dw: {}
     jx3render:gdwm18: {}
     instructions:wx7gxe: null

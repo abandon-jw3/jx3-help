@@ -1331,6 +1331,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@miemiemie/koishi-plugin-gpt-api@npm:^0.1.11":
+  version: 0.1.11
+  resolution: "@miemiemie/koishi-plugin-gpt-api@npm:0.1.11"
+  dependencies:
+    "@mirror_cy/gpt": "npm:^0.0.1"
+  peerDependencies:
+    koishi: ^4.11.9
+  checksum: 10c0/79990f7f323c76f195dbdcf0fc0a083a2f5a7a08a05b8c216954aa5c23b918522b77380ce0bacdf36aadc276f863a05274145ee5afcdd6fa9001e8ce85674aee
+  languageName: node
+  linkType: hard
+
 "@minatojs/driver-postgres@npm:^2.6.0":
   version: 2.6.0
   resolution: "@minatojs/driver-postgres@npm:2.6.0"
@@ -1352,6 +1363,15 @@ __metadata:
   peerDependencies:
     minato: ^3.6.0
   checksum: 10c0/8d03a96fbfcac4c32856c0019e27605f7c93b6d09b5552321ef4bc90444a7b139ab9a45bfc1ba2d6231dd92dcc6e20defd2dadf251e2056908cd43d1e7bcc276
+  languageName: node
+  linkType: hard
+
+"@mirror_cy/gpt@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@mirror_cy/gpt@npm:0.0.1"
+  peerDependencies:
+    koishi: ^4.10.1
+  checksum: 10c0/e6c8c605648e6e28140731694bbdf0b0e3a53565d020c8b6edcc91803a93c1b8a5d16ff1741ece2dede856b86858571f1c917e32331f76c03f67ae5df7785d83
   languageName: node
   linkType: hard
 
@@ -4782,6 +4802,7 @@ __metadata:
     koishi-plugin-public: "npm:1.1.1"
     koishi-plugin-puppeteer: "npm:^3.9.0"
     koishi-plugin-rate-limit: "npm:^2.0.4"
+    koishi-plugin-tangxi-bot: "npm:1.1.3"
     koishi-plugin-telemetry: "npm:^0.2.3"
     koishi-plugin-theme-vanilla: "npm:^1.1.0"
     prettier: "npm:^3.6.2"
@@ -5037,6 +5058,17 @@ __metadata:
   peerDependencies:
     koishi: ^4.17.4
   checksum: 10c0/fe7b44db8eef34c851e30ff66cff729614cfcd3f199aebc27004718e346bc841717c9e84fd2fe3b47b0fa9f7ff4f23ad2835cc4a687b2e59351067eaee5c88a3
+  languageName: node
+  linkType: hard
+
+"koishi-plugin-tangxi-bot@npm:1.1.3":
+  version: 1.1.3
+  resolution: "koishi-plugin-tangxi-bot@npm:1.1.3"
+  dependencies:
+    "@miemiemie/koishi-plugin-gpt-api": "npm:^0.1.11"
+  peerDependencies:
+    koishi: ^4.18.7
+  checksum: 10c0/f5978a22a32c0784ee74cb6c832216f7e7df7cb325b2718a2f4cced7b225b25e901c88061ade62e40e6ef1b3593a6090df6248be287497f0b17c614bc62934cf
   languageName: node
   linkType: hard
 

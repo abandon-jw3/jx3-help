@@ -2,6 +2,8 @@
 
 一个基于 [Koishi](https://koishi.chat/) 框架开发的剑网3游戏助手机器人，提供游戏数据查询、WebSocket 实时推送、图片渲染等功能。
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/abandon-jw3/jx3-help) [![Node](https://img.shields.io/badge/node-22.x-brightgreen)](https://github.com/abandon-jw3/jx3-help)
+
 ## ✨ 特性
 
 - 🎮 **完整的游戏数据查询** - 支持日常、战绩、奇遇、物价、攻略等全方位数据查询

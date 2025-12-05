@@ -1,4 +1,4 @@
-import { Context, Session } from "koishi";
+import { Context, Random } from "koishi";
 import dayjs from "dayjs";
 import { ArgParser, serverList, jjcModel } from "../tools";
 import isoWeek from "dayjs/plugin/isoWeek";
@@ -1178,20 +1178,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
-  // ctx
-  //   .guild()
-  //   .command("群发")
-  //   .action(async ({ session }) => {
-  //     console.log(session);
-  //     return;
-  //     // 1. 定义你要发送的群号列表
-  //     const groupIds = ["829022114"];
-  //     // 2. 转换为 Koishi 的标准频道 ID 格式 (platform:id)
-  //     const targetChannels = groupIds.map((id) => `onebot:${id}`);
-  //     // 3. 发送消息
-  //     // Koishi 会自动找到负责这些群的 OneBot 机器人并发送
-  //     await ctx.broadcast(targetChannels, "群发测试");
-
-  //     return <p>群发测试中...</p>;
-  //   });
+  //今天喝什么
+  ctx
+    .guild()
+    .command("今天喝什么", "猜一下今天喝什么")
+    .action(async (_) => {
+      const index = Random.int(1, 10);
+      return <img src={`http://localhost:5140/jx3assets/images/drinks/${index}.png`} />;
+    });
 }
