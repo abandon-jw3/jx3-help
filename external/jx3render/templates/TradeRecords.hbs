@@ -1,258 +1,772 @@
 <html lang="zh-cn">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>物价</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>物价</title>
+  <script src="http://localhost:5140/jx3assets/echarts/echarts.min.js"></script>
+  <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
 
-      body {
-        width: 1300px;
-        margin: 0 auto;
-        font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-        background-color: #fff;
-      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      .container {
-        width: 100%;
-        background-image: url("http://localhost:5140/jx3assets/images/common/bg.png");
-        background-size: cover;
-        padding: 20px;
-        min-height: 100vh;
-      }
+    body {
+      width: 1400px;
+      /* Slightly wider for the new layout */
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #fceef5;
+      /* Fallback */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position:
+        0 0,
+        10px 10px;
+    }
 
-      .card-box {
-        background-color: rgba(255, 255, 255, 0.95);
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
+    .container {
+      padding: 40px;
+      min-height: 100vh;
+    }
 
-      .header {
-        text-align: center;
-        padding: 25px 0;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-bottom: 1px solid #eee;
-      }
+    /* Top Section */
+    .top-section {
+      display: flex;
+      gap: 20px;
+      height: 420px;
+      margin-bottom: 30px;
+    }
 
-      .title {
-        font-size: 32px;
-        font-weight: bold;
-        color: #333;
-      }
+    .image-card {
+      flex: 1.2;
+      background: #000;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      .content {
-        padding: 18px;
-      }
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom;
+    }
 
-      .item-view {
-        text-align: center;
-        margin-bottom: 18px;
-        height: 535px;
-      }
+    .item-info-overlay {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-      .item-view img {
-        height: 100%;
-        border-radius: 4px;
-      }
+    .item-name {
+      font-size: 48px;
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
 
-      .description {
-        background-color: #f1f3f5;
-        color: #495057;
-        padding: 20px;
-        border-radius: 6px;
-        text-align: center;
-        font-size: 22px;
-        margin-bottom: 18px;
-        border: 1px solid #e9ecef;
-      }
+    .badges {
+      display: flex;
+      gap: 10px;
+    }
 
-      .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 10px;
-      }
+    .badge {
+      padding: 4px 12px;
+      background: #00e5ff;
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
 
-      .section-card {
-        background: #fff;
-        border: 1px solid #e9ecef;
-        border-radius: 6px;
-        overflow: hidden;
-      }
+    .badge.red {
+      background: #ff4757;
+      color: #fff;
+    }
 
-      .section-header {
-        background-color: #f8f9fa;
-        padding: 15px;
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        color: #495057;
-        border-bottom: 2px solid #e9ecef;
-      }
+    .badge.green {
+      background: #55efc4;
+      color: #fff;
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
+    .stats-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-      td {
-        padding: 10px;
-        text-align: center;
-        font-size: 18px;
-        border-bottom: 1px solid #f1f3f5;
-      }
+    .stat-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 30px;
+      box-shadow: 0 4px 15px rgba(230, 230, 250, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-      tr:last-child td {
-        border-bottom: none;
-      }
+    .avg-price-card {
+      height: 120px;
+      position: relative;
+    }
 
-      tr:nth-child(even) {
-        background-color: #f8f9fa;
-      }
+    .avg-price-label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #6c5ce7;
+      background: #a29bfe;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 10px;
+    }
 
-      .date-cell {
-        color: #b58900;
-        font-family: monospace;
-        font-size: 18px;
-      }
+    .avg-price-value {
+      font-size: 64px;
+      font-weight: 900;
+      color: #e056fd;
+      line-height: 1;
+    }
 
-      .server-cell {
-        color: #212529;
-        font-weight: 500;
-      }
+    .avg-price-value span {
+      font-size: 32px;
+      margin-left: 5px;
+    }
 
-      .price-cell {
-        color: #007bff;
-        font-weight: bold;
-        font-family: Arial, sans-serif;
-      }
+    .price-range {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      text-align: right;
+      font-size: 14px;
+      color: #a4b0be;
+    }
 
-      .type-cell {
-        color: #6c757d;
-      }
+    .price-range strong {
+      font-size: 18px;
+      margin-left: 5px;
+    }
 
-      .footer {
-        text-align: center;
-        color: #adb5bd;
-        font-size: 14px;
-        padding: 15px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-top: 1px solid #eee;
-      }
-    </style>
-  </head>
+    .price-range .min {
+      color: #00b894;
+    }
 
-  <body>
-    <div class="container">
-      <div class="card-box">
-        <div class="header">
-          <div class="title">{{name}}({{subalias}})</div>
+    .price-range .max {
+      color: #ff7675;
+    }
+
+    .chart-card {
+      flex: 1;
+      position: relative;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .chart-title {
+      font-weight: bold;
+      color: #6c5ce7;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-title::before {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: #6c5ce7;
+      transform: rotate(45deg);
+    }
+
+    .chart-subtitle {
+      font-size: 12px;
+      color: #b2bec3;
+    }
+
+    #priceChart {
+      width: 100%;
+      height: 180px;
+    }
+
+    /* Divider */
+    .divider-section {
+      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .divider-tag {
+      background: #74b9ff;
+      color: #fff;
+      font-weight: bold;
+      padding: 5px 15px;
+      transform: skew(-15deg);
+      border-radius: 4px;
+    }
+
+    .divider-tag span {
+      display: block;
+      transform: skew(15deg);
+      font-style: italic;
+      font-size: 18px;
+    }
+
+    /* Grid Layout */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .list-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(230, 230, 250, 0.6);
+      height: 380px;
+      /* Fixed height for consistency */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      margin: -20px -20px 15px -20px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    /* Header Backgrounds */
+    .header-bg-yellow {
+      background: rgba(241, 196, 15, 0.15);
+    }
+
+    .header-bg-pink {
+      background: rgba(255, 118, 117, 0.15);
+    }
+
+    .header-bg-green {
+      background: rgba(0, 184, 148, 0.15);
+    }
+
+    .header-bg-purple {
+      background: rgba(162, 155, 254, 0.15);
+    }
+
+    .header-bg-blue {
+      background: rgba(0, 206, 201, 0.15);
+    }
+
+    .header-bg-orange {
+      background: rgba(225, 112, 85, 0.15);
+    }
+
+
+    .list-title {
+      font-weight: 900;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2d3436;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .list-label {
+      font-size: 12px;
+      color: #b2bec3;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .list-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .list-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      font-size: 16px;
+    }
+
+    .list-row:last-child {
+      border-bottom: none;
+    }
+
+    .col-date {
+      color: #a4b0be;
+      width: 50px;
+    }
+
+    .col-name {
+      font-weight: bold;
+      color: #2d3436;
+      flex: 1;
+      text-align: left;
+      padding-left: 10px;
+    }
+
+    .col-price {
+      font-weight: 900;
+      color: #e056fd;
+      width: 80px;
+      text-align: right;
+    }
+
+    .col-status {
+      margin-left: 10px;
+    }
+
+    .status-badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Status Colors */
+    .status-公示 {
+      background: #f1c40f;
+    }
+
+    .status-在售,
+    .status-正出,
+    .status-出售 {
+      background: #ff7675;
+    }
+
+    .status-成交 {
+      background: #00b894;
+    }
+
+    .status-想出 {
+      background: #a29bfe;
+    }
+
+    .status-想收,
+    .status-收购 {
+      background: #74b9ff;
+    }
+
+    .status-部收 {
+      background: #55efc4;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #dcdde1;
+      border-radius: 2px;
+    }
+
+    /* Section specific colors */
+    .color-yellow {
+      color: #f1c40f;
+    }
+
+    .bg-yellow {
+      background: #f1c40f;
+    }
+
+    .color-pink {
+      color: #ff7675;
+    }
+
+    .bg-pink {
+      background: #ff7675;
+    }
+
+    .color-blue {
+      color: #00cec9;
+    }
+
+    .bg-blue {
+      background: #00cec9;
+    }
+
+    .color-purple {
+      color: #a29bfe;
+    }
+
+    .bg-purple {
+      background: #a29bfe;
+    }
+
+    .color-green {
+      color: #00b894;
+    }
+
+    .bg-green {
+      background: #00b894;
+    }
+
+    .color-orange {
+      color: #e17055;
+    }
+
+    .bg-orange {
+      background: #e17055;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Top Section -->
+    <div class="top-section">
+      <div class="image-card">
+        <img src="{{view}}" alt="{{name}}" />
+        <div class="item-info-overlay">
+          <div class="item-name">{{name}}</div>
+          <div class="badges">
+            <div class="badge red">{{class}}</div>
+            {{#if subalias}}<div class="badge">{{subalias}}</div>{{else}}<div class="badge">{{alias}}</div>{{/if}}
+            <div class="badge green">{{desc}}</div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-column">
+        <div class="stat-card avg-price-card">
+          <div class="avg-price-label">AVG PRICE</div>
+          <div class="avg-price-value" id="avgPrice"><span>¥{{list.[4].[0].value}}</span></div>
+          <div class="price-range">
+            MIN
+            <strong class="min" id="minPrice">¥--</strong><br />
+            MAX
+            <strong class="max" id="maxPrice">¥--</strong>
+          </div>
         </div>
 
-        <div class="content">
-          <div class="item-view">
-            <img src="{{view}}" alt="物品图片" />
+        <div class="stat-card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">PRICE HISTORY</div>
+            <div class="chart-subtitle">LAST 30 DAYS</div>
           </div>
-          <div class="description">
-            {{desc}}
-          </div>
-
-          <div class="grid-container">
-            <!-- 万宝楼·公示< -->
-            <div class="section-card">
-              <div class="section-header">万宝楼·公示</div>
-              <table>
-                <tbody>
-                  {{#each list.[3]}}
-                    <tr>
-                      <td class="date-cell">{{date}}</td>
-                      <td class="server-cell">{{server}}</td>
-                      <td class="price-cell">{{value}}</td>
-                      <td class="type-cell">{{tradeType sale}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-            <!-- 万宝楼·在售 -->
-            <div class="section-card">
-              <div class="section-header">万宝楼·在售</div>
-              <table>
-                <tbody>
-                  {{#each list.[4]}}
-                    <tr>
-                      <td class="date-cell">{{date}}</td>
-                      <td class="server-cell">{{server}}</td>
-                      <td class="price-cell">{{value}}</td>
-                      <td class="type-cell">{{tradeType sale}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-            <!-- 电信区 -->
-            <div class="section-card">
-              <div class="section-header">电信区</div>
-              <table>
-                <tbody>
-                  {{#each list.[0]}}
-                    <tr>
-                      <td class="date-cell">{{date}}</td>
-                      <td class="server-cell">{{server}}</td>
-                      <td class="price-cell">{{value}}</td>
-                      <td class="type-cell">{{tradeType sale}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-
-            <!-- 双线区 -->
-            <div class="section-card">
-              <div class="section-header">双线区</div>
-              <table>
-                <tbody>
-                  {{#each list.[1]}}
-                    <tr>
-                      <td class="date-cell">{{date}}</td>
-                      <td class="server-cell">{{server}}</td>
-                      <td class="price-cell">{{value}}</td>
-                      <td class="type-cell">{{tradeType sale}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-
-            <!-- 无界区 -->
-            <div class="section-card">
-              <div class="section-header">无界区</div>
-              <table>
-                <tbody>
-                  {{#each list.[2]}}
-                    <tr>
-                      <td class="date-cell">{{date}}</td>
-                      <td class="server-cell">{{server}}</td>
-                      <td class="price-cell">{{value}}</td>
-                      <td class="type-cell">{{tradeType sale}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-        </div>
-        <div class="footer">
-          数据来源：www.jx3api.com
+          <div id="priceChart"></div>
         </div>
       </div>
     </div>
-  </body>
+
+    <!-- Divider -->
+    <div class="divider-section">
+      <div class="divider-tag"><span>DATA LIST</span></div>
+    </div>
+
+    <!-- Grid Lists -->
+    <div class="grid-container">
+      <!-- 3: 公示期 -->
+      <div class="list-card">
+        <div class="list-header header-bg-yellow">
+          <div class="list-title color-yellow">
+            <div class="dot bg-yellow"></div>公示期
+          </div>
+          <div class="list-label">PUBLICITY</div>
+        </div>
+        <div class="list-content">
+          {{#each (limit list.[3] 6)}}
+          <div class="list-row">
+            <span class="col-date">{{formatTime date "MM-DD"}}</span>
+            <span class="col-name">{{server}}</span>
+            <span class="col-price">¥{{value}}</span>
+            <span class="col-status"><span class="status-badge status-{{tradeType sale}}">{{tradeType
+                sale}}</span></span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <!-- 4: 在售期 -->
+      <div class="list-card">
+        <div class="list-header header-bg-pink">
+          <div class="list-title color-pink">
+            <div class="dot bg-pink"></div>在售期
+          </div>
+          <div class="list-label">ON SALE</div>
+        </div>
+        <div class="list-content">
+          {{#each (limit list.[4] 6)}}
+          <div class="list-row">
+            <span class="col-date">{{formatTime date "MM-DD"}}</span>
+            <span class="col-name">{{server}}</span>
+            <span class="col-price">¥{{value}}</span>
+            <span class="col-status"><span class="status-badge status-{{tradeType sale}}">{{tradeType
+                sale}}</span></span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <!-- 0: 电信区 -->
+      <div class="list-card">
+        <div class="list-header header-bg-green">
+          <div class="list-title color-green">
+            <div class="dot bg-green"></div>电信区
+          </div>
+          <div class="list-label">TELECOM</div>
+        </div>
+        <div class="list-content">
+          {{#each (limit list.[0] 6)}}
+          <div class="list-row">
+            <span class="col-date">{{formatTime date "MM-DD"}}</span>
+            <span class="col-name">{{server}}</span>
+            <span class="col-price">¥{{value}}</span>
+            <span class="col-status"><span class="status-badge status-{{tradeType sale}}">{{tradeType
+                sale}}</span></span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <!-- 1: 双线区 -->
+      <div class="list-card">
+        <div class="list-header header-bg-purple">
+          <div class="list-title color-purple">
+            <div class="dot bg-purple"></div>双线区
+          </div>
+          <div class="list-label">DUAL LINE</div>
+        </div>
+        <div class="list-content">
+          {{#each (limit list.[1] 6)}}
+          <div class="list-row">
+            <span class="col-date">{{formatTime date "MM-DD"}}</span>
+            <span class="col-name">{{server}}</span>
+            <span class="col-price">¥{{value}}</span>
+            <span class="col-status"><span class="status-badge status-{{tradeType sale}}">{{tradeType
+                sale}}</span></span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <!-- 2: 无界区 -->
+      <div class="list-card">
+        <div class="list-header header-bg-blue">
+          <div class="list-title color-blue">
+            <div class="dot bg-blue"></div>无界区
+          </div>
+          <div class="list-label">MOBILE</div>
+        </div>
+        <div class="list-content">
+          {{#each (limit list.[2] 6)}}
+          <div class="list-row">
+            <span class="col-date">{{formatTime date "MM-DD"}}</span>
+            <span class="col-name">{{server}}</span>
+            <span class="col-price">¥{{value}}</span>
+            <span class="col-status"><span class="status-badge status-{{tradeType sale}}">{{tradeType
+                sale}}</span></span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <!-- 5: Server -->
+      <div class="list-card">
+        <div class="list-header header-bg-orange">
+          <div class="list-title color-orange">
+            <div class="dot bg-orange"></div>{{#if list.[5]}}{{list.[5].[0].server}}{{else}}指定服{{/if}}
+          </div>
+          <div class="list-label">SERVER</div>
+        </div>
+        <div class="list-content">
+          {{#each (limit list.[5] 6)}}
+          <div class="list-row">
+            <span class="col-date">{{formatTime date "MM-DD"}}</span>
+            <span class="col-name">{{server}}</span>
+            <span class="col-price">¥{{value}}</span>
+            <span class="col-status"><span class="status-badge status-{{tradeType sale}}">{{tradeType
+                sale}}</span></span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer" style="text-align: center; margin-top: 30px; color: #b2bec3; font-size: 12px;">
+      数据来源：www.jx3api.com
+    </div>
+  </div>
+
+  <script>
+    // 将 Handlebars 数据传递给 JavaScript
+    const rawData = {{{ json this }}};
+
+    // 收集所有成交数据用于图表 (sale: 3 = 成交)
+    function collectChartData() {
+      const dateMap = new Map(); // 用于按日期聚合数据
+
+      // 遍历电信区(0)、双线区(1)、无界区(2)的数据
+      for (let i = 0; i <= 2; i++) {
+        rawData.list[i]?.forEach(item => {
+          if (item.sale === 3) { // 只取成交数据
+            const date = item.date;
+            if (!dateMap.has(date)) {
+              dateMap.set(date, { total: 0, count: 0 });
+            }
+            const entry = dateMap.get(date);
+            entry.total += item.value;
+            entry.count += 1;
+          }
+        });
+      }
+
+      // 转换为数组并计算每天的平均价格
+      const aggregated = Array.from(dateMap.entries()).map(([date, data]) => ({
+        date,
+        value: Math.round(data.total / data.count) // 取平均值并取整
+      }));
+
+      // 按日期排序
+      aggregated.sort((a, b) => new Date(a.date) - new Date(b.date));
+      return aggregated;
+    }
+
+    // 收集在售期数据计算统计
+    function collectSaleData() {
+      const saleRecords = rawData.list[4] || [];
+      return saleRecords.map(item => item.value);
+    }
+
+    // 计算统计数据
+    function calculateStats(values) {
+      if (!values.length) return { min: 0, max: 0, avg: 0 };
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const avg = Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+      return { min, max, avg };
+    }
+
+    // 更新 MIN/MAX 显示
+    const saleValues = collectSaleData();
+    const stats = calculateStats(saleValues);
+
+    document.getElementById('minPrice').textContent = '¥' + stats.min;
+    document.getElementById('maxPrice').textContent = '¥' + stats.max;
+
+    // 初始化 ECharts 图表
+    const chartDom = document.getElementById('priceChart');
+    const myChart = echarts.init(chartDom);
+
+    const chartData = collectChartData();
+    const dates = chartData.map(item => {
+      const d = new Date(item.date);
+      return (d.getMonth() + 1) + '-' + d.getDate();
+    });
+    const values = chartData.map(item => item.value);
+
+    // 计算图表 Y 轴范围
+    const chartMin = values.length ? Math.min(...values) : 0;
+    const chartMax = values.length ? Math.max(...values) : 100;
+    const padding = Math.max((chartMax - chartMin) * 0.1, 10);
+
+    const option = {
+      animation: false,
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        top: '10%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: dates,
+        axisLine: { lineStyle: { color: '#dfe6e9' } },
+        axisLabel: { color: '#b2bec3', fontSize: 10 },
+        axisTick: { show: false }
+      },
+      yAxis: {
+        type: 'value',
+        min: Math.floor(chartMin - padding),
+        max: Math.ceil(chartMax + padding),
+        axisLine: { show: false },
+        axisLabel: { color: '#b2bec3', fontSize: 10 },
+        splitLine: { lineStyle: { color: '#f1f2f6', type: 'dashed' } }
+      },
+      series: [{
+        data: values,
+        type: 'line',
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 6,
+        lineStyle: {
+          color: '#e056fd',
+          width: 3
+        },
+        itemStyle: {
+          color: '#e056fd',
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(224, 86, 253, 0.3)' },
+              { offset: 1, color: 'rgba(224, 86, 253, 0.05)' }
+            ]
+          }
+        }
+      }],
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderColor: '#e056fd',
+        borderWidth: 1,
+        textStyle: { color: '#2d3436' },
+        formatter: function (params) {
+          return params[0].name + '<br/>价格: <strong style="color:#e056fd">¥' + params[0].value + '</strong>';
+        }
+      }
+    };
+
+    myChart.setOption(option);
+  </script>
+</body>
 
 </html>

@@ -42,7 +42,13 @@ export class RenderService extends Service {
     //格式化时间
     handlebars.registerHelper("formatTime", function (value, format) {
       if (!value) return "";
-      return dayjs.unix(value).format(format);
+
+      //如果value全是数字或数字组成的字符串
+      if (typeof value === "number" || value.match(/^\d+$/)) {
+        return dayjs.unix(value).format(format);
+      } else {
+        return dayjs(value).format(format);
+      }
     });
     //格式化间隔时间
     handlebars.registerHelper("formatInterval", function (value) {
@@ -73,6 +79,13 @@ export class RenderService extends Service {
         "7": "公示",
       };
       return map[String(value)] || value;
+    });
+
+    handlebars.registerHelper("limit", function (arr, limit) {
+      if (!Array.isArray(arr)) {
+        return [];
+      }
+      return arr.slice(0, limit);
     });
 
     const templatePath = path.join(__dirname, "../templates");

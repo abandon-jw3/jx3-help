@@ -1166,13 +1166,16 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("物价 [物品名称]", "统计指定物品的黑市价格信息")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
     .action(async ({ session }, name) => {
       if (!name) {
         await session.send("请输入要查询的物品名称：");
         name = await session.prompt();
         if (!name) return "输入超时。";
       }
-      const res = await ctx.jx3api.getTradeRecords({ name });
+      const server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getTradeRecords({ name, server });
       if (res.msg !== "success") return <>{res.msg}</>;
       const screenshot = await ctx.jx3render.render("TradeRecords", res.data, `TradeRecords-${name}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
