@@ -1,211 +1,328 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>的卢拍卖记录</title>
-    <style>
-      /* Reset & Base */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>的卢拍卖记录</title>
+  <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
 
-      body {
-        font-family:
-          "Microsoft YaHei",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          "Helvetica Neue",
-          Arial,
-          sans-serif;
-        background-color: #f0f2f5;
-        padding: 40px;
-        color: #333;
-        line-height: 1.5;
-        width: 1440px;
-      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      /* Card Container */
-      .card {
-        max-width: 1400px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-      }
+    body {
+      width: 1300px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #fceef5;
+      /* Base Pink */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #2d3436;
+      padding-bottom: 40px;
+    }
 
-      /* Header */
-      .header {
-        padding: 24px 32px;
-        background: linear-gradient(to right, #f8f9fa, #ffffff);
-        border-bottom: 1px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .container {
+      padding: 40px;
+      min-height: 100vh;
+    }
 
-      .header h1 {
-        font-size: 28px;
-        font-weight: 600;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 0;
-      }
+    /* Page Header */
+    .page-header {
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
 
-      .icon-star {
-        color: #f1c40f;
-        width: 32px;
-        height: 32px;
-      }
+    .page-title {
+      font-size: 42px;
+      font-weight: 900;
+      color: #00b894;
+      /* Green/Teal for Wealth/Auction */
+      text-shadow: 2px 2px 0px #fff;
+      display: inline-block;
+      background: #fff;
+      padding: 12px 50px;
+      border-radius: 60px;
+      box-shadow: 0 6px 20px rgba(0, 184, 148, 0.2);
+      transform: skew(-10deg);
+    }
 
-      /* Table Styling */
-      .table-container {
-        width: 100%;
-        overflow-x: auto;
-      }
+    .page-title span {
+      display: block;
+      transform: skew(10deg);
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
+    .page-subtitle {
+      margin-top: 15px;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.9);
+      color: #636e72;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
 
-      thead {
-        background-color: #f8fafc;
-      }
+    /* Card/Table Container */
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
+      overflow: hidden;
+      padding: 10px;
+    }
 
-      th {
-        padding: 20px 16px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 20px;
-        color: #64748b;
-        border-bottom: 2px solid #e2e8f0;
-        white-space: nowrap;
-      }
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
 
-      td {
-        padding: 20px 16px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 22px;
-        border-bottom: 1px solid #edf2f7;
-      }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
 
-      tbody tr:last-child td {
-        border-bottom: none;
-      }
+    thead {
+      background-color: rgba(0, 184, 148, 0.1);
+    }
 
-      tbody tr:hover {
-        background-color: #f8fafc;
-      }
+    th {
+      padding: 24px 16px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: #00b894;
+      border-bottom: 2px solid #55efc4;
+      white-space: nowrap;
+    }
 
-      tbody tr:nth-child(even) {
-        background-color: #fafafa;
-      }
+    th:first-child {
+      border-top-left-radius: 16px;
+    }
 
-      /* Column Specific Styles */
-      .col-meta {
-        color: #718096;
-        font-size: 20px;
-        line-height: 1.6;
-      }
+    th:last-child {
+      border-top-right-radius: 16px;
+    }
 
-      .text-amount {
-        color: #2563eb;
-        font-weight: 700;
-        font-family: Consolas, Monaco, monospace;
-        font-size: 24px;
-      }
+    td {
+      padding: 15px 10px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 16px;
+      border-bottom: 1px dashed #fab1a0;
+      color: #2d3436;
+    }
 
-      .footer-space {
-        height: 16px;
-        background: #fff;
-      }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
 
-      /* Custom for DiluRecord */
-      .map-name {
-        color: #0891b2;
-        font-weight: 600;
-      }
+    tbody tr:hover {
+      background-color: #f0fff4;
+      /* Light green hover */
+    }
 
-      .role-name {
-        font-weight: 500;
-        color: #334155;
-      }
+    /* Column Styles */
+    .time-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+    }
 
-      .camp-name {
-        font-size: 18px;
-        color: #94a3b8;
-        margin-top: 4px;
-      }
-    </style>
-  </head>
+    .time-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      /* background: #f1f2f6; Removed grey bg */
+      padding: 0 4px;
+      /* Reduced padding since no bg */
+      width: 100%;
+      justify-content: space-between;
+      border-bottom: 1px dashed #eee;
+      /* Add subtle separator instead */
+    }
 
-  <body>
-    <div class="card">
-      <div class="header">
-        <h1>
-          <!-- SVG Icon for Stars -->
-          <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-          </svg>
-          的卢拍卖记录
-        </h1>
+    .time-item:last-child {
+      border-bottom: none;
+    }
+
+    .time-label {
+      color: #636e72;
+      /* Darker grey */
+      font-weight: bold;
+      font-size: 14px;
+      /* Slightly larger */
+    }
+
+    .time-val {
+      color: #2d3436;
+      /* Dark text */
+      font-weight: bold;
+      font-family: "DengXian";
+      font-size: 14px;
+    }
+
+    .map-badge {
+      background: #74b9ff;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Role Card inside table */
+    .role-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .role-name {
+      font-weight: bold;
+      color: #2d3436;
+      font-size: 18px;
+    }
+
+    .role-camp {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    .camp-good {
+      background: #00cec9;
+    }
+
+    /* 浩气/Good - Guessing colors based on typical MMO camps, usually Blue/Red */
+    .camp-evil {
+      background: #ff7675;
+    }
+
+    /* 恶人/Evil */
+    .camp-neutral {
+      background: #b2bec3;
+    }
+
+    /* Amount */
+    .amount-badge {
+      font-family: "DengXian";
+      font-weight: 900;
+      font-size: 16px;
+      color: #f1c40f;
+      background: #fef9e7;
+      padding: 8px 15px;
+      border-radius: 12px;
+      display: inline-block;
+      border: 1px solid rgba(241, 196, 15, 0.3);
+    }
+
+    .col-role {
+      min-width: 140px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+      <div class="page-title">
+        <span>DILU AUCTION RECORD</span>
       </div>
+      <br>
+      <div class="page-subtitle">的卢拍卖记录</div>
+    </div>
 
+    <div class="card">
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th style="width: 20%">周期</th>
-              <th style="width: 30%">关键时间</th>
-              <th style="width: 11%">地图</th>
-              <th style="width: 12%">捕获角色</th>
-              <th style="width: 12%">购买角色</th>
+              <th style="width: 15%">周期</th>
+              <th style="width: 15%">关键时间</th>
+              <th style="width: 15%">地图</th>
+              <th style="width: 15%">捕获角色</th>
+              <th style="width: 20%">购买角色</th>
               <th style="width: 15%">成交金额</th>
             </tr>
           </thead>
           <tbody>
             {{#each this}}
-              <tr>
-                <td class="col-meta">
-                  <div>开始：{{default (formatTime start_time "YYYY-MM-DD HH") "-"}}</div>
-                  <div>结束：{{default (formatTime end_time "YYYY-MM-DD HH") "-"}}</div>
-                </td>
-                <td class="col-meta">
-                  <div>刷新：{{default (formatTime refresh_time "YYYY-MM-DD HH:mm") "-"}}</div>
-                  <div>捕获：{{default (formatTime capture_time "YYYY-MM-DD HH:mm") "-"}}</div>
-                  <div>拍卖：{{default (formatTime auction_time "YYYY-MM-DD HH:mm") "-"}}</div>
-                </td>
-                <td>
-                  <span class="map-name">{{map_name}}</span>
-                </td>
-                <td>
-                  <div class="role-name">{{default capture_role_name "-"}}</div>
-                  <div class="camp-name">[{{default capture_camp_name "-"}}]</div>
-                </td>
-                <td>
-                  <div class="role-name">{{default auction_role_name "-"}}</div>
-                  <div class="camp-name">[{{default auction_camp_name "-"}}]</div>
-                </td>
-                <td>
-                  <span class="text-amount">{{default auction_amount "-"}}</span>
-                </td>
-              </tr>
+            <tr>
+              <!-- Cycle Time -->
+              <td>
+                <div class="time-group">
+                  <div class="time-item">
+                    <span class="time-label">开始</span>
+                    <span class="time-val">{{default (formatTime start_time "MM-DD HH:mm") "-"}}</span>
+                  </div>
+                  <div class="time-item">
+                    <span class="time-label">结束</span>
+                    <span class="time-val">{{default (formatTime end_time "MM-DD HH:mm") "-"}}</span>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Event Timeline -->
+              <td>
+                <div class="time-group">
+                  <div class="time-item">
+                    <span class="time-label">刷新</span>
+                    <span class="time-val">{{default (formatTime refresh_time "HH:mm:ss") "-"}}</span>
+                  </div>
+                  <div class="time-item">
+                    <span class="time-label">捕获</span>
+                    <span class="time-val">{{default (formatTime capture_time "HH:mm:ss") "-"}}</span>
+                  </div>
+                  <div class="time-item">
+                    <span class="time-label">拍卖</span>
+                    <span class="time-val">{{default (formatTime auction_time "HH:mm:ss") "-"}}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <span class="map-badge">{{map_name}}</span>
+              </td>
+
+              <td class="col-role">
+                <div class="role-card">
+                  <span class="role-name">{{default capture_role_name "-"}}</span>
+                  <span class="role-camp camp-neutral">{{default capture_camp_name "Unknown"}}</span>
+                </div>
+              </td>
+
+              <td class="col-role">
+                <div class="role-card">
+                  <span class="role-name">{{default auction_role_name "-"}}</span>
+                  <span class="role-camp camp-neutral">{{default auction_camp_name "Unknown"}}</span>
+                </div>
+              </td>
+
+              <td>
+                <span class="amount-badge">{{default auction_amount "-"}}</span>
+              </td>
+            </tr>
             {{/each}}
           </tbody>
         </table>
       </div>
-      <div class="footer-space"></div>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>

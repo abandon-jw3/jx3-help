@@ -129,7 +129,6 @@ export class RenderService extends Service {
     const randomName = `${templateName}-${Math.random().toString(36).substring(2, 15)}`; //随机生成一个16位文件名
     const tempHtmlFile = path.join(this.dataDir, `${randomName}.html`); // 将 HTML 保存为临时文件
     fs.writeFileSync(tempHtmlFile, html, "utf-8");
-
     const page = await this.ctx.puppeteer.page(); //创建游览器标签页实例
     try {
       await page.goto(`http://localhost:5140/jx3html/${randomName}.html`, {

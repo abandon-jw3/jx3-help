@@ -393,7 +393,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .command("查人 [uid]", "查询qq号黑历史")
     .action(async ({ session }, uid) => {
       if (!uid) {
-        await session.send("请输入QQ号：");
+        await session.send("请输入要查的QQ号：");
         uid = await session.prompt();
         if (!uid) return "输入超时。";
       }
@@ -437,7 +437,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
   //奇遇统计查询
   ctx
     .guild()
-    .command("奇遇统计 [服务器] [奇遇名称]", "查询奇遇统计")
+    .command("奇遇统计 [服务器] [奇遇名称]", "查询服务器对应奇遇统计")
     .channelFields(["groupServer"])
     .userFields(["userServer"])
     .action(async ({ session }, ...arg) => {
@@ -505,7 +505,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       const parser = new ArgParser(arg);
       let server = parser.tryMatch("server", serverList);
       if (!server) server = session.channel.groupServer || session.user.userServer;
-      let name = parser.getRemaining()[0] || "";
+      let name = parser.getRemaining()[0] || session.user.roleName;
       if (!name) {
         await session.send("请输入角色名：");
         name = await session.prompt();
@@ -513,18 +513,8 @@ export function instructionsCommands(ctx: Context, config: Config) {
       }
       const res = await ctx.jx3api.getLuckUnfinished({ server, name });
       if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到缺失奇遇</p>;
-      return (
-        <>
-          <p>服务器：{server}</p>
-          <p>角色名：{name}</p>
-          <br />
-          {res.data.map((item) => (
-            <p>
-              {item.type}-{item.name}
-            </p>
-          ))}
-        </>
-      );
+      const screenshot = await ctx.jx3render.render("UserQiyuUnfinished", res.data, `UserQiyuUnfinished-${server}-${name}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
     });
 
   // ctx
@@ -569,11 +559,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
       let server = parser.tryMatch("server", serverList);
       if (!server) server = session.channel.groupServer || session.user.userServer;
       let keyword = parser.getRemaining()[0] || "";
-      if (!keyword) {
-        await session.send("请输入要查询的师父关键字：");
-        keyword = await session.prompt();
-        if (!keyword) return "输入超时。";
-      }
+      // if (!keyword) {
+      //   await session.send("请输入要查询的师父关键字：");
+      //   keyword = await session.prompt();
+      //   if (!keyword) return "输入超时。";
+      // }
       const res = await ctx.jx3api.getMemberTeacher({ server, keyword });
       if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到师父信息</p>;
       const screenshot = await ctx.jx3render.render("MemberTeacher", res.data, `MemberTeacher-${server}`, false);
@@ -591,11 +581,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
       let server = parser.tryMatch("server", serverList);
       if (!server) server = session.channel.groupServer || session.user.userServer;
       let keyword = parser.getRemaining()[0] || "";
-      if (!keyword) {
-        await session.send("请输入要查询的徒弟关键字：");
-        keyword = await session.prompt();
-        if (!keyword) return "输入超时。";
-      }
       const res = await ctx.jx3api.getMemberStudent({ server, keyword });
       if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到徒弟信息</p>;
       const screenshot = await ctx.jx3render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
@@ -722,8 +707,11 @@ export function instructionsCommands(ctx: Context, config: Config) {
         if (!name) return "输入超时。";
       }
       const res = await ctx.jx3api.getRoleMonster({ server, name });
+
+      console.log(res);
+      return;
       if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
-      else if (res.msg !== "success") return <p>{res.msg}</p>;
+      if (res.msg !== "success") return <p>{res.msg}</p>;
       const screenshot = await ctx.jx3render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });

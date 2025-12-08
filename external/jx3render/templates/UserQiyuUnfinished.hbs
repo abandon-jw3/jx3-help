@@ -1,0 +1,113 @@
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>角色未出奇遇</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .container {
+      width: 1080px;
+      box-sizing: border-box;
+      padding: 0 18px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .header h1::before,
+    .header h1::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #333, transparent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .qiyu-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qiyu-img img {
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .type {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      background-color: #e9ecef;
+      padding: 8px 20px;
+      border-radius: 24px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>角色未出奇遇</h1>
+    </div>
+    <div class="grid">
+      {{#each this}}
+      <div class="card">
+        <div class="qiyu-img">
+          <img src="http://localhost:5140/jx3assets/images/qiyu/{{name}}.png" alt="{{name}}" />
+        </div>
+        <div class="type">{{type}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</body>
+
+</html>

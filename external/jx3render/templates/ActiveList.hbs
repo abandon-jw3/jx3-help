@@ -1,217 +1,290 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-cn">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>活动日历</title>
   <style>
-    :root {
-      --bg-color: #f6f8fa;
-      --card-bg: #ffffff;
-      --text-primary: #2c3e50;
-      --text-secondary: #7f8c8d;
-      --accent-war: #e74c3c;
-      --accent-battle: #e67e22;
-      --accent-school: #27ae60;
-      --border-color: #e0e0e0;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-primary);
+      width: 1600px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #fceef5;
+      /* Base Pink */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #2d3436;
     }
 
     .container {
-      width: 1400px;
-      background-color: var(--card-bg);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: var(--shadow-md);
+      padding: 40px;
+      min-height: 100vh;
     }
 
-    .calendar-header {
-      text-align: center;
+    /* Header Section */
+    .page-header {
       margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+      position: relative;
     }
 
-    .calendar-title {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: 1px;
+    .page-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #6c5ce7;
+      text-shadow: 2px 2px 0px #fff;
+      display: inline-block;
+      background: #fff;
+      padding: 10px 30px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+      transform: skew(-10deg);
+    }
+
+    .page-title span {
+      display: block;
+      transform: skew(10deg);
+    }
+
+    /* Calendar Grid */
+    .calendar-wrapper {
+      background: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
     }
 
     .week-header {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 12px;
-      margin-bottom: 15px;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
-    .week-day {
+    .week-day-badge {
       text-align: center;
+      background: #a29bfe;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 12px;
       font-size: 16px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      padding: 10px 0;
+      box-shadow: 0 4px 6px rgba(162, 155, 254, 0.4);
+    }
+
+    .week-day-badge:nth-child(6),
+    .week-day-badge:nth-child(7) {
+      background: #ff7675;
+      /* Weekend Pink */
+      box-shadow: 0 4px 6px rgba(255, 118, 117, 0.4);
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-      box-sizing: border-box;
+      gap: 15px;
     }
 
-    .calendar-item {
-      background-color: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
-      min-height: 150px;
+    .day-card {
+      background: #fff;
+      border: 2px solid #f0f2f5;
+      border-radius: 16px;
+      min-height: 180px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
+    .day-card.active-day {
+      background: #fff;
+      border-color: #fff;
+      box-shadow: 0 4px 15px rgba(223, 230, 233, 0.8);
+    }
 
-    .calendar-item.empty {
+    .day-card.active-day:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(235, 233, 240, 1);
+      border-color: #bdc3c7;
+    }
+
+    .day-card.empty {
       background: transparent;
       border: none;
       box-shadow: none;
     }
 
-    .date-header {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-primary);
+    /* Day Header */
+    .day-header {
+      padding: 12px 15px;
+      border-radius: 14px 14px 0 0;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px;
-      border-bottom: 2px solid #f0f0f0;
-      padding-bottom: 8px;
+      align-items: center;
+      border-bottom: 1px solid #f5f6fa;
+      background: rgba(223, 230, 233, 0.2);
+    }
+
+    .active-day .day-header {
+      background: rgba(116, 185, 255, 0.1);
+    }
+
+    .active-day:nth-child(7n) .day-header,
+    .active-day:nth-child(7n-1) .day-header {
+      background: rgba(255, 118, 117, 0.1);
+      /* Weekend light bg */
+    }
+
+    .date-text {
+      font-weight: 900;
+      color: #2d3436;
+      font-size: 18px;
     }
 
     .date-week {
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: normal;
+      font-size: 12px;
+      font-weight: bold;
+      color: #b2bec3;
+      background: #fff;
+      padding: 2px 8px;
+      border-radius: 10px;
     }
 
+    /* Activity List */
     .activity-list {
+      padding: 15px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
+      flex: 1;
     }
 
     .activity-row {
       display: flex;
       align-items: center;
-      font-size: 14px;
-      line-height: 1.4;
+      gap: 8px;
     }
 
+    /* Badges */
     .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px 8px;
-      border-radius: 4px;
+      padding: 4px 10px;
       color: #fff;
+      font-weight: bold;
       font-size: 12px;
-      font-weight: 600;
-      margin-right: 8px;
-      min-width: 40px;
-      flex-shrink: 0;
+      border-radius: 6px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      white-space: nowrap;
     }
 
     .badge.war {
-      background-color: var(--accent-war);
+      background: #ff4757;
+      /* Red */
     }
 
     .badge.battle {
-      background-color: var(--accent-battle);
+      background: #e17055;
+      /* Orange */
     }
 
     .badge.school {
-      background-color: var(--accent-school);
+      background: #00b894;
+      /* Green */
     }
 
-    .activity-text {
-      color: #555;
-      font-weight: 500;
-      white-space: nowrap;
+    .activity-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #636e72;
       overflow: hidden;
+      white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    /* Decoration */
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <div class="calendar-header">
-      <h2 class="calendar-title">活动日历</h2>
-    </div>
 
-    <div class="week-header">
-      <div class="week-day">星期一</div>
-      <div class="week-day">星期二</div>
-      <div class="week-day">星期三</div>
-      <div class="week-day">星期四</div>
-      <div class="week-day">星期五</div>
-      <div class="week-day">星期六</div>
-      <div class="week-day">星期日</div>
-    </div>
-
-    <div class="calendar-grid">
-      {{#each data}}
-      {{#if this}}
-      <div class="calendar-item">
-        <div class="date-header">
-          {{date}}
-          <span class="date-week">星期{{week}}</span>
-        </div>
-
-        <div class="activity-list">
-          {{#if war}}
-          <div class="activity-row">
-            <span class="badge war">大战</span>
-            <span class="activity-text">{{war}}</span>
-          </div>
-          {{/if}}
-
-          {{#if battle}}
-          <div class="activity-row">
-            <span class="badge battle">战场</span>
-            <span class="activity-text">{{battle}}</span>
-          </div>
-          {{/if}}
-
-          {{#if school}}
-          <div class="activity-row">
-            <span class="badge school">门派</span>
-            <span class="activity-text">{{school}}</span>
-          </div>
-          {{/if}}
-        </div>
+    <div class="page-header">
+      <div class="page-title">
+        <span>JX3 ACTIVITY CALENDAR</span>
       </div>
-      {{else}}
-      <div class="calendar-item empty"></div>
-      {{/if}}
-      {{/each}}
+    </div>
+
+    <div class="calendar-wrapper">
+
+      <!-- Week Header -->
+      <div class="week-header">
+        <div class="week-day-badge">MON</div>
+        <div class="week-day-badge">TUE</div>
+        <div class="week-day-badge">WED</div>
+        <div class="week-day-badge">THU</div>
+        <div class="week-day-badge">FRI</div>
+        <div class="week-day-badge">SAT</div>
+        <div class="week-day-badge">SUN</div>
+      </div>
+
+      <!-- Grid -->
+      <div class="calendar-grid">
+        {{#each data}}
+        {{#if this}}
+        <div class="day-card active-day">
+          <div class="day-header">
+            <div class="date-text">{{date}}</div>
+            <div class="date-week">{{week}}</div>
+          </div>
+
+          <div class="activity-list">
+            {{#if war}}
+            <div class="activity-row">
+              <span class="badge war">大战</span>
+              <span class="activity-name">{{war}}</span>
+            </div>
+            {{/if}}
+
+            {{#if battle}}
+            <div class="activity-row">
+              <span class="badge battle">战场</span>
+              <span class="activity-name">{{battle}}</span>
+            </div>
+            {{/if}}
+
+            {{#if school}}
+            <div class="activity-row">
+              <span class="badge school">门派</span>
+              <span class="activity-name">{{school}}</span>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+        {{else}}
+        <div class="day-card empty"></div>
+        {{/if}}
+        {{/each}}
+      </div>
+
     </div>
   </div>
 </body>

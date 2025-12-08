@@ -1,192 +1,209 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>全服掉落信息</title>
-    <style>
-      /* Reset & Base */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>全服掉落统计</title>
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      body {
-        font-family:
-          "Microsoft YaHei",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          "Helvetica Neue",
-          Arial,
-          sans-serif;
-        background-color: #f0f2f5;
-        padding: 40px;
-        color: #333;
-        line-height: 1.5;
-        width: 1440px;
-      }
+    body {
+      width: 1400px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Source Han Sans CN", sans-serif;
+      background-color: #fceef5;
+      /* Base Pink */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #2d3436;
+    }
 
-      /* Card Container */
-      .card {
-        max-width: 1400px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-      }
+    .container {
+      padding: 40px;
+      min-height: 100vh;
+    }
 
-      /* Header */
-      .header {
-        padding: 24px 32px;
-        background: linear-gradient(to right, #f8f9fa, #ffffff);
-        border-bottom: 1px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    /* Header Section */
+    .page-header {
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
 
-      .header h1 {
-        font-size: 28px;
-        font-weight: 600;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 0;
-      }
+    .page-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #6c5ce7;
+      text-shadow: 2px 2px 0px #fff;
+      display: inline-block;
+      background: #fff;
+      padding: 10px 30px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+      transform: skew(-10deg);
+    }
 
-      .icon-star {
-        color: #f1c40f;
-        width: 32px;
-        height: 32px;
-      }
+    .page-title span {
+      display: block;
+      transform: skew(10deg);
+    }
 
-      /* Table Styling */
-      .table-container {
-        width: 100%;
-        overflow-x: auto;
-      }
+    .subtitle {
+      font-size: 14px;
+      color: #999;
+      margin-left: 10px;
+      font-weight: normal;
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
+    /* Grid Layout */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      /* 4 cards per row */
+      gap: 20px;
+    }
 
-      thead {
-        background-color: #f8fafc;
-      }
+    /* Stat Card */
+    .stat-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      flex-direction: column;
+    }
 
-      th {
-        padding: 20px 16px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 20px;
-        color: #64748b;
-        border-bottom: 2px solid #e2e8f0;
-        white-space: nowrap;
-      }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(108, 92, 231, 0.15);
+      z-index: 10;
+    }
 
-      td {
-        padding: 20px 16px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 22px;
-        border-bottom: 1px solid #edf2f7;
-      }
+    /* Card Header with Server Info */
+    .card-header {
+      background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+      padding: 15px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      tbody tr:last-child td {
-        border-bottom: none;
-      }
+    .server-name {
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
 
-      tbody tr:hover {
-        background-color: #f8fafc;
-      }
+    /* Card Body */
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+    }
 
-      tbody tr:nth-child(even) {
-        background-color: #fafafa;
-      }
+    .role-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 5px;
+    }
 
-      /* Column Specific Styles */
-      .col-meta {
-        color: #718096;
-        font-size: 20px;
-      }
+    .map-name {
+      font-size: 14px;
+      color: #636e72;
+      background: #f1f2f6;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
 
-      .badge-item {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #ecfdf5;
-        color: #059669;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 20px;
-        border: 1px solid rgba(5, 150, 105, 0.1);
-      }
+    .card-footer {
+      border-top: 1px solid #f1f2f6;
+      padding: 12px;
+      text-align: center;
+      width: 100%;
+      background: #fafafa;
+    }
 
-      .text-amount {
-        color: #2563eb;
-        font-weight: 700;
-        font-family: Consolas, Monaco, monospace;
-        font-size: 24px;
-      }
+    .stat-time {
+      font-family: "Consolas", monospace;
+      color: #b2bec3;
+      font-size: 14px;
+    }
 
-      .text-time {
-        color: #475569;
-        font-size: 20px;
-      }
+    /* Footer decoration */
+    .footer-deco {
+      margin-top: 40px;
+      height: 10px;
+      background: repeating-linear-gradient(45deg,
+          #ff7675,
+          #ff7675 10px,
+          #fff 10px,
+          #fff 20px);
+      border-radius: 20px;
+      opacity: 0.6;
+    }
 
-      /* Footer/Bottom Spacing */
-      .footer-space {
-        height: 16px;
-        background: #fff;
-      }
-    </style>
-  </head>
+    .empty-tip {
+      text-align: center;
+      color: #b2bec3;
+      font-size: 18px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
 
-  <body>
-    <div class="card">
-      <div class="header">
-        <h1>
-          <!-- SVG Icon for Stars -->
-          <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-          </svg>
-          {{name}}
-          掉落信息
-        </h1>
+<body>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-title">
+        <span>全服掉落统计 <span class="subtitle">{{name}}</span></span>
       </div>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 20%">服务器</th>
-              <th style="width: 20%">角色名称</th>
-              <th style="width: 30%">地图名称</th>
-              <th style="width: 30%">时间</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
-              <tr>
-                <td class="col-meta">{{server}}</td>
-                <td>{{role_name}}</td>
-                <td class="col-meta">{{map_name}}</td>
-                <td>
-                  <span class="text-time">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
-                </td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-      <div class="footer-space"></div>
     </div>
-  </body>
+
+    {{#if data.length}}
+    <div class="stat-grid">
+      {{#each data}}
+      <div class="stat-card">
+        <div class="card-header">
+          <div class="server-name">{{server}}</div>
+        </div>
+
+        <div class="card-body">
+          <div class="role-name">{{role_name}}</div>
+          <div class="map-name">{{map_name}}</div>
+        </div>
+
+        <div class="card-footer">
+          <div class="stat-time">{{formatTime time "YYYY-MM-DD HH:mm"}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="empty-tip">
+      暂无掉落记录
+    </div>
+    {{/if}}
+
+    <div class="footer-deco"></div>
+  </div>
+</body>
 
 </html>

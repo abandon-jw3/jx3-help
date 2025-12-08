@@ -4,8 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>活动时刻表 - 楚天社/云从社/披风会</title>
+  <title>活动时刻表</title>
   <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
+
     /* Reset & Base */
     * {
       box-sizing: border-box;
@@ -14,122 +19,144 @@
     }
 
     body {
-      font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f0f2f5;
+      width: 1600px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #fceef5;
+      /* Base Pink */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #2d3436;
+    }
+
+    .container {
       padding: 40px;
-      color: #333;
-      line-height: 1.5;
-      width: 1440px;
+      min-height: 100vh;
+    }
+
+    /* Header Section (Unified with ActiveList/TradeRecords) */
+    .page-header {
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #6c5ce7;
+      text-shadow: 2px 2px 0px #fff;
+      display: inline-block;
+      background: #fff;
+      padding: 10px 40px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+      transform: skew(-10deg);
+    }
+
+    .page-title span {
+      display: block;
+      transform: skew(10deg);
+    }
+
+    .page-subtitle {
+      margin-top: 10px;
+      display: inline-block;
+      background: #a29bfe;
+      color: #fff;
+      padding: 4px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(162, 155, 254, 0.4);
     }
 
     /* Card Container */
     .card {
-      max-width: 1400px;
-      margin: 0 auto;
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
       overflow: hidden;
-    }
-
-    /* Header */
-    .header {
-      padding: 24px 32px;
-      background: linear-gradient(to right, #f8f9fa, #ffffff);
-      border-bottom: 1px solid #eaeaea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .header h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #2c3e50;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0;
-    }
-
-    .icon-clock {
-      color: #4f46e5;
-      width: 32px;
-      height: 32px;
-    }
-
-    .header-subtitle {
-      font-size: 16px;
-      color: #64748b;
-      background-color: #f1f5f9;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: normal;
+      padding: 10px;
     }
 
     /* Table Styling */
     .table-container {
       width: 100%;
       overflow-x: auto;
+      border-radius: 16px;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
       border-spacing: 0;
     }
 
     thead {
-      background-color: #f8fafc;
+      background-color: rgba(108, 92, 231, 0.1);
     }
 
     th {
-      padding: 20px 16px;
+      padding: 24px 16px;
       text-align: center;
-      font-weight: 600;
+      font-weight: 900;
       font-size: 20px;
-      color: #64748b;
+      color: #6c5ce7;
       border-bottom: 2px solid #e2e8f0;
       white-space: nowrap;
     }
 
-    td {
-      padding: 20px 16px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 22px;
-      border-bottom: 1px solid #edf2f7;
-      color: #2c3e50;
-    }
-
-    tbody tr:last-child td {
+    tr:last-child td {
       border-bottom: none;
     }
 
-    tbody tr:hover {
-      background-color: #f8fafc;
+    td {
+      padding: 24px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 20px;
+      border-bottom: 1px solid #f0f2f5;
+      color: #2d3436;
+      font-weight: bold;
     }
 
+    /* Row Hover and Striping */
     tbody tr:nth-child(even) {
-      background-color: #fafafa;
+      background-color: #fafbfc;
+    }
+
+    tbody tr {
+      transition: background-color 0.2s;
+    }
+
+    tbody tr:hover {
+      background-color: #fff0f6;
+      /* Very light pink on hover */
     }
 
     /* Column Specific Styles */
     .time-cell {
-      font-family: Consolas, Monaco, monospace;
-      font-weight: 600;
-      color: #2563eb;
-      font-size: 22px;
+      font-family: "DengXian", "Microsoft YaHei", sans-serif;
+      font-weight: 900;
+      color: #e056fd;
+      /* Vibrant Purple */
+      font-size: 24px;
+      background: rgba(224, 86, 253, 0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      display: inline-block;
+      min-width: 100px;
     }
 
     .location-cell {
-      font-weight: 500;
+      font-weight: bold;
+      color: #2d3436;
     }
 
     .site-cell {
-      color: #475569;
+      color: #636e72;
     }
 
     /* Stage Badge */
@@ -137,112 +164,149 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: #f1f2f6;
+      font-size: 18px;
     }
 
     .status-dot {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background-color: #94a3b8;
+      background-color: #b2bec3;
       display: inline-block;
+      box-shadow: 0 0 0 2px rgba(178, 190, 195, 0.3);
     }
 
-    /* Active/Current State Styling */
+    /* Highlight Progress Stages */
+    .stage-active .status-dot {
+      background-color: #00b894;
+      /* Green */
+      box-shadow: 0 0 0 2px rgba(0, 184, 148, 0.3);
+    }
+
+    .stage-active {
+      color: #00b894;
+      background: rgba(0, 184, 148, 0.1);
+      font-weight: bold;
+    }
+
+    /* Current Event Row - Special Highlight */
     tr.current {
-      background-color: #eff6ff !important;
+      background-color: rgba(255, 118, 117, 0.1) !important;
+      /* Soft Red/Pink */
       position: relative;
+      box-shadow: 0 2px 10px rgba(255, 118, 117, 0.15);
+      z-index: 1;
+      transform: scale(1.005);
+      border-radius: 10px;
     }
 
     tr.current td {
-      color: #1e40af;
-      font-weight: 600;
+      border-bottom: 2px solid #ff7675;
+      border-top: 2px solid #ff7675;
+    }
+
+    tr.current td:first-child {
+      border-left: 2px solid #ff7675;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    tr.current td:last-child {
+      border-right: 2px solid #ff7675;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
     }
 
     tr.current .time-cell {
-      color: #1d4ed8;
+      color: #ff7675;
+      background: #fff;
     }
 
     tr.current .status-dot {
-      background-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      background-color: #ff7675;
+      box-shadow: 0 0 0 3px rgba(255, 118, 117, 0.4);
+      animation: pulse 2s infinite;
     }
 
-    tr.current .site-cell {
-      color: #1e40af;
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
-    /* Left border highlight for current row */
-    tr.current td:first-child {
-      position: relative;
-    }
-
-    tr.current td:first-child::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background-color: #3b82f6;
-    }
-
-    /* Footer/Bottom Spacing */
-    .footer-space {
-      height: 16px;
-      background: #fff;
+    /* Map Badges */
+    .map-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #74b9ff;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-right: 8px;
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="header">
-      <h1>
-        <svg class="icon-clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        事件追踪
-      </h1>
-      <span class="header-subtitle">楚天社 / 云从社 / 披风会</span>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-title">
+        <span>JX3 EVENT TRACKER</span>
+      </div>
+      <br>
+      <div class="page-subtitle">楚天社 / 云从社 / 披风会</div>
     </div>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%">时间</th>
-            <th style="width: 20%">地图</th>
-            <th style="width: 25%">地点</th>
-            <th style="width: 35%">事件进度</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this}}
-          <tr class="{{#if @first}}current{{/if}}">
-            <td>
-              <span class="time-cell">{{this.time}}</span>
-            </td>
-            <td>
-              <span class="location-cell">{{map}}</span>
-            </td>
-            <td>
-              <span class="site-cell">{{site}}</span>
-            </td>
-            <td>
-              <div class="stage-wrapper">
-                <span class="status-dot"></span>
-                <span>{{stage}}</span>
-              </div>
-            </td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
+    <div class="card">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%">TIME</th>
+              <th style="width: 20%">MAP</th>
+              <th style="width: 25%">LOCATION</th>
+              <th style="width: 35%">STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this}}
+            <tr class="{{#if @first}}current{{/if}}">
+              <td>
+                <span class="time-cell">{{this.time}}</span>
+              </td>
+              <td>
+                <span class="location-cell">{{map}}</span>
+              </td>
+              <td>
+                <span class="site-cell">{{site}}</span>
+              </td>
+              <td>
+                <div class="stage-wrapper {{#if @first}}stage-active{{/if}}">
+                  <span class="status-dot"></span>
+                  <span>{{stage}}</span>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="footer-space"></div>
   </div>
 </body>
 

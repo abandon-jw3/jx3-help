@@ -1,154 +1,201 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>服务器奇遇统计</title>
-    <style>
-      /* Reset & Base */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服务器奇遇统计</title>
+  <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
 
-      body {
-        font-family:
-          "Microsoft YaHei",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          "Helvetica Neue",
-          Arial,
-          sans-serif;
-        background-color: #f0f2f5;
-        padding: 18px;
-        color: #333;
-        line-height: 1.5;
-        width: 960px;
-      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      /* Card Container */
-      .card {
-        max-width: 960px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-      }
+    body {
+      width: 1400px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #fceef5;
+      /* Base Pink */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #2d3436;
+    }
 
-      /* Header */
-      .header {
-        padding: 24px 32px;
-        background: linear-gradient(to right, #f8f9fa, #ffffff);
-        border-bottom: 1px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .container {
+      padding: 40px;
+      min-height: 100vh;
+    }
 
-      .header h1 {
-        font-size: 28px;
-        font-weight: 600;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 0;
-      }
+    /* Header Section */
+    .page-header {
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
 
-      .icon-stars {
-        color: #9b59b6;
-        width: 32px;
-        height: 32px;
-      }
+    .page-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #6c5ce7;
+      text-shadow: 2px 2px 0px #fff;
+      display: inline-block;
+      background: #fff;
+      padding: 10px 30px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+      transform: skew(-10deg);
+    }
 
-      /* Table Styling */
-      .table-container {
-        width: 100%;
-        overflow-x: auto;
-      }
+    .page-title span {
+      display: block;
+      transform: skew(10deg);
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
+    .subtitle {
+      font-size: 14px;
+      color: #999;
+      margin-left: 10px;
+      font-weight: normal;
+    }
 
-      thead {
-        background-color: #f8fafc;
-      }
+    /* Content Card */
+    .content-wrapper {
+      background: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
 
-      th {
-        padding: 20px 16px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 20px;
-        color: #64748b;
-        border-bottom: 2px solid #e2e8f0;
-        white-space: nowrap;
-      }
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+    }
 
-      td {
-        padding: 20px 16px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 22px;
-        border-bottom: 1px solid #edf2f7;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
 
-      tbody tr:last-child td {
-        border-bottom: none;
-      }
+    thead {
+      background-color: #8b8eff;
+      /* Header Purple */
+    }
 
-      tbody tr:hover {
-        background-color: #f8fafc;
-      }
+    th {
+      padding: 20px 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 20px;
+      color: #fff;
+      border-bottom: none;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-      tbody tr:nth-child(even) {
-        background-color: #fafafa;
-      }
+    th:first-child {
+      border-top-left-radius: 12px;
+    }
 
-      /* Column Specific Styles */
-      .col-meta {
-        color: #718096;
-        font-size: 20px;
-      }
+    th:last-child {
+      border-top-right-radius: 12px;
+    }
 
-      .text-event {
-        font-weight: 600;
-        color: #9b59b6;
-      }
+    td {
+      padding: 20px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 20px;
+      border-bottom: 1px solid #f0f2f5;
+      color: #2d3436;
+      transition: all 0.3s ease;
+    }
 
-      .text-time {
-        color: #475569;
-        font-family: Consolas, Monaco, monospace;
-        font-size: 20px;
-      }
+    tbody tr {
+      background: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-      .text-name {
-        color: #2c3e50;
-        font-weight: 500;
-      }
+    tbody tr:hover {
+      background-color: #fff0f6;
+      /* Very light pink hover */
+      transform: scale(1.005);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 1;
+      position: relative;
+      border-radius: 8px;
+    }
 
-      /* Footer/Bottom Spacing */
-      .footer-space {
-        height: 16px;
-        background: #fff;
-      }
-    </style>
-  </head>
+    tbody tr:hover td {
+      color: #d63384;
+    }
 
-  <body>
-    <div class="card">
-      <div class="header">
-        <h1>
-          🌟服务器奇遇统计
-        </h1>
+    /* Role Highlighting */
+    .highlight-name {
+      font-weight: bold;
+      color: #6c5ce7;
+    }
+
+    /* Qiyu Event Badge */
+    .badge-qiyu {
+      display: inline-block;
+      padding: 5px 15px;
+      background: #ffeaa7;
+      /* Soft yellow */
+      color: #d35400;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 2px 5px rgba(253, 203, 110, 0.3);
+    }
+
+    .time-text {
+      font-family: "Consolas", "Monaco", monospace;
+      color: #636e72;
+      background: #dfe6e9;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    /* Footer decoration */
+    .footer-deco {
+      height: 10px;
+      background: repeating-linear-gradient(45deg,
+          #ff7675,
+          #ff7675 10px,
+          #fff 10px,
+          #fff 20px);
+      border-radius: 0 0 24px 24px;
+      margin-top: -10px;
+      /* Overlap slightly */
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-title">
+        <span>服务器奇遇统计 <span class="subtitle">SERVER SERENDIPITY RECORDS</span></span>
       </div>
+    </div>
 
+    <div class="content-wrapper">
       <div class="table-container">
         <table>
           <thead>
@@ -161,20 +208,22 @@
           </thead>
           <tbody>
             {{#each this}}
-              <tr>
-                <td class="col-meta">{{server}}</td>
-                <td class="text-name">{{name}}</td>
-                <td class="text-event">{{event}}</td>
-                <td>
-                  <span class="text-time">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
-                </td>
-              </tr>
+            <tr>
+              <td style="font-weight: 500;">{{server}}</td>
+              <td><span class="highlight-name">{{name}}</span></td>
+              <td><span class="badge-qiyu">{{event}}</span></td>
+              <td>
+                <span class="time-text">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
+              </td>
+            </tr>
             {{/each}}
           </tbody>
         </table>
       </div>
-      <div class="footer-space"></div>
+      <div style="height: 20px;"></div>
+      <div class="footer-deco"></div>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>
