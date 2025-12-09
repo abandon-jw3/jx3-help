@@ -14,7 +14,7 @@ export function setupPermissions(ctx: Context, config: Config) {
   //校验权限
   ctx.on("command/before-execute", async ({ session, ...argv }) => {
     //白名单指令数组
-    const whiteList = ["绑定区服", "绑定角色", "续期", "添加时间"];
+    const whiteList = ["绑定区服", "绑定角色", "续期", "添加时间", "状态"];
     if (whiteList.includes(argv.command.name)) return;
 
     //验证服务是否过期

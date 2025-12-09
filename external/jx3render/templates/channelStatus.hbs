@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>服务状态</title>
+    <style>
+        @font-face {
+            font-family: "DengXian";
+            src: local("DengXian"), local("SimHei");
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 1400px;
+            margin: 0 auto;
+            font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+            background-color: #fceef5;
+            /* Base Pink */
+            background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: #2d3436;
+        }
+
+        .container {
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        /* Header Section */
+        .page-header {
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #6c5ce7;
+            text-shadow: 2px 2px 0px #fff;
+            display: inline-block;
+            background: #fff;
+            padding: 10px 30px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+            transform: skew(-10deg);
+        }
+
+        .page-title span {
+            display: block;
+            transform: skew(10deg);
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 16px;
+            color: #a29bfe;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        .info-value.highlight {
+            color: #6c5ce7;
+        }
+
+        /* Section Component */
+        .section-wrapper {
+            background: #fff;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #636e72;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f2f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Subscription Grid */
+        .sub-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .sub-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sub-item.active {
+            background: #e3f2fd;
+            border: 1px solid #74b9ff;
+        }
+
+        .sub-item.inactive {
+            background: #f5f6fa;
+            border: 1px solid #dfe6e9;
+            opacity: 0.7;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-badge.on {
+            background: #00b894;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 184, 148, 0.3);
+        }
+
+        .status-badge.off {
+            background: #b2bec3;
+            color: white;
+        }
+
+        .sub-name {
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 16px;
+        }
+
+        .expiry-alert {
+            color: #d63031;
+        }
+
+        .expiry-safe {
+            color: #00b894;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="page-header">
+            <div class="page-title">
+                <span>CHANNEL SERVICE STATUS</span>
+            </div>
+        </div>
+
+        <!-- Basic Info -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-label">绑定服务器</div>
+                <div class="info-value highlight">{{default groupServer '未绑定'}}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">群组 ID</div>
+                <div class="info-value">{{guildId}}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label">服务有效期</div>
+                <div class="info-value">{{expireTime}}</div>
+            </div>
+        </div>
+
+        <!-- Subscriptions -->
+        <div class="section-wrapper">
+            <div class="section-title">
+                <span>消息推送订阅状态</span>
+                <span style="font-size: 14px; color: #b2bec3;">{{assignee}}</span>
+            </div>
+
+            <div class="sub-grid">
+                <!-- 基础功能 -->
+                <div class="sub-item {{#if kaifu}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">开服监控</span>
+                    <span class="status-badge {{#if kaifu}}on{{else}}off{{/if}}">{{#if
+                        kaifu}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if xinwen}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">新闻播报</span>
+                    <span class="status-badge {{#if xinwen}}on{{else}}off{{/if}}">{{#if
+                        xinwen}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if gengxin}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">更新播报</span>
+                    <span class="status-badge {{#if gengxin}}on{{else}}off{{/if}}">{{#if
+                        gengxin}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <!-- 奇遇/活动 -->
+                <div class="sub-item {{#if qiyu}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">奇遇播报</span>
+                    <span class="status-badge {{#if qiyu}}on{{else}}off{{/if}}">{{#if qiyu}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if bagua}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">八卦播报</span>
+                    <span class="status-badge {{#if bagua}}on{{else}}off{{/if}}">{{#if
+                        bagua}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <!-- 物品/刷新 -->
+                <div class="sub-item {{#if maju}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">马驹播报</span>
+                    <span class="status-badge {{#if maju}}on{{else}}off{{/if}}">{{#if maju}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if fuyao}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">扶摇播报</span>
+                    <span class="status-badge {{#if fuyao}}on{{else}}off{{/if}}">{{#if
+                        fuyao}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if yanhua}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">烟花播报</span>
+                    <span class="status-badge {{#if yanhua}}on{{else}}off{{/if}}">{{#if
+                        yanhua}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if xuanjing}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">玄晶播报</span>
+                    <span class="status-badge {{#if xuanjing}}on{{else}}off{{/if}}">{{#if
+                        xuanjing}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if dilu}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">的卢播报</span>
+                    <span class="status-badge {{#if dilu}}on{{else}}off{{/if}}">{{#if dilu}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <!-- 阵营/PVP -->
+                <div class="sub-item {{#if judian}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">据点播报</span>
+                    <span class="status-badge {{#if judian}}on{{else}}off{{/if}}">{{#if
+                        judian}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if xuanzhan}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">帮会宣战</span>
+                    <span class="status-badge {{#if xuanzhan}}on{{else}}off{{/if}}">{{#if
+                        xuanzhan}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if zhuihun}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">追魂播报</span>
+                    <span class="status-badge {{#if zhuihun}}on{{else}}off{{/if}}">{{#if
+                        zhuihun}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+                <div class="sub-item {{#if zhue}}active{{else}}inactive{{/if}}">
+                    <span class="sub-name">诛恶事件</span>
+                    <span class="status-badge {{#if zhue}}on{{else}}off{{/if}}">{{#if zhue}}已开启{{else}}未开启{{/if}}</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

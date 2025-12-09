@@ -1,7 +1,8 @@
 import { Schema } from "koishi";
+import "koishi-plugin-jx3render";
 
 export const name = "jx3auth";
-export const inject = ["database"];
+export const inject = ["database", "jx3render"];
 
 export interface Config {}
 

@@ -18,12 +18,14 @@
     "koishi": "^4.18.7"
   },
   "dependencies": {
-    "dayjs": "^1.11.18"
+    "dayjs": "^1.11.18",
+    "koishi-plugin-jx3render": "workspace:*"
   },
   "koishi": {
     "service": {
       "required": [
-        "database"
+        "database",
+        "jx3render"
       ],
       "implements": [
         "jx3auth"

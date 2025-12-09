@@ -3,25 +3,25 @@ import { Context } from "koishi";
 declare module "koishi" {
   interface Channel {
     expireTime: string; //到期时间
-    groupServer: string; //默认区服
-    qiyu: boolean;
-    maju: boolean;
-    fuyao: boolean;
-    yanhua: boolean;
-    xuanjing: boolean;
-    zhuihun: boolean;
-    zhue: boolean;
-    dilu: boolean;
-    judian: boolean;
-    xuanzhan: boolean;
-    kaifu: boolean;
-    xinwen: boolean;
-    gengxin: boolean;
-    bagua: boolean;
+    groupServer: string; //群组默认区服
+    qiyu: boolean; //奇遇播报开关
+    maju: boolean; //马驹播报开关
+    fuyao: boolean; //扶摇播报开关
+    yanhua: boolean; //烟花播报开关
+    xuanjing: boolean; //玄晶播报开关
+    zhuihun: boolean; //追魂播报开关
+    zhue: boolean; //追魂点名开关
+    dilu: boolean; //的卢播报开关
+    judian: boolean; //据点播报开关
+    xuanzhan: boolean; //帮会宣战开关
+    kaifu: boolean; //开服播报开关
+    xinwen: boolean; //新闻播报开关
+    gengxin: boolean; //更新播报开关
+    bagua: boolean; //八卦播报开关
   }
   interface User {
     roleName: string; //角色名称
-    userServer: string; //默认区服
+    userServer: string; //用户默认区服
   }
 }
 
