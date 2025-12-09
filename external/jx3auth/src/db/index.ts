@@ -7,6 +7,11 @@ declare module "koishi" {
     qiyu: boolean;
     maju: boolean;
     fuyao: boolean;
+    yanhua: boolean;
+    xuanjing: boolean;
+    zhuihun: boolean;
+    zhue: boolean;
+    dilu: boolean;
   }
   interface User {
     roleName: string; //角色名称
@@ -37,6 +42,27 @@ export function initTable(ctx: Context) {
       initial: false,
     },
     fuyao: {
+      type: "boolean",
+      initial: false,
+    },
+    yanhua: {
+      type: "boolean",
+      initial: false,
+    },
+    xuanjing: {
+      type: "boolean",
+      initial: false,
+    },
+    zhuihun: {
+      type: "boolean",
+      initial: false,
+    },
+    zhue: {
+      type: "boolean",
+      initial: false,
+    },
+
+    dilu: {
       type: "boolean",
       initial: false,
     },
