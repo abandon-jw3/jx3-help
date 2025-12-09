@@ -70,8 +70,8 @@ export class JX3_ws_service extends Service {
     this.ws.addEventListener("message", ({ data }) => {
       try {
         const msg = JSON.parse(data.toString()) as { action: string; data: any };
-        this.ctx.emit(`jx3ws.${msg.action}`, msg.data);
-        logger.debug("收到消息:", msg);
+        this.ctx.emit(`jx3ws.${msg.action}`, msg);
+        logger.info("收到消息:", msg);
       } catch (error) {
         logger.warn("消息解析失败:", error, data);
       }

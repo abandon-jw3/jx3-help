@@ -5003,6 +5003,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "koishi-plugin-jx3auth@workspace:external/jx3auth"
   dependencies:
+    "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"
     koishi-plugin-jx3render: "workspace:*"
   peerDependencies:
