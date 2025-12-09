@@ -4,6 +4,9 @@ declare module "koishi" {
   interface Channel {
     expireTime: string; //到期时间
     groupServer: string; //默认区服
+    qiyu: boolean;
+    maju: boolean;
+    fuyao: boolean;
   }
   interface User {
     roleName: string; //角色名称
@@ -24,6 +27,18 @@ export function initTable(ctx: Context) {
       type: "string",
       length: 16,
       initial: "梦江南",
+    },
+    qiyu: {
+      type: "boolean",
+      initial: false,
+    },
+    maju: {
+      type: "boolean",
+      initial: false,
+    },
+    fuyao: {
+      type: "boolean",
+      initial: false,
     },
   });
   ctx.model.extend("user", {

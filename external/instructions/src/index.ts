@@ -1,5 +1,6 @@
 import { Context, Schema } from "koishi";
 import { instructionsCommands } from "./commands";
+import { instructionsEvents } from "./events";
 
 import "@koishijs/plugin-server";
 import "koishi-plugin-jx3auth";
@@ -16,4 +17,5 @@ export const Config: Schema<Config> = Schema.object({});
 
 export function apply(ctx: Context, config: Config) {
   ctx.plugin(instructionsCommands, config);
+  ctx.plugin(instructionsEvents, config);
 }

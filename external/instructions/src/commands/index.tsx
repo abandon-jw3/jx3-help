@@ -745,7 +745,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .channelFields(["groupServer"])
     .userFields(["userServer", "roleName"])
     .action(async ({ session }, ...arg) => {
-      return <p>由于推栏属性接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
+      return <p>由于推栏接口升级维护，全网机器人目前无法获取相关数据；我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱</p>;
 
       // const parser = new ArgParser(arg);
       // let server = parser.tryMatch("server", serverList);

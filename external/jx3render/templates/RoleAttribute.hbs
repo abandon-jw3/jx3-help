@@ -9,16 +9,16 @@
   <style>
     :root {
       --quality-0: #9d9d9d;
-      --quality-1: #333333;
+      --quality-1: #ffffff;
       --quality-2: #00d233;
       --quality-3: #007eff;
       --quality-4: #a335ee;
       --quality-5: #ff8000;
-      --bg-color: #f5f7fa;
-      --panel-bg: #ffffff;
-      --text-primary: #333333;
-      --text-secondary: #666666;
-      --border-color: #e8e8e8;
+      --bg-color: #1a1a1a;
+      --panel-bg: #242424;
+      --text-primary: #e0e0e0;
+      --text-secondary: #a0a0a0;
+      --border-color: #333;
     }
 
     * {
@@ -29,9 +29,9 @@
 
     body {
       font-family: "Microsoft YaHei", sans-serif;
-      background-color: var(--bg-color);
+      background-color: #121212;
       color: var(--text-primary);
-      width: 720px;
+      width: 1200px;
       padding: 20px;
     }
 
@@ -39,7 +39,7 @@
       background-color: var(--panel-bg);
       border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
     .header {
@@ -66,7 +66,7 @@
 
     .role-text h1 {
       font-size: 24px;
-      color: var(--text-primary);
+      color: #fff;
       margin-bottom: 4px;
     }
 
@@ -74,7 +74,7 @@
       font-size: 14px;
       color: var(--text-secondary);
       margin-right: 10px;
-      background: #f0f0f0;
+      background: #333;
       padding: 2px 6px;
       border-radius: 4px;
     }
@@ -89,11 +89,16 @@
     }
 
     .total-score .value {
-      font-size: 18px;
+      font-size: 32px;
       color: #f1c40f;
       font-weight: bold;
     }
 
+    .main-content {
+      display: grid;
+      grid-template-columns: 320px 1fr 320px;
+      gap: 20px;
+    }
 
     .equip-column {
       display: flex;
@@ -104,10 +109,10 @@
     .equip-item {
       display: flex;
       gap: 10px;
-      background: #fbfbfb;
+      background: #2a2a2a;
       padding: 8px;
       border-radius: 4px;
-      border: 1px solid var(--border-color);
+      border: 1px solid #333;
       align-items: center;
     }
 
@@ -122,7 +127,7 @@
       width: 100%;
       height: 100%;
       border-radius: 4px;
-      border: 1px solid #e0e0e0;
+      border: 1px solid #555;
     }
 
     .equip-strength {
@@ -168,14 +173,21 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #e0e0e0;
+      background: #444;
+    }
+
+    /* Stats Panel */
+    .stats-panel {
+      background: #2a2a2a;
+      border-radius: 4px;
+      padding: 15px;
     }
 
     .stat-row {
       display: flex;
       justify-content: space-between;
       padding: 8px 0;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid #333;
       font-size: 14px;
     }
 
@@ -188,7 +200,7 @@
     }
 
     .stat-value {
-      color: var(--text-primary);
+      color: #fff;
       font-weight: bold;
     }
 
@@ -250,16 +262,17 @@
         </div>
       </div>
       <div class="total-score">
-        <div class="label">角色ID</div>
-        <div class="value">{{roleId}}</div>
+        <div class="label">装备分数</div>
+        <div class="value">{{panelList.score}}</div>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
+      <!-- Left Column: Hat, Coat, Belt, Wrist, Pants, Shoes -->
       <div class="equip-column">
         <!-- Hat (Index 3) -->
-        {{#each equipList}}
+        {{#with equipList.[3]}}
         <div class="equip-item">
           <div class="equip-icon-wrapper q-{{color}}">
             <img src="{{icon}}" class="equip-icon">
@@ -268,15 +281,7 @@
           <div class="equip-details">
             <div class="equip-name q-text-{{color}}">{{name}}</div>
             <div class="equip-enchant">
-              {{#each permanentEnchant}}
-              <img src="{{icon}}" alt="{{name}}" class="stone-icon">
-              <span>{{name}} </span>
-              {{/each}}
-
-              {{#with commonEnchant}}
-              <img src="{{icon}}" alt="{{name}}" class="stone-icon">
-              <span>{{name}} </span>
-              {{/with}}
+              {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
             <div class="equip-stones">
               {{#each fiveStone}}
@@ -284,17 +289,261 @@
               {{/each}}
             </div>
           </div>
-          <div class="equip-desc">
-            <div>
-              {{#each modifyType}}
-              <span>{{name}}&nbsp;</span>
+        </div>
+        {{/with}}
+
+        <!-- Coat (Index 2) -->
+        {{#with equipList.[2]}}
+        <div class="equip-item">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+              {{#if commonEnchant}}<br>{{commonEnchant.name}}{{/if}}
+            </div>
+            <div class="equip-stones">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
               {{/each}}
             </div>
           </div>
         </div>
+        {{/with}}
+
+        <!-- Belt (Index 4) -->
+        {{#with equipList.[4]}}
+        <div class="equip-item">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+              {{#if commonEnchant}}<br>{{commonEnchant.name}}{{/if}}
+            </div>
+            <div class="equip-stones">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Wrist (Index 6) -->
+        {{#with equipList.[6]}}
+        <div class="equip-item">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+              {{#if commonEnchant}}<br>{{commonEnchant.name}}{{/if}}
+            </div>
+            <div class="equip-stones">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Pants (Index 5) -->
+        {{#with equipList.[5]}}
+        <div class="equip-item">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Shoes (Index 7) -->
+        {{#with equipList.[7]}}
+        <div class="equip-item">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+              {{#if commonEnchant}}<br>{{commonEnchant.name}}{{/if}}
+            </div>
+            <div class="equip-stones">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+      </div>
+
+      <!-- Center Column: Stats -->
+      <div class="stats-panel">
+        <h3 style="color: #fff; margin-bottom: 15px; text-align: center;">属性详情</h3>
+        {{#each panelList.panel}}
+        <div class="stat-row">
+          <span class="stat-label">{{name}}</span>
+          <span class="stat-value">{{value}}{{#if percent}}%{{/if}}</span>
+        </div>
         {{/each}}
       </div>
 
+      <!-- Right Column: Necklace, Pendant, Ring, Ring, Range, Weapon -->
+      <div class="equip-column">
+        <!-- Necklace (Index 8) -->
+        {{#with equipList.[8]}}
+        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones" style="justify-content: flex-end;">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Pendant (Index 9) -->
+        {{#with equipList.[9]}}
+        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones" style="justify-content: flex-end;">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Ring 1 (Index 10) -->
+        {{#with equipList.[10]}}
+        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones" style="justify-content: flex-end;">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Ring 2 (Index 11) -->
+        {{#with equipList.[11]}}
+        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones" style="justify-content: flex-end;">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Range (Index 1) -->
+        {{#with equipList.[1]}}
+        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones" style="justify-content: flex-end;">
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+
+        <!-- Weapon (Index 0) -->
+        {{#with equipList.[0]}}
+        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
+          <div class="equip-icon-wrapper q-{{color}}">
+            <img src="{{icon}}" class="equip-icon">
+            <div class="equip-strength">+{{strengthLevel}}</div>
+          </div>
+          <div class="equip-details">
+            <div class="equip-name q-text-{{color}}">{{name}}</div>
+            <div class="equip-enchant">
+              {{#each permanentEnchant}}{{name}} {{/each}}
+            </div>
+            <div class="equip-stones" style="justify-content: flex-end;">
+              {{#if colorStone}}
+              <img src="{{colorStone.icon}}" class="stone-icon" style="border: 1px solid #a335ee;">
+              {{/if}}
+              {{#each fiveStone}}
+              <img src="{{icon}}" class="stone-icon">
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        {{/with}}
+      </div>
     </div>
   </div>
 </body>
