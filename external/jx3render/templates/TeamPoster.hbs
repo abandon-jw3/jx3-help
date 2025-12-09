@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>团队招募</title>
+  <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1400px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #fceef5; /* Base Pink */
+      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #2d3436;
+      padding: 40px;
+    }
+
+    /* Header */
+    .header-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(108, 92, 231, 0.15);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-left {
+      z-index: 1;
+    }
+
+    .team-name {
+      font-size: 42px;
+      font-weight: 900;
+      color: #6c5ce7;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .team-id-badge {
+      background: #a29bfe;
+      color: #fff;
+      font-size: 20px;
+      padding: 4px 12px;
+      border-radius: 10px;
+      vertical-align: middle;
+    }
+
+    .team-time {
+      font-size: 24px;
+      font-weight: bold;
+      color: #636e72;
+    }
+    
+    .team-desc {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #b2bec3;
+    }
+
+    .header-right {
+      text-align: right;
+      z-index: 1;
+    }
+
+    .count-display {
+      font-size: 56px;
+      font-weight: 900;
+      color: #ff7675;
+      line-height: 1;
+    }
+
+    .count-label {
+      font-size: 16px;
+      color: #b2bec3;
+      font-weight: bold;
+    }
+
+    /* Members Grid */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .member-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-left: 6px solid #dfe6e9; /* Default Gray */
+      position: relative;
+      min-height: 100px;
+    }
+
+    /* Role Colors based on standard trinity? Or just random pastel? 
+       Let's stick to a generic nice look, maybe future enhancement for T/H/DPS coloring.
+       For now, Leader gets special color.
+    */
+    .member-card.is-leader {
+        border-left-color: #fdcb6e; /* Gold */
+        background: #fffaf0;
+    }
+
+    .role-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .role-school {
+      font-size: 16px;
+      color: #636e72;
+      background: #dfe6e9;
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    
+    .leader-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #e17055;
+        font-size: 20px;
+    }
+
+    /* Slots placeholder */
+    .empty-slot {
+      background: rgba(255,255,255, 0.5);
+      border: 2px dashed #b2bec3;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #b2bec3;
+      font-weight: bold;
+      font-size: 18px;
+      min-height: 100px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="header-card">
+    <div class="header-left">
+      <div class="team-name">
+        <span class="team-id-badge">#{{id}}</span>
+        {{name}}
+      </div>
+      <div class="team-time">⏰ {{time}}</div>
+      {{#if description}}
+      <div class="team-desc">📝 {{description}}</div>
+      {{/if}}
+    </div>
+    <div class="header-right">
+      <div class="count-display">{{current_count}} / {{max_count}}</div>
+      <div class="count-label">MEMBERS</div>
+    </div>
+  </div>
+
+  <div class="members-grid">
+    {{#each members}}
+    <div class="member-card {{#if is_leader}}is-leader{{/if}}">
+      {{#if is_leader}}
+      <div class="leader-badge">👑</div>
+      {{/if}}
+      <div class="role-name">{{name}}</div>
+      <div class="role-school">{{school}}</div>
+    </div>
+    {{/each}}
+    
+    {{!-- We could use a helper to loop remaining slots, but Handlebars logic is limited. 
+          For now just show filled members. Ideally we pre-fill empty slots in TS if we want boxes. --}}
+  </div>
+</body>
+
+</html>

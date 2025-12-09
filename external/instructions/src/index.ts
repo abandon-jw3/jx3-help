@@ -15,7 +15,10 @@ export interface Config {}
 
 export const Config: Schema<Config> = Schema.object({});
 
+import { applyTeamModule } from "./jx3team";
+
 export function apply(ctx: Context, config: Config) {
   ctx.plugin(instructionsCommands, config);
   ctx.plugin(instructionsEvents, config);
+  applyTeamModule(ctx);
 }
