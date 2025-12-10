@@ -13,17 +13,17 @@ export function applyJoin(ctx: Context) {
 
       const channelId = session.channelId;
       const userId = session.userId;
-      
+
       // 参数调整：如果 roleName 是数字且 teamId 未定义，则将其视为 teamId
       if (roleName && /^\d+$/.test(roleName) && !teamId) {
         teamId = parseInt(roleName);
         roleName = undefined;
       }
-      
+
       // 如果未提供 roleName，尝试使用绑定角色或用户名
       const finalRoleName = roleName || session.user?.roleName || session.username;
 
-      if (!finalRoleName) return "未检测到绑定角色，请输入角色名：报名 <心法> <角色名>";
+      if (!finalRoleName) return "未检测到绑定角色，请输入角色名：报名 <心法> <角色名> [团队ID]";
 
       return await handleJoin(ctx, session, channelId, userId, school, finalRoleName, false, teamId);
     });
@@ -33,7 +33,7 @@ export function applyJoin(ctx: Context) {
     .guild()
     .command("代报 <school> <roleName> [teamId:number]", "代替他人报名")
     .action(async ({ session }, school, roleName, teamId) => {
-      if (!school || !roleName) return "请输入心法和角色名: 代报 <心法> <角色名>";
+      if (!school || !roleName) return "请输入心法和角色名: 代报 <心法> <角色名> [团队ID]";
 
       const channelId = session.channelId;
       const userId = session.userId; // 操作者 ID
@@ -42,16 +42,7 @@ export function applyJoin(ctx: Context) {
     });
 }
 
-async function handleJoin(
-  ctx: Context,
-  session: any,
-  channelId: string,
-  userId: string,
-  school: string,
-  roleName: string,
-  isProxy: boolean = false,
-  specifiedTeamId?: number
-) {
+async function handleJoin(ctx: Context, session: any, channelId: string, userId: string, school: string, roleName: string, isProxy: boolean = false, specifiedTeamId?: number) {
   let team;
 
   if (specifiedTeamId) {
@@ -75,22 +66,22 @@ async function handleJoin(
     );
 
     if (teams.length === 0) return "当前没有正在招募的团队。";
-    
+
     if (teams.length === 1) {
-        team = teams[0];
+      team = teams[0];
     } else {
-        // 3. Interactive Selection
-        const teamList = teams.map(t => `${t.id}. ${t.name} (${t.time})`).join("\n");
-        await session.send(`当前有多个正在招募的团队，请输入序号选择：\n${teamList}`);
-        
-        const answer = await session.prompt(30000); // 30s timeout
-        if (!answer) return "输入超时，报名取消。";
-        
-        const selectedId = parseInt(answer);
-        if (isNaN(selectedId)) return "输入无效，请输入数字ID。";
-        
-        team = teams.find(t => t.id === selectedId);
-        if (!team) return "未找到该ID的团队。";
+      // 3. Interactive Selection
+      const teamList = teams.map((t) => `${t.id}. ${t.name} (${t.time})`).join("\n");
+      await session.send(`当前有多个正在招募的团队，请输入序号选择：\n${teamList}`);
+
+      const answer = await session.prompt(30000); // 30s timeout
+      if (!answer) return "输入超时，报名取消。";
+
+      const selectedId = parseInt(answer);
+      if (isNaN(selectedId)) return "输入无效，请输入数字ID。";
+
+      team = teams.find((t) => t.id === selectedId);
+      if (!team) return "未找到该ID的团队。";
     }
   }
 
