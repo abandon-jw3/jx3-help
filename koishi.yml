@@ -8,9 +8,9 @@ plugins:
   group:basic:
     help:ibqzvf: {}
     http:ao7d8n: {}
-    auth:naw2dl:
+    ~auth:naw2dl:
       admin:
-        password: ''
+        password: '123456'
     admin:jav47v: {}
     commands:ujnv2t:
       timer:
@@ -53,6 +53,7 @@ plugins:
       database: koishi
       password: ${{env.DB_PASSWORD}}
       host: ${{env.DB_HOST}}
+      user: ${{env.DB_USER}}
   group:adapter:
     adapter-onebot:vzydl8:
       selfId: ${{env.BOT_ID}}
