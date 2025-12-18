@@ -20,168 +20,168 @@
     body {
       width: 1400px;
       margin: 0 auto;
-      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-      background-color: #fceef5;
-      /* Base Pink */
-      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      color: #2d3436;
+      /* Neo-Brutalism often uses raw, system fonts or monospace */
+      font-family: "Courier New", Courier, monospace, "Microsoft YaHei";
+      background-color: #f4d03f;
+      /* Vibrant Yellow Background */
+      /* Dot grid pattern */
+      background-image:
+        radial-gradient(circle, #000 2px, transparent 2.5px);
+      background-size: 30px 30px;
+      color: #000;
+      padding: 50px;
     }
 
     .container {
-      padding: 40px;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Header Section */
     .page-header {
-      margin-bottom: 30px;
-      text-align: center;
-      position: relative;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0px #000;
+      padding: 30px;
+      transform: rotate(-1deg);
+      /* Slight rotation */
     }
 
     .page-title {
-      font-size: 36px;
+      font-size: 48px;
       font-weight: 900;
-      color: #6c5ce7;
-      text-shadow: 2px 2px 0px #fff;
-      display: inline-block;
-      background: #fff;
-      padding: 10px 30px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
-      transform: skew(-10deg);
-    }
-
-    .page-title span {
-      display: block;
-      transform: skew(10deg);
+      text-transform: uppercase;
+      line-height: 1;
+      font-family: "Impact", "SimHei", sans-serif;
+      text-shadow: 3px 3px 0 #d35400;
     }
 
     .subtitle {
-      font-size: 14px;
-      color: #999;
-      margin-left: 10px;
-      font-weight: normal;
+      font-size: 24px;
+      background: #000;
+      color: #fff;
+      padding: 5px 15px;
+      margin-top: 10px;
+      display: inline-block;
+      font-family: monospace;
+      transform: rotate(2deg);
+      /* Counter rotation */
     }
 
-    /* Content Card */
+    /* Content Wrapper */
     .content-wrapper {
       background: #fff;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
-
-    /* Table Styling */
-    .table-container {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 16px;
+      border: 4px solid #000;
+      box-shadow: 15px 15px 0px #000;
+      padding: 0;
+      border-radius: 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      border-spacing: 0;
+      font-size: 20px;
     }
 
     thead {
-      background-color: #8b8eff;
-      /* Header Purple */
+      background-color: #000;
+      color: #fff;
+      font-family: "SimHei", sans-serif;
     }
 
     th {
-      padding: 20px 16px;
+      padding: 25px;
       text-align: center;
-      font-weight: 700;
-      font-size: 20px;
-      color: #fff;
-      border-bottom: none;
-      white-space: nowrap;
+      font-weight: 900;
+      font-size: 24px;
+      border: 3px solid #000;
+      /* Visible borders */
       text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    th:first-child {
-      border-top-left-radius: 12px;
-    }
-
-    th:last-child {
-      border-top-right-radius: 12px;
+      letter-spacing: 2px;
     }
 
     td {
-      padding: 20px 16px;
+      padding: 20px;
       text-align: center;
       vertical-align: middle;
-      font-size: 20px;
-      border-bottom: 1px solid #f0f2f5;
-      color: #2d3436;
-      transition: all 0.3s ease;
+      border: 3px solid #000;
+      /* Thick grid */
+      font-weight: bold;
     }
 
-    tbody tr {
-      background: #fff;
-      transition: transform 0.2s, box-shadow 0.2s;
+    /* Zebra striping */
+    tbody tr:nth-child(even) {
+      background-color: #ebf5fb;
+      /* Very light blue */
     }
 
     tbody tr:hover {
-      background-color: #fff0f6;
-      /* Very light pink hover */
-      transform: scale(1.005);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      z-index: 1;
-      position: relative;
-      border-radius: 8px;
+      background-color: #d1f2eb;
+      /* Mint hover */
     }
 
-    tbody tr:hover td {
-      color: #d63384;
+    /* Column specific styles */
+
+    /* Server Name */
+    td:first-child {
+      font-family: "SimHei", sans-serif;
+      background: #fab1a0;
+      /* Pastel Red/Orange */
+      width: 18%;
     }
 
-    /* Role Highlighting */
+    /* Role Name Highlight */
     .highlight-name {
-      font-weight: bold;
-      color: #6c5ce7;
+      background: #a29bfe;
+      /* Purple */
+      color: #fff;
+      padding: 5px 10px;
+      border: 2px solid #000;
+      box-shadow: 4px 4px 0 #000;
+      display: inline-block;
+      text-decoration: none;
     }
 
-    /* Qiyu Event Badge */
+    /* Event Badge */
     .badge-qiyu {
       display: inline-block;
-      padding: 5px 15px;
-      background: #ffeaa7;
-      /* Soft yellow */
-      color: #d35400;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 2px 5px rgba(253, 203, 110, 0.3);
+      padding: 8px 16px;
+      background: #55efc4;
+      /* Mint Green */
+      color: #000;
+      border: 2px solid #000;
+      font-weight: 900;
+      font-size: 20px;
+      box-shadow: 4px 4px 0 #000;
+      transform: skew(-5deg);
     }
 
+    /* Time */
     .time-text {
       font-family: "Consolas", "Monaco", monospace;
-      color: #636e72;
-      background: #dfe6e9;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 16px;
+      color: #000;
+      background: #ffeaa7;
+      /* Yellow */
+      padding: 6px 12px;
+      border: 2px solid #000;
+      display: inline-block;
+      font-size: 18px;
     }
 
-    /* Footer decoration */
-    .footer-deco {
-      height: 10px;
+    /* Footer / Decor */
+    .footer-bar {
+      height: 40px;
       background: repeating-linear-gradient(45deg,
-          #ff7675,
-          #ff7675 10px,
+          #000,
+          #000 10px,
           #fff 10px,
           #fff 20px);
-      border-radius: 0 0 24px 24px;
-      margin-top: -10px;
-      /* Overlap slightly */
-      opacity: 0.6;
+      border-top: 4px solid #000;
     }
   </style>
 </head>
@@ -190,38 +190,40 @@
   <div class="container">
 
     <div class="page-header">
-      <div class="page-title">
-        <span>服务器近期奇遇汇总 <span class="subtitle">RECENT SERENDIPITY SUMMARY</span></span>
+      <div class="header-text">
+        <h1 class="page-title">服务器近期奇遇汇总</h1>
+        <div class="subtitle">RECENT SERENDIPITY SUMMARY</div>
+      </div>
+      <!-- Decorative Element -->
+      <div style="font-size: 60px; font-weight: bold; padding-right: 20px;">
+        #JX3
       </div>
     </div>
 
     <div class="content-wrapper">
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 20%">服务器</th>
-              <th style="width: 25%">角色名称</th>
-              <th style="width: 25%">奇遇</th>
-              <th style="width: 30%">时间</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this}}
-            <tr>
-              <td style="font-weight: 500;">{{server}}</td>
-              <td><span class="highlight-name">{{name}}</span></td>
-              <td><span class="badge-qiyu">{{event}}</span></td>
-              <td>
-                <span class="time-text">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
-              </td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-      <div style="height: 20px;"></div>
-      <div class="footer-deco"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>SERVER</th>
+            <th>ROLE</th>
+            <th>EVENT</th>
+            <th>TIME</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this}}
+          <tr>
+            <td>{{server}}</td>
+            <td><span class="highlight-name">{{name}}</span></td>
+            <td><span class="badge-qiyu">{{event}}</span></td>
+            <td>
+              <span class="time-text">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="footer-bar"></div>
     </div>
   </div>
 </body>

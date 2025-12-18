@@ -21,69 +21,66 @@
       width: 1600px;
       margin: 0 auto;
       font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-      background-color: #fceef5;
-      /* Base Pink */
-      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      color: #2d3436;
-      padding-bottom: 40px;
+      background-color: #f0f0f0;
+      /* Neo Gray Background */
+      background-image:
+        linear-gradient(90deg, #bebebe 1px, transparent 1px),
+        linear-gradient(#bebebe 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #000;
+      padding: 40px;
     }
 
     .container {
-      padding: 40px;
-      min-height: 100vh;
+      /* min-height: 100vh; */
     }
 
     /* Header Section */
     .page-header {
       margin-bottom: 40px;
-      text-align: center;
+      text-align: left;
+      /* Left align for that brutalist feel */
       position: relative;
     }
 
     .page-title {
       font-size: 42px;
       font-weight: 900;
-      color: #00cec9;
-      /* Teal/Blue for variation, or match others */
-      text-shadow: 2px 2px 0px #fff;
+      color: #000;
       display: inline-block;
-      background: #fff;
-      padding: 12px 50px;
-      border-radius: 60px;
-      box-shadow: 0 6px 20px rgba(0, 206, 201, 0.2);
-      transform: skew(-10deg);
-    }
-
-    .page-title.pink-theme {
-      color: #e056fd;
-      box-shadow: 0 6px 20px rgba(224, 86, 253, 0.2);
+      background: #ffeb3b;
+      /* Safety Yellow */
+      padding: 15px 40px;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0px 0px #000;
+      transform: rotate(-2deg);
+      text-transform: uppercase;
     }
 
     .page-title span {
       display: block;
-      transform: skew(10deg);
+      /* transform: skew(10deg); */
     }
 
     .page-subtitle {
       margin-top: 15px;
       display: inline-block;
-      background: rgba(255, 255, 255, 0.9);
-      color: #636e72;
-      padding: 6px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      background: #000;
+      color: #fff;
+      padding: 8px 16px;
+      border: 3px solid #000;
+      font-weight: 900;
+      box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+      transform: rotate(1deg);
+      font-size: 16px;
     }
 
     /* Card/Table Container */
     .card {
       background: #ffffff;
-      border-radius: 24px;
-      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
-      overflow: hidden;
-      padding: 10px;
+      border: 4px solid #000;
+      box-shadow: 12px 12px 0px 0px #000;
+      padding: 20px;
     }
 
     .table-container {
@@ -98,69 +95,82 @@
     }
 
     thead {
-      background-color: rgba(253, 121, 168, 0.1);
+      background-color: #000;
     }
 
     th {
-      padding: 24px 16px;
+      padding: 16px;
       text-align: center;
       font-weight: 900;
-      font-size: 20px;
-      color: #e056fd;
-      border-bottom: 2px solid #fd79a8;
+      font-size: 22px;
+      color: #fff;
+      border: 3px solid #000;
       white-space: nowrap;
-    }
-
-    th:first-child {
-      border-top-left-radius: 16px;
-    }
-
-    th:last-child {
-      border-top-right-radius: 16px;
+      text-transform: uppercase;
     }
 
     td {
-      padding: 20px 16px;
+      padding: 16px;
       text-align: center;
       vertical-align: middle;
       font-size: 20px;
-      border-bottom: 1px dashed #fab1a0;
-      color: #2d3436;
+      border-right: 3px solid #000;
+      border-bottom: 3px solid #000;
+      color: #000;
       font-weight: bold;
     }
 
-    tbody tr:last-child td {
-      border-bottom: none;
+    td:first-child {
+      border-left: 3px solid #000;
     }
 
-    tbody tr:hover {
-      background-color: #fff0f6;
+    /* Row Hover and Striping */
+    tbody tr:nth-child(odd) {
+      background-color: #e0f7fa;
+      /* Light Cyan */
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fce4ec;
+      /* Light Pink */
     }
 
     /* Column Styles */
     .time-badge {
       font-family: "DengXian", "Microsoft YaHei";
-      color: #b2bec3;
-      font-size: 18px;
+      color: #000;
+      font-size: 20px;
+      font-weight: 900;
+      background: #fff;
+      padding: 6px 12px;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0px 0px #000;
+      display: inline-block;
     }
 
     .map-badge {
-      background: #dfe6e9;
-      color: #636e72;
-      padding: 4px 12px;
-      border-radius: 8px;
+      background: #ff9f43;
+      /* Orange */
+      color: #000;
+      padding: 6px 12px;
+      border: 2px solid #000;
       font-size: 18px;
+      font-weight: 900;
+      box-shadow: 3px 3px 0px 0px #000;
+      display: inline-block;
     }
 
     .firework-name {
-      color: #d63031;
+      color: #000;
       font-weight: 900;
       position: relative;
       display: inline-block;
-      padding: 5px 15px;
-      background: #ffeaa7;
-      border-radius: 20px;
-      color: #e17055;
+      padding: 8px 16px;
+      background: #fff;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0px 0px #000;
+      font-size: 20px;
+      min-width: 150px;
     }
 
     .sender-tag,
@@ -168,23 +178,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .role-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      color: #fff;
+      width: 28px;
+      height: 28px;
+      color: #000;
       font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      font-weight: 900;
+      border: 2px solid #000;
+      box-shadow: 2px 2px 0px 0px #000;
     }
 
     .role-icon.sender {
-      background: #fd79a8;
+      background: #ff7675;
     }
 
     .role-icon.receiver {
@@ -192,7 +204,11 @@
     }
 
     .name-text {
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: 900;
+      color: #000 !important;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
     }
   </style>
 </head>

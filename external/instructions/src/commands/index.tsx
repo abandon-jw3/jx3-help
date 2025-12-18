@@ -74,7 +74,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .action(async () => {
       const res = await ctx.jx3api.getActiveCelebs({ name: "楚天社" });
       if (res.msg !== "success") return <p>查询楚天社进度失败</p>;
-      const screenshot = await ctx.jx3render.render("celebs", res.data, "celebs楚天社", false);
+      const screenshot = await ctx.jx3render.render("celebs", { data: res.data, name: "楚天社" }, "celebs楚天社", false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
   //云从社
@@ -84,7 +84,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .action(async () => {
       const res = await ctx.jx3api.getActiveCelebs({ name: "云从社" });
       if (res.msg !== "success") return <p>查询云从社进度失败</p>;
-      const screenshot = await ctx.jx3render.render("celebs", res.data, "celebs云从社", false);
+      const screenshot = await ctx.jx3render.render("celebs", { data: res.data, name: "云从社" }, "celebs云从社", false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
   //披风会
@@ -94,7 +94,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .action(async () => {
       const res = await ctx.jx3api.getActiveCelebs({ name: "披风会" });
       if (res.msg !== "success") return <p>查询披风会进度失败</p>;
-      const screenshot = await ctx.jx3render.render("celebs", res.data, "celebs披风会", false);
+      const screenshot = await ctx.jx3render.render("celebs", { data: res.data, name: "披风会" }, "celebs披风会", false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
@@ -586,7 +586,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       const screenshot = await ctx.jx3render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
-  //副本进度
+  //副本进度     TODO:⬇️⬇️⬇️⬇️ 未完成
   ctx
     .guild()
     .command("副本 [...arg]", "查询副本进度")

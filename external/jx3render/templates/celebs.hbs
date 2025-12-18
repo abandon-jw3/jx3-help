@@ -22,70 +22,73 @@
       width: 1600px;
       margin: 0 auto;
       font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-      background-color: #fceef5;
-      /* Base Pink */
-      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      color: #2d3436;
+      background-color: #f0f0f0;
+      /* Neo Gray Background */
+      background-image:
+        linear-gradient(90deg, #bebebe 1px, transparent 1px),
+        linear-gradient(#bebebe 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #000;
+      padding: 40px;
     }
 
     .container {
-      padding: 40px;
-      min-height: 100vh;
+      /* min-height: 100vh; */
     }
 
     /* Header Section (Unified with ActiveList/TradeRecords) */
     .page-header {
       margin-bottom: 30px;
-      text-align: center;
+      text-align: left;
+      /* Left align for that brutalist feel */
       position: relative;
     }
 
     .page-title {
       font-size: 36px;
       font-weight: 900;
-      color: #6c5ce7;
-      text-shadow: 2px 2px 0px #fff;
+      color: #000;
       display: inline-block;
-      background: #fff;
-      padding: 10px 40px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
-      transform: skew(-10deg);
+      background: #ffeb3b;
+      /* Safety Yellow */
+      padding: 15px 30px;
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0px 0px #000;
+      transform: rotate(-2deg);
+      text-transform: uppercase;
+      letter-spacing: -1px;
     }
 
     .page-title span {
       display: block;
-      transform: skew(10deg);
+      /* transform: skew(10deg); */
     }
 
     .page-subtitle {
-      margin-top: 10px;
+      margin-top: 15px;
       display: inline-block;
-      background: #a29bfe;
+      background: #000;
       color: #fff;
-      padding: 4px 15px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 14px;
-      box-shadow: 0 2px 4px rgba(162, 155, 254, 0.4);
+      padding: 8px 16px;
+      border: 3px solid #000;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+      transform: rotate(1deg);
     }
 
     /* Card Container */
     .card {
       background: #ffffff;
-      border-radius: 24px;
-      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
-      overflow: hidden;
-      padding: 10px;
+      border: 4px solid #000;
+      box-shadow: 12px 12px 0px 0px #000;
+      padding: 20px;
     }
 
     /* Table Styling */
     .table-container {
       width: 100%;
       overflow-x: auto;
-      border-radius: 16px;
     }
 
     table {
@@ -95,68 +98,69 @@
     }
 
     thead {
-      background-color: rgba(108, 92, 231, 0.1);
+      background-color: #000;
     }
 
     th {
-      padding: 24px 16px;
+      padding: 15px;
       text-align: center;
       font-weight: 900;
       font-size: 20px;
-      color: #6c5ce7;
-      border-bottom: 2px solid #e2e8f0;
+      color: #fff;
+      border: 3px solid #000;
       white-space: nowrap;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    td {
-      padding: 24px 16px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 20px;
-      border-bottom: 1px solid #f0f2f5;
-      color: #2d3436;
-      font-weight: bold;
+      text-transform: uppercase;
     }
 
     /* Row Hover and Striping */
+    tbody tr:nth-child(odd) {
+      background-color: #e0f7fa;
+      /* Light Cyan */
+    }
+
     tbody tr:nth-child(even) {
-      background-color: #fafbfc;
+      background-color: #fce4ec;
+      /* Light Pink */
     }
 
-    tbody tr {
-      transition: background-color 0.2s;
+    td {
+      padding: 15px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 20px;
+      border-right: 3px solid #000;
+      border-bottom: 3px solid #000;
+      color: #000;
+      font-weight: bold;
     }
 
-    tbody tr:hover {
-      background-color: #fff0f6;
-      /* Very light pink on hover */
+    td:first-child {
+      border-left: 3px solid #000;
     }
 
     /* Column Specific Styles */
     .time-cell {
       font-family: "DengXian", "Microsoft YaHei", sans-serif;
       font-weight: 900;
-      color: #e056fd;
-      /* Vibrant Purple */
+      color: #000;
       font-size: 24px;
-      background: rgba(224, 86, 253, 0.1);
+      background: #fff;
+      border: 2px solid #000;
       padding: 5px 15px;
-      border-radius: 20px;
       display: inline-block;
-      min-width: 100px;
+      box-shadow: 3px 3px 0px 0px #000;
+      min-width: 120px;
     }
 
     .location-cell {
-      font-weight: bold;
-      color: #2d3436;
+      font-weight: 900;
+      color: #000;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
     }
 
     .site-cell {
-      color: #636e72;
+      color: #000;
     }
 
     /* Stage Badge */
@@ -164,88 +168,66 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 16px;
-      border-radius: 12px;
-      background: #f1f2f6;
+      padding: 6px 14px;
+      border: 2px solid #000;
+      background: #fff;
       font-size: 18px;
+      font-weight: 900;
+      box-shadow: 3px 3px 0px 0px #000;
     }
 
     .status-dot {
       width: 12px;
       height: 12px;
-      border-radius: 50%;
-      background-color: #b2bec3;
+      background-color: #000;
       display: inline-block;
-      box-shadow: 0 0 0 2px rgba(178, 190, 195, 0.3);
+      border: 2px solid #000;
     }
 
     /* Highlight Progress Stages */
     .stage-active .status-dot {
-      background-color: #00b894;
+      background-color: #1dd1a1;
       /* Green */
-      box-shadow: 0 0 0 2px rgba(0, 184, 148, 0.3);
     }
 
     .stage-active {
-      color: #00b894;
-      background: rgba(0, 184, 148, 0.1);
-      font-weight: bold;
+      color: #000;
+      background: #fff;
     }
 
     /* Current Event Row - Special Highlight */
     tr.current {
-      background-color: rgba(255, 118, 117, 0.1) !important;
-      /* Soft Red/Pink */
       position: relative;
-      box-shadow: 0 2px 10px rgba(255, 118, 117, 0.15);
       z-index: 1;
-      transform: scale(1.005);
-      border-radius: 10px;
+      transform: scale(1.02);
+      box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.5);
     }
 
     tr.current td {
-      border-bottom: 2px solid #ff7675;
-      border-top: 2px solid #ff7675;
-    }
-
-    tr.current td:first-child {
-      border-left: 2px solid #ff7675;
-      border-top-left-radius: 12px;
-      border-bottom-left-radius: 12px;
-    }
-
-    tr.current td:last-child {
-      border-right: 2px solid #ff7675;
-      border-top-right-radius: 12px;
-      border-bottom-right-radius: 12px;
+      background-color: #ffeb3b !important;
+      /* Safety Yellow */
+      border-top: 3px solid #000;
+      border-bottom: 3px solid #000;
     }
 
     tr.current .time-cell {
-      color: #ff7675;
-      background: #fff;
+      background: #000;
+      color: #ffeb3b;
+      border-color: #000;
+      box-shadow: 3px 3px 0px 0px #fff;
     }
 
-    tr.current .status-dot {
-      background-color: #ff7675;
-      box-shadow: 0 0 0 3px rgba(255, 118, 117, 0.4);
-      animation: pulse 2s infinite;
+    tr.current .stage-wrapper {
+      background: #000;
+      color: #ffeb3b;
+      border-color: #000;
+      box-shadow: 3px 3px 0px 0px #fff;
     }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.3);
-        opacity: 0.8;
-      }
-
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    tr.current .stage-active .status-dot {
+      background-color: #ff5252;
+      /* Red alert for current active */
+      border-color: #fff;
     }
 
     /* Map Badges */
@@ -253,10 +235,12 @@
       display: inline-block;
       padding: 4px 10px;
       background: #74b9ff;
-      color: #fff;
-      border-radius: 6px;
+      color: #000;
+      border: 2px solid #000;
       font-size: 16px;
       margin-right: 8px;
+      font-weight: 900;
+      box-shadow: 2px 2px 0px 0px #000;
     }
   </style>
 </head>
@@ -269,7 +253,7 @@
         <span>JX3 EVENT TRACKER</span>
       </div>
       <br>
-      <div class="page-subtitle">楚天社 / 云从社 / 披风会</div>
+      <div class="page-subtitle">{{name}}</div>
     </div>
 
     <div class="card">
@@ -284,10 +268,10 @@
             </tr>
           </thead>
           <tbody>
-            {{#each this}}
+            {{#each data}}
             <tr class="{{#if @first}}current{{/if}}">
               <td>
-                <span class="time-cell">{{this.time}}</span>
+                <span class="time-cell">{{time}}</span>
               </td>
               <td>
                 <span class="location-cell">{{map}}</span>

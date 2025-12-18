@@ -1,199 +1,230 @@
 <html lang="zh-CN">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>服务器拍卖记录</title>
-    <style>
-      /* Reset & Base */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服务器拍卖记录</title>
+  <style>
+    /* Reset & Base */
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
 
-      body {
-        font-family:
-          "Microsoft YaHei",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          "Helvetica Neue",
-          Arial,
-          sans-serif;
-        background-color: #f0f2f5;
-        padding: 40px;
-        color: #333;
-        line-height: 1.5;
-        width: 1440px;
-      }
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      /* Card Container */
-      .card {
-        max-width: 1400px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-      }
+    body {
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #f0f0f0;
+      /* Neo Gray Background */
+      background-image:
+        linear-gradient(90deg, #bebebe 1px, transparent 1px),
+        linear-gradient(#bebebe 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #000;
+      padding: 40px;
+      width: 1600px;
+      margin: 0 auto;
+    }
 
-      /* Header */
-      .header {
-        padding: 24px 32px;
-        background: linear-gradient(to right, #f8f9fa, #ffffff);
-        border-bottom: 1px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    /* Card Container */
+    .card {
+      background: #ffffff;
+      border: 4px solid #000;
+      box-shadow: 12px 12px 0px 0px #000;
+      padding: 25px;
+      margin: 0 auto;
+    }
 
-      .header h1 {
-        font-size: 28px;
-        font-weight: 600;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 0;
-      }
+    /* Header */
+    .header {
+      margin-bottom: 40px;
+      text-align: left;
+      position: relative;
+      background: transparent;
+      border: none;
+      display: block;
+      padding: 0;
+    }
 
-      .icon-star {
-        color: #f1c40f;
-        width: 32px;
-        height: 32px;
-      }
+    .header h1 {
+      font-size: 42px;
+      font-weight: 900;
+      color: #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      background: #ffeb3b;
+      /* Safety Yellow */
+      padding: 15px 40px;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0px 0px #000;
+      transform: rotate(-2deg);
+      text-transform: uppercase;
+      margin: 0;
+    }
 
-      /* Table Styling */
-      .table-container {
-        width: 100%;
-        overflow-x: auto;
-      }
+    .icon-star {
+      width: 36px;
+      height: 36px;
+      fill: #000;
+      stroke: #000;
+      stroke-width: 1px;
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
 
-      thead {
-        background-color: #f8fafc;
-      }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
 
-      th {
-        padding: 20px 16px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 20px;
-        color: #64748b;
-        border-bottom: 2px solid #e2e8f0;
-        white-space: nowrap;
-      }
+    thead {
+      background-color: #000;
+    }
 
-      td {
-        padding: 20px 16px;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 22px;
-        border-bottom: 1px solid #edf2f7;
-      }
+    th {
+      padding: 20px 16px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 24px;
+      color: #fff;
+      border: 3px solid #000;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
 
-      tbody tr:last-child td {
-        border-bottom: none;
-      }
+    td {
+      padding: 20px 16px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 22px;
+      border-right: 3px solid #000;
+      border-bottom: 3px solid #000;
+      color: #000;
+      font-weight: 900;
+    }
 
-      tbody tr:hover {
-        background-color: #f8fafc;
-      }
+    td:first-child {
+      border-left: 3px solid #000;
+    }
 
-      tbody tr:nth-child(even) {
-        background-color: #fafafa;
-      }
+    /* Row Hover and Striping */
+    tbody tr:nth-child(odd) {
+      background-color: #e0f7fa;
+      /* Light Cyan */
+    }
 
-      /* Column Specific Styles */
-      .col-meta {
-        color: #718096;
-        font-size: 20px;
-      }
+    tbody tr:nth-child(even) {
+      background-color: #fce4ec;
+      /* Light Pink */
+    }
 
-      .badge-item {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #ecfdf5;
-        color: #059669;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 20px;
-        border: 1px solid rgba(5, 150, 105, 0.1);
-      }
+    tbody tr:hover {
+      background-color: #ffffff;
+      outline: 3px solid #000;
+      outline-offset: -3px;
+    }
 
-      .text-amount {
-        color: #2563eb;
-        font-weight: 700;
-        font-family: Consolas, Monaco, monospace;
-        font-size: 24px;
-      }
+    /* Column Specific Styles */
+    .col-meta {
+      color: #000;
+      font-size: 22px;
+    }
 
-      .text-time {
-        color: #475569;
-        font-size: 20px;
-      }
+    .badge-item {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #ff9f43;
+      /* Orange */
+      color: #000;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0px 0px #000;
+      font-weight: 900;
+      font-size: 22px;
+      border-radius: 0;
+      /* Boxy */
+    }
 
-      /* Footer/Bottom Spacing */
-      .footer-space {
-        height: 16px;
-        background: #fff;
-      }
-    </style>
-  </head>
+    .text-amount {
+      color: #000;
+      font-weight: 900;
+      font-family: "Arial Black", sans-serif;
+      font-size: 26px;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-decoration-color: #ff5252;
+    }
 
-  <body>
-    <div class="card">
-      <div class="header">
-        <h1>
-          <!-- SVG Icon for Stars -->
-          <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-          </svg>
-          拍卖记录
-        </h1>
-      </div>
+    .text-time {
+      color: #000;
+      font-size: 20px;
+      font-weight: 900;
+    }
 
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 15%">服务器</th>
-              <th style="width: 15%">角色名称</th>
-              <th style="width: 10%">阵营</th>
-              <th style="width: 25%">物品名称</th>
-              <th style="width: 15%">成交金额</th>
-              <th style="width: 20%">成交时间</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this}}
-              <tr>
-                <td class="col-meta">{{server}}</td>
-                <td class="col-meta">{{role_name}}</td>
-                <td class="col-meta">{{camp_name}}</td>
-                <td>
-                  <span class="badge-item">{{name}}</span>
-                </td>
-                <td>
-                  <span class="text-amount">{{amount}}</span>
-                </td>
-                <td>
-                  <span class="text-time">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
-                </td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-      <div class="footer-space"></div>
+    /* Footer/Bottom Spacing */
+    .footer-space {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>
+        <!-- SVG Icon for Stars -->
+        <svg class="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        拍卖记录
+      </h1>
     </div>
-  </body>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 10%">服务器</th>
+            <th style="width: 15%">角色名称</th>
+            <th style="width: 10%">阵营</th>
+            <th style="width: 25%">物品名称</th>
+            <th style="width: 20%">成交金额</th>
+            <th style="width: 20%">成交时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this}}
+          <tr>
+            <td class="col-meta">{{server}}</td>
+            <td class="col-meta">{{role_name}}</td>
+            <td class="col-meta">{{camp_name}}</td>
+            <td>
+              <span class="badge-item">{{name}}</span>
+            </td>
+            <td>
+              <span class="text-amount">{{amount}}</span>
+            </td>
+            <td>
+              <span class="text-time">{{formatTime time "YYYY-MM-DD HH:mm"}}</span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-space"></div>
+  </div>
+</body>
 
 </html>

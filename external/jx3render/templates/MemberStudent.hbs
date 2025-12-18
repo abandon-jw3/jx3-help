@@ -16,101 +16,103 @@
     body {
       width: 1400px;
       margin: 0 auto;
-      font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Source Han Sans CN", sans-serif;
-      background-color: #fceef5;
-      /* Base Pink */
-      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      color: #2d3436;
+      font-family: "Courier New", Courier, monospace, "Microsoft YaHei";
+      background-color: #f4d03f;
+      background-image:
+        radial-gradient(circle, #000 2px, transparent 2.5px);
+      background-size: 30px 30px;
+      color: #000;
+      padding: 50px;
     }
 
     .container {
-      padding: 40px;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Header Section */
     .page-header {
       margin-bottom: 40px;
-      text-align: center;
-      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0px #000;
+      padding: 30px;
+      transform: rotate(1deg);
     }
 
     .page-title {
-      font-size: 36px;
+      font-size: 48px;
       font-weight: 900;
-      color: #6c5ce7;
-      text-shadow: 2px 2px 0px #fff;
-      display: inline-block;
-      background: #fff;
-      padding: 10px 30px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
-      transform: skew(-10deg);
-    }
-
-    .page-title span {
-      display: block;
-      transform: skew(10deg);
+      text-transform: uppercase;
+      line-height: 1;
+      font-family: "Impact", "SimHei", sans-serif;
+      text-shadow: 3px 3px 0 #d35400;
     }
 
     .subtitle {
-      font-size: 14px;
-      color: #999;
-      margin-left: 10px;
-      font-weight: normal;
+      font-size: 24px;
+      background: #000;
+      color: #fff;
+      padding: 5px 15px;
+      margin-top: 5px;
+      display: inline-block;
+      font-family: monospace;
+      transform: skew(-10deg);
     }
 
     /* Grid Layout */
     .student-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      /* 4 cards per row */
-      gap: 20px;
+      gap: 30px;
     }
 
     /* Student Card */
     .student-card {
       background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0px #000;
       position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.5);
       display: flex;
       flex-direction: column;
+      transition: all 0.2s;
     }
 
     .student-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(108, 92, 231, 0.15);
-      z-index: 10;
+      transform: translate(-4px, -4px);
+      box-shadow: 12px 12px 0px #000;
     }
 
-    /* Card Header with Role Info */
+    /* Card Header */
     .card-header {
-      background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
-      padding: 15px;
+      background: #000;
       color: #fff;
+      padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 4px solid #000;
     }
 
     .role-name {
-      font-size: 20px;
-      font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      font-size: 24px;
+      font-weight: 900;
+      font-family: "SimHei", sans-serif;
     }
 
     .role-level {
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-family: "Consolas", monospace;
+      font-size: 16px;
+      background: #ffeaa7;
+      /* Yellow */
+      color: #000;
+      padding: 4px 8px;
+      border: 2px solid #fff;
+      font-weight: bold;
+      font-family: monospace;
     }
 
     /* Card Body */
@@ -119,40 +121,48 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 15px;
+      position: relative;
     }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
     }
 
     .tag {
-      font-size: 13px;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-weight: 600;
+      font-size: 14px;
+      padding: 6px 10px;
+      border: 2px solid #000;
+      font-weight: bold;
+      box-shadow: 2px 2px 0 #000;
     }
 
     .tag.force {
-      background: #eff6ff;
-      color: #2563eb;
+      background: #74b9ff;
+      /* Blue */
+      color: #000;
     }
 
     .tag.body {
-      background: #fdf2f8;
-      color: #db2777;
+      background: #fab1a0;
+      /* Pink/Orange */
+      color: #000;
     }
 
     .tag.camp {
-      background: #fff7ed;
-      color: #ea580c;
+      background: #ff7675;
+      /* Red */
+      color: #000;
     }
 
     .tag.tong {
-      background: #f0fdf4;
-      color: #16a34a;
+      background: #55efc4;
+      /* Mint */
+      color: #000;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -162,43 +172,46 @@
     /* Comment Section */
     .comment-box {
       margin-top: auto;
-      background: #fafafa;
-      padding: 12px;
-      border-radius: 12px;
+      background: #f0f0f0;
+      padding: 10px;
+      border: 2px solid #000;
       font-size: 14px;
-      color: #636e72;
+      color: #000;
       position: relative;
-      border-left: 4px solid #fab1a0;
+      z-index: 2;
     }
 
     .comment-box::before {
-      content: "💬";
+      content: "❝";
+      font-size: 20px;
       margin-right: 5px;
+      font-weight: bold;
     }
 
     /* Index Badge */
     .card-index {
       position: absolute;
-      top: 10px;
+      bottom: 10px;
       right: 10px;
-      font-size: 60px;
+      font-size: 80px;
       font-weight: 900;
-      color: rgba(255, 255, 255, 0.1);
+      color: rgba(0, 0, 0, 0.05);
       line-height: 1;
       pointer-events: none;
+      font-family: "Impact", sans-serif;
+      z-index: 1;
     }
 
     /* Footer decoration */
     .footer-deco {
       margin-top: 40px;
-      height: 10px;
+      height: 20px;
       background: repeating-linear-gradient(45deg,
-          #ff7675,
-          #ff7675 10px,
+          #000,
+          #000 10px,
           #fff 10px,
           #fff 20px);
-      border-radius: 20px;
-      opacity: 0.6;
+      border: 4px solid #000;
     }
   </style>
 </head>
@@ -208,7 +221,11 @@
 
     <div class="page-header">
       <div class="page-title">
-        <span>{{server}} 徒弟名录 <span class="subtitle">STUDENT LIST</span></span>
+        <span>{{server}} 徒弟名录</span>
+        <span class="subtitle">STUDENT LIST</span>
+      </div>
+      <div style="font-size: 18px; font-weight: bold;">
+        TOTAL: {{data.length}}
       </div>
     </div>
 
@@ -218,10 +235,11 @@
         <div class="card-header">
           <div class="role-name">{{roleName}}</div>
           <div class="role-level">Lv.{{roleLevel}}</div>
-          <div class="card-index">{{inc @index}}</div>
         </div>
 
         <div class="card-body">
+          <div class="card-index">{{inc @index}}</div>
+
           <div class="tag-row">
             <span class="tag force">{{forceName}}</span>
             <span class="tag body">{{bodyName}}</span>
@@ -242,8 +260,8 @@
             {{comment}}
           </div>
           {{else}}
-          <div class="comment-box" style="color:#b2bec3; font-style:italic;">
-            暂无拜师宣言
+          <div class="comment-box" style="color:#636e72; font-style:italic; border-style: dashed;">
+            NO COMMENT
           </div>
           {{/if}}
         </div>

@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>团队招募信息</title>
   <style>
-    /* @font-face {
+    @font-face {
       font-family: "DengXian";
       src: local("DengXian"), local("SimHei");
-    } */
+    }
 
     * {
       box-sizing: border-box;
@@ -20,197 +20,184 @@
     body {
       width: 1400px;
       margin: 0 auto;
-      font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Source Han Sans CN", sans-serif;
-      background-color: #fceef5;
-      /* Base Pink */
-      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      color: #2d3436;
+      font-family: "Courier New", Courier, monospace, "Microsoft YaHei";
+      background-color: #f4d03f;
+      background-image:
+        radial-gradient(circle, #000 2px, transparent 2.5px);
+      background-size: 30px 30px;
+      color: #000;
+      padding: 50px;
     }
 
     .container {
-      padding: 40px;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Header Section */
     .page-header {
-      margin-bottom: 30px;
-      text-align: center;
-      position: relative;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      /* Align bottom */
+      background: #fff;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0px #000;
+      padding: 30px;
+      transform: rotate(-1deg);
     }
 
     .page-title {
-      font-size: 36px;
+      font-size: 48px;
       font-weight: 900;
-      color: #6c5ce7;
-      text-shadow: 2px 2px 0px #fff;
-      display: inline-block;
-      background: #fff;
-      padding: 10px 30px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
-      transform: skew(-10deg);
-    }
-
-    .page-title span {
-      display: block;
-      transform: skew(10deg);
+      text-transform: uppercase;
+      line-height: 1;
+      font-family: "Impact", "SimHei", sans-serif;
+      text-shadow: 3px 3px 0 #d35400;
+      margin-bottom: 10px;
     }
 
     .subtitle {
-      font-size: 14px;
-      color: #999;
-      margin-left: 10px;
-      font-weight: normal;
+      font-size: 24px;
+      background: #000;
+      color: #fff;
+      padding: 5px 15px;
+      display: inline-block;
+      font-family: monospace;
+      transform: skew(-10deg);
     }
 
     .header-meta {
-      margin-top: 10px;
-      color: #b2bec3;
-      font-size: 14px;
+      font-family: "Consolas", monospace;
       font-weight: bold;
+      font-size: 18px;
+      background: #000;
+      color: #fff;
+      padding: 8px 16px;
+      transform: rotate(2deg);
     }
 
-    /* Content Card */
+    /* Content Wrapper */
     .content-wrapper {
       background: #fff;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
-
-    /* Table Styling */
-    .table-container {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 16px;
+      border: 4px solid #000;
+      box-shadow: 15px 15px 0px #000;
+      padding: 0;
+      border-radius: 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      border-spacing: 0;
+      font-size: 18px;
     }
 
     thead {
-      background-color: #8b8eff;
-      /* Header Purple */
+      background-color: #000;
+      color: #fff;
+      font-family: "SimHei", sans-serif;
     }
 
     th {
-      padding: 20px 12px;
+      padding: 20px 10px;
       text-align: center;
-      font-weight: 700;
-      font-size: 18px;
-      color: #fff;
-      border-bottom: none;
-      white-space: nowrap;
+      font-weight: 900;
+      font-size: 20px;
+      border: 3px solid #000;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    th:first-child {
-      border-top-left-radius: 12px;
-    }
-
-    th:last-child {
-      border-top-right-radius: 12px;
-    }
-
     td {
-      padding: 16px 12px;
+      padding: 15px 10px;
       text-align: center;
       vertical-align: middle;
-      font-size: 18px;
-      border-bottom: 1px solid #f0f2f5;
-      color: #2d3436;
-      transition: all 0.3s ease;
+      border: 3px solid #000;
+      font-weight: bold;
     }
 
-    tbody tr {
-      background: #fff;
-      transition: transform 0.2s, box-shadow 0.2s;
+    /* Zebra striping */
+    tbody tr:nth-child(even) {
+      background-color: #ebf5fb;
     }
 
     tbody tr:hover {
-      background-color: #fff0f6;
-      /* Very light pink hover */
-      transform: scale(1.005);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      z-index: 1;
-      position: relative;
-      border-radius: 8px;
-    }
-
-    tbody tr:hover td {
-      color: #d63384;
+      background-color: #d1f2eb;
     }
 
     /* Column Specific Styles */
     .col-index {
+      font-family: "Impact", sans-serif;
+      font-size: 24px;
       color: #b2bec3;
-      font-weight: bold;
-      font-family: "Consolas", monospace;
+      /* Muted grey for index, or keep it bold? Let's make it bold grey */
+      color: #636e72;
     }
 
+    /* Activity Badge */
     .badge-activity {
       display: inline-block;
-      padding: 6px 14px;
-      background-color: #ffeaa7;
-      /* Soft yellow */
-      color: #d35400;
-      border-radius: 20px;
+      padding: 6px 12px;
+      background-color: #a29bfe;
+      /* Purple */
+      color: #fff;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0 #000;
       font-weight: bold;
       font-size: 16px;
-      box-shadow: 0 2px 5px rgba(253, 203, 110, 0.3);
     }
 
+    /* Leader Name */
+    .text-leader {
+      color: #000;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-decoration-color: #fdcb6e;
+    }
+
+    /* Content */
     .text-content {
       text-align: left;
       max-width: 400px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: #636e72;
+      font-family: "Microsoft YaHei", sans-serif;
+      /* Readable for longer text */
     }
 
-    .text-leader {
-      font-weight: bold;
-      color: #6c5ce7;
-    }
-
+    /* Time */
     .text-time {
       font-family: "Consolas", "Monaco", monospace;
-      color: #a29bfe;
-      font-size: 16px;
+      background: #ffeaa7;
+      padding: 4px 8px;
+      border: 2px solid #000;
     }
 
+    /* Cross Server Badge */
     .badge-cross {
       display: inline-block;
-      padding: 4px 10px;
-      background-color: #6c5ce7;
-      color: #ffffff;
-      border-radius: 4px;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(108, 92, 231, 0.3);
+      padding: 4px 8px;
+      background-color: #ff7675;
+      /* Salmon */
+      color: #000;
+      border: 2px solid #000;
+      font-size: 14px;
+      font-weight: 900;
+      transform: rotate(-10deg);
     }
 
-    /* Footer decoration */
-    .footer-deco {
-      height: 10px;
+    /* Footer */
+    .footer-bar {
+      height: 30px;
       background: repeating-linear-gradient(45deg,
-          #ff7675,
-          #ff7675 10px,
+          #000,
+          #000 10px,
           #fff 10px,
           #fff 20px);
-      border-radius: 0 0 24px 24px;
-      margin-top: -10px;
-      /* Overlap slightly */
-      opacity: 0.6;
+      border-top: 4px solid #000;
     }
   </style>
 </head>
@@ -219,55 +206,53 @@
   <div class="container">
 
     <div class="page-header">
-      <div class="page-title">
-        <span>{{server}} 团队招募 <span class="subtitle">TEAM RECRUITMENT</span></span>
+      <div>
+        <div class="page-title">{{server}} 团队招募</div>
+        <div class="subtitle">TEAM RECRUITMENT</div>
       </div>
       <div class="header-meta">
-        更新时间：{{formatTime time "YYYY-MM-DD"}}
+        UPDATE: {{formatTime time "YYYY-MM-DD"}}
       </div>
     </div>
 
     <div class="content-wrapper">
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 5%">序号</th>
-              <th style="width: 18%">活动名称</th>
-              <th style="width: 7%">等级</th>
-              <th style="width: 12%">团长</th>
-              <th style="width: 8%">人数</th>
-              <th style="width: 28%">招募内容</th>
-              <th style="width: 15%">创建时间</th>
-              <th style="width: 7%">其他</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
-            <tr>
-              <td class="col-index">{{inc @index}}</td>
-              <td>
-                <span class="badge-activity">{{activity}}</span>
-              </td>
-              <td>{{level}}</td>
-              <td class="text-leader">{{leader}}</td>
-              <td>{{number}}/{{maxNumber}}</td>
-              <td class="text-content" title="{{content}}">{{content}}</td>
-              <td>
-                <span class="text-time">{{formatTime createTime "YYYY-MM-DD"}}</span>
-              </td>
-              <td>
-                {{#if crossServer}}
-                <span class="badge-cross">跨服</span>
-                {{/if}}
-              </td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-      <div style="height: 20px;"></div>
-      <div class="footer-deco"></div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 18%">ACTIVITY</th>
+            <th style="width: 7%">LV</th>
+            <th style="width: 12%">LEADER</th>
+            <th style="width: 8%">NUM</th>
+            <th style="width: 28%">CONTENT</th>
+            <th style="width: 15%">TIME</th>
+            <th style="width: 7%">TAG</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data}}
+          <tr>
+            <td class="col-index">{{inc @index}}</td>
+            <td>
+              <span class="badge-activity">{{activity}}</span>
+            </td>
+            <td>{{level}}</td>
+            <td class="text-leader">{{leader}}</td>
+            <td>{{number}}/{{maxNumber}}</td>
+            <td class="text-content" title="{{content}}">{{content}}</td>
+            <td>
+              <span class="text-time">{{formatTime createTime "YYYY-MM-DD"}}</span>
+            </td>
+            <td>
+              {{#if crossServer}}
+              <span class="badge-cross">跨服</span>
+              {{/if}}
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="footer-bar"></div>
     </div>
   </div>
 </body>

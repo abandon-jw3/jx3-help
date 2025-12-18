@@ -21,153 +21,155 @@
       width: 1600px;
       margin: 0 auto;
       font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-      background-color: #fceef5;
-      /* Base Pink */
-      background-image: radial-gradient(#ffc0cb 15%, transparent 16%), radial-gradient(#ffc0cb 15%, transparent 16%);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      color: #2d3436;
+      background-color: #f0f0f0;
+      /* Neo Gray Background */
+      background-image:
+        linear-gradient(90deg, #bebebe 1px, transparent 1px),
+        linear-gradient(#bebebe 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #000;
+      padding: 40px;
     }
 
     .container {
-      padding: 40px;
-      min-height: 100vh;
+      /* min-height: 100vh; */
     }
 
     /* Header Section */
     .page-header {
-      margin-bottom: 30px;
-      text-align: center;
+      margin-bottom: 25px;
+      text-align: left;
+      /* Left align for that brutalist feel */
       position: relative;
     }
 
     .page-title {
       font-size: 36px;
       font-weight: 900;
-      color: #6c5ce7;
-      text-shadow: 2px 2px 0px #fff;
+      color: #000;
       display: inline-block;
-      background: #fff;
-      padding: 10px 30px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
-      transform: skew(-10deg);
-    }
-
-    .page-title span {
-      display: block;
-      transform: skew(10deg);
+      background: #ffeb3b;
+      /* Safety Yellow */
+      padding: 15px 30px;
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0px 0px #000;
+      transform: rotate(-2deg);
+      text-transform: uppercase;
+      letter-spacing: -1px;
     }
 
     /* Calendar Grid */
     .calendar-wrapper {
       background: #fff;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.15);
+      border: 4px solid #000;
+      padding: 20px;
+      box-shadow: 12px 12px 0px 0px #000;
     }
 
     .week-header {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 15px;
     }
 
     .week-day-badge {
       text-align: center;
-      background: #a29bfe;
+      background: #000;
       color: #fff;
-      font-weight: bold;
+      font-weight: 900;
       padding: 10px;
-      border-radius: 12px;
+      border: 3px solid #000;
       font-size: 16px;
-      box-shadow: 0 4px 6px rgba(162, 155, 254, 0.4);
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
     }
 
     .week-day-badge:nth-child(6),
     .week-day-badge:nth-child(7) {
-      background: #ff7675;
-      /* Weekend Pink */
-      box-shadow: 0 4px 6px rgba(255, 118, 117, 0.4);
+      background: #ff5252;
+      border-color: #000;
+      box-shadow: 4px 4px 0px 0px #000;
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 15px;
+      gap: 12px;
     }
 
     .day-card {
       background: #fff;
-      border: 2px solid #f0f2f5;
-      border-radius: 16px;
-      min-height: 180px;
+      border: 3px solid #000;
+      min-height: 150px;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.1s;
+      position: relative;
     }
 
     .day-card.active-day {
-      background: #fff;
-      border-color: #fff;
-      box-shadow: 0 4px 15px rgba(223, 230, 233, 0.8);
+      box-shadow: 6px 6px 0px 0px #000;
+    }
+
+    .day-card.active-day:nth-child(odd) {
+      background-color: #e0f7fa;
+      /* Light Cyan */
+    }
+
+    .day-card.active-day:nth-child(even) {
+      background-color: #fce4ec;
+      /* Light Pink */
     }
 
     .day-card.active-day:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(235, 233, 240, 1);
-      border-color: #bdc3c7;
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0px 0px #000;
     }
 
     .day-card.empty {
-      background: transparent;
-      border: none;
+      background: repeating-linear-gradient(45deg,
+          #f0f0f0,
+          #f0f0f0 10px,
+          #e0e0e0 10px,
+          #e0e0e0 20px);
+      border: 3px dashed #bbb;
       box-shadow: none;
     }
 
     /* Day Header */
     .day-header {
-      padding: 12px 15px;
-      border-radius: 14px 14px 0 0;
+      padding: 10px;
+      border-bottom: 3px solid #000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #f5f6fa;
-      background: rgba(223, 230, 233, 0.2);
-    }
-
-    .active-day .day-header {
-      background: rgba(116, 185, 255, 0.1);
-    }
-
-    .active-day:nth-child(7n) .day-header,
-    .active-day:nth-child(7n-1) .day-header {
-      background: rgba(255, 118, 117, 0.1);
-      /* Weekend light bg */
+      background: #fff;
     }
 
     .date-text {
       font-weight: 900;
-      color: #2d3436;
-      font-size: 18px;
+      color: #000;
+      font-size: 20px;
+      font-family: "Arial Black", sans-serif;
     }
 
     .date-week {
       font-size: 12px;
-      font-weight: bold;
-      color: #b2bec3;
-      background: #fff;
+      font-weight: 900;
+      color: #000;
+      background: #74b9ff;
+      border: 2px solid #000;
       padding: 2px 8px;
-      border-radius: 10px;
+      box-shadow: 2px 2px 0px 0px #000;
     }
 
     /* Activity List */
     .activity-list {
-      padding: 15px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       flex: 1;
     }
 
@@ -179,47 +181,46 @@
 
     /* Badges */
     .badge {
-      padding: 4px 10px;
-      color: #fff;
-      font-weight: bold;
+      padding: 4px 8px;
+      color: #000;
+      font-weight: 900;
       font-size: 12px;
-      border-radius: 6px;
+      border: 2px solid #000;
       text-transform: uppercase;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 2px 0px 0px #000;
       white-space: nowrap;
     }
 
     .badge.war {
-      background: #ff4757;
+      background: #ff5252;
       /* Red */
     }
 
     .badge.battle {
-      background: #e17055;
+      background: #ff9f43;
       /* Orange */
     }
 
     .badge.school {
-      background: #00b894;
+      background: #1dd1a1;
       /* Green */
     }
 
     .activity-name {
       font-size: 14px;
       font-weight: bold;
-      color: #636e72;
+      color: #000;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
     }
 
     /* Decoration */
     .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 6px;
+      display: none;
+      /* No subtle dots in brutalism */
     }
   </style>
 </head>
