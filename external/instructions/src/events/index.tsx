@@ -639,10 +639,11 @@ export function instructionsEvents(ctx: Context, config: Config) {
     const sendList = list.map((channel) => `onebot:${channel.guildId}`);
     const message = (
       <>
+        <p>游戏客户端检查到新版本</p>
         <p>当前版本：{now_version}</p>
         <p>新版本：{new_version}</p>
         <p>更新包数：{package_num}</p>
-        <p>更新包大小：{package_size}MB</p>
+        <p>更新包大小：{package_size}</p>
       </>
     );
     await ctx.broadcast(sendList, message);

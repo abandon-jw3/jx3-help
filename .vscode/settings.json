@@ -4,7 +4,7 @@
   "git.autoRepositoryDetection": "subFolders",
 
   "editor.defaultFormatter": "esbenp.prettier-vscode", // 使用 Prettier 作为默认格式化工具
-  "editor.formatOnSave": true, // 保存时自动格式化
+  "editor.formatOnSave": false, // 保存时自动格式化
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

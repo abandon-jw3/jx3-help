@@ -345,10 +345,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
-  //拍卖纪录查询
+  //拍卖记录查询
   ctx
     .guild()
-    .command("拍卖纪录 [服务器] [物品名]", "查询拍卖纪录")
+    .command("拍卖记录 [服务器] [物品名]", "查询拍卖记录")
     .channelFields(["groupServer"])
     .userFields(["userServer", "roleName"])
     .action(async ({ session }, ...arg) => {
@@ -889,6 +889,8 @@ export function instructionsCommands(ctx: Context, config: Config) {
         name = await session.prompt();
         if (!name) return "输入超时。";
       }
+      console.log(server, name);
+
       const res = await ctx.jx3api.getTiebaItemRecords({ server, name, limit: 3 });
       if (res.msg !== "success") return <>{res.msg}</>;
       return (
@@ -1040,6 +1042,8 @@ export function instructionsCommands(ctx: Context, config: Config) {
       const server = parser.tryMatch("server", serverList);
       const mode = parser.tryMatch("mode", jjcModel) || 33; //22 33 55 默认33
       const name = parser.getRemaining()[0] || "";
+      console.log(server, mode, name);
+
       if (!server || !name) return <p>你发送的格式不正确，请按格式发送[战绩 服务器 角色名]...</p>;
       const res = await ctx.jx3api.getArenaRecent({ server, name, mode });
       if (res.msg !== "success") return <>{res.msg}</>;
