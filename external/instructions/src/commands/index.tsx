@@ -586,7 +586,7 @@ export function instructionsCommands(ctx: Context, config: Config) {
       const screenshot = await ctx.jx3render.render("MemberStudent", res.data, `MemberStudent-${server}-${keyword}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
-  //副本进度     TODO:⬇️⬇️⬇️⬇️ 未完成
+  //副本进度
   ctx
     .guild()
     .command("副本 [...arg]", "查询副本进度")
@@ -707,8 +707,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
         if (!name) return "输入超时。";
       }
       const res = await ctx.jx3api.getRoleMonster({ server, name });
-
-      console.log(res);
       return;
       if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
       if (res.msg !== "success") return <p>{res.msg}</p>;
@@ -889,8 +887,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
         name = await session.prompt();
         if (!name) return "输入超时。";
       }
-      console.log(server, name);
-
       const res = await ctx.jx3api.getTiebaItemRecords({ server, name, limit: 3 });
       if (res.msg !== "success") return <>{res.msg}</>;
       return (
@@ -1042,8 +1038,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
       const server = parser.tryMatch("server", serverList);
       const mode = parser.tryMatch("mode", jjcModel) || 33; //22 33 55 默认33
       const name = parser.getRemaining()[0] || "";
-      console.log(server, mode, name);
-
       if (!server || !name) return <p>你发送的格式不正确，请按格式发送[战绩 服务器 角色名]...</p>;
       const res = await ctx.jx3api.getArenaRecent({ server, name, mode });
       if (res.msg !== "success") return <>{res.msg}</>;
@@ -1109,23 +1103,22 @@ export function instructionsCommands(ctx: Context, config: Config) {
     });
 
   //在线
-  ctx
-    .guild()
-    .command("在线 [...arg]", "查询在线信息")
-    .action(async (_, ...arg) => {
-      return "在线查询功能暂不可用，我们将会持续跟进，敬请期待功能恢复 ꒰꧞˃ 𛱊 ˂꒱";
-      const parser = new ArgParser(arg);
-      const server = parser.tryMatch("server", serverList);
-      const name = parser.getRemaining()[0] || "";
-      if (!server || !name) return <p>请输入服务器和角色名</p>;
-      const res = await ctx.jx3api.getRoleOnlineStatus({ server, name });
-      if (res.msg !== "success") return <>{res.msg}</>;
-      return (
-        <p>
-          {res.data.serverName} 的 {res.data.roleName} 在线状态为：{res.data.onlineStatus ? "在线" : "离线"}
-        </p>
-      );
-    });
+  // ctx
+  //   .guild()
+  //   .command("在线 [...arg]", "查询在线信息")
+  //   .action(async (_, ...arg) => {
+  //     const parser = new ArgParser(arg);
+  //     const server = parser.tryMatch("server", serverList);
+  //     const name = parser.getRemaining()[0] || "";
+  //     if (!server || !name) return <p>请输入服务器和角色名</p>;
+  //     const res = await ctx.jx3api.getRoleOnlineStatus({ server, name });
+  //     if (res.msg !== "success") return <>{res.msg}</>;
+  //     return (
+  //       <p>
+  //         {res.data.serverName} 的 {res.data.roleName} 在线状态为：{res.data.onlineStatus ? "在线" : "离线"}
+  //       </p>
+  //     );
+  //   });
 
   ctx
     .guild()
@@ -1177,8 +1170,15 @@ export function instructionsCommands(ctx: Context, config: Config) {
   ctx
     .guild()
     .command("今天喝什么", "猜一下今天喝什么")
+    .alias("喝什么")
     .action(async (_) => {
       const index = Random.int(1, 10);
-      return <img src={`http://localhost:5140/jx3assets/images/drinks/${index}.png`} />;
+      const url = `http://localhost:5140/jx3assets/images/drinks/${index}.png`
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const arrayBuffer = await blob.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const base64 = buffer.toString("base64");
+      return <img src={`data:image/png;base64,${base64}`} />;
     });
 }

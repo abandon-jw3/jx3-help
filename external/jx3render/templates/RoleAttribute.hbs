@@ -8,17 +8,28 @@
   <title>角色装备</title>
   <style>
     :root {
+      /* Neo-Brutalism Palette */
+      --nb-bg: #E0E7FF;
+      --nb-surface: #FFFFFF;
+      --nb-border: #000000;
+      --nb-shadow: 4px 4px 0px #000000;
+      --nb-shadow-hover: 2px 2px 0px #000000;
+
+      /* Vibrant Accents */
+      --nb-red: #FF6B6B;
+      --nb-yellow: #FFE66D;
+      --nb-teal: #4ECDC4;
+      --nb-blue: #45B7D1;
+      --nb-purple: #9D50BB;
+      --nb-orange: #FF9F1C;
+
+      /* Game Quality Mappings (Vibrant versions) */
       --quality-0: #9d9d9d;
       --quality-1: #ffffff;
-      --quality-2: #00d233;
-      --quality-3: #007eff;
-      --quality-4: #a335ee;
-      --quality-5: #ff8000;
-      --bg-color: #1a1a1a;
-      --panel-bg: #242424;
-      --text-primary: #e0e0e0;
-      --text-secondary: #a0a0a0;
-      --border-color: #333;
+      --quality-2: #00E676; /* Green */
+      --quality-3: #2979FF; /* Blue */
+      --quality-4: #D500F9; /* Purple */
+      --quality-5: #FF6D00; /* Orange */
     }
 
     * {
@@ -28,117 +39,157 @@
     }
 
     body {
-      font-family: "Microsoft YaHei", sans-serif;
-      background-color: #121212;
-      color: var(--text-primary);
+      font-family: "Microsoft YaHei", "Arial Black", sans-serif;
+      background-color: var(--nb-bg);
+      background-image: radial-gradient(#000000 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #000;
       width: 1200px;
-      padding: 20px;
+      padding: 30px;
+      font-weight: bold;
     }
 
     .container {
-      background-color: var(--panel-bg);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      background-color: var(--nb-surface);
+      border: 3px solid var(--nb-border);
+      box-shadow: var(--nb-shadow);
+      padding: 24px;
     }
 
+    /* Header Section */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 20px;
+      border-bottom: 3px solid var(--nb-border);
     }
 
     .role-info {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
     }
 
     .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 8px;
-      border: 2px solid var(--border-color);
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--nb-border);
+      box-shadow: var(--nb-shadow);
+      background-color: #fff;
+      object-fit: cover;
     }
 
     .role-text h1 {
-      font-size: 24px;
-      color: #fff;
-      margin-bottom: 4px;
+      font-size: 36px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
     }
 
-    .role-text span {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-right: 10px;
-      background: #333;
-      padding: 2px 6px;
-      border-radius: 4px;
+    .role-tags {
+      display: flex;
+      gap: 10px;
     }
+
+    .tag {
+      font-size: 14px;
+      color: #000;
+      background: var(--nb-yellow);
+      padding: 4px 12px;
+      border: 2px solid var(--nb-border);
+      box-shadow: 2px 2px 0px #000;
+      font-weight: 700;
+    }
+
+    .tag:nth-child(2) { background: var(--nb-teal); }
+    .tag:nth-child(3) { background: var(--nb-red); color: #fff; }
 
     .total-score {
       text-align: right;
+      background: #000;
+      color: var(--nb-yellow);
+      padding: 10px 20px;
+      border: 3px solid #000;
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
     }
 
     .total-score .label {
       font-size: 14px;
-      color: var(--text-secondary);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .total-score .value {
-      font-size: 32px;
-      color: #f1c40f;
-      font-weight: bold;
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
     }
 
+    /* Layout */
     .main-content {
       display: grid;
-      grid-template-columns: 320px 1fr 320px;
-      gap: 20px;
+      grid-template-columns: 340px 1fr 340px;
+      gap: 24px;
+      align-items: start;
     }
 
     .equip-column {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 16px;
     }
 
+    /* Equipment Card */
     .equip-item {
       display: flex;
-      gap: 10px;
-      background: #2a2a2a;
-      padding: 8px;
-      border-radius: 4px;
-      border: 1px solid #333;
+      gap: 12px;
+      background: #fff;
+      padding: 10px;
+      border: 3px solid var(--nb-border);
+      box-shadow: var(--nb-shadow);
       align-items: center;
+      transition: transform 0.1s;
+    }
+
+    .equip-column:last-child .equip-item {
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    .equip-column:last-child .equip-stones {
+      justify-content: flex-end;
     }
 
     .equip-icon-wrapper {
       position: relative;
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
       flex-shrink: 0;
+      border: 3px solid var(--nb-border);
+      background: #eee;
     }
 
     .equip-icon {
       width: 100%;
       height: 100%;
-      border-radius: 4px;
-      border: 1px solid #555;
+      display: block;
     }
 
     .equip-strength {
       position: absolute;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.7);
+      bottom: -6px;
+      right: -6px;
+      background: #000;
       color: #fff;
-      font-size: 10px;
-      padding: 0 2px;
-      border-radius: 2px;
+      font-size: 12px;
+      padding: 2px 4px;
+      font-weight: bold;
+      border: 2px solid #fff;
     }
 
     .equip-details {
@@ -147,48 +198,81 @@
     }
 
     .equip-name {
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 16px;
+      font-weight: 900;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      color: #000;
     }
+
+    /* Quality Highlights */
+    .q-text-3 { color: var(--quality-3); text-shadow: 0.5px 0.5px 0 #000; }
+    .q-text-4 { color: var(--quality-4); text-shadow: 0.5px 0.5px 0 #000; }
+    .q-text-5 { color: var(--quality-5); text-shadow: 0.5px 0.5px 0 #000; }
+
+    .equip-item.q-3 { border-color: var(--quality-3); }
+    .equip-item.q-4 { border-color: var(--quality-4); }
+    .equip-item.q-5 { border-color: var(--quality-5); }
 
     .equip-enchant {
       font-size: 12px;
-      color: #00d233;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: #333;
+      font-weight: 600;
+      background: #f0f0f0;
+      display: inline-block;
+      padding: 0 4px;
+      margin-bottom: 4px;
     }
 
     .equip-stones {
       display: flex;
-      gap: 2px;
-      margin-top: 2px;
+      gap: 4px;
     }
 
     .stone-icon {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #444;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #000;
+      background: #ccc;
+    }
+
+    .stone-name {
+      font-size: 11px;
+      line-height: 14px;
+      color: #000;
+      font-weight: bold;
+      margin: 0 4px;
     }
 
     /* Stats Panel */
     .stats-panel {
-      background: #2a2a2a;
-      border-radius: 4px;
-      padding: 15px;
+      background: var(--nb-blue);
+      border: 3px solid var(--nb-border);
+      box-shadow: var(--nb-shadow);
+      padding: 20px;
+    }
+
+    .stats-panel h3 {
+      font-size: 24px;
+      color: #000;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #000;
+      padding-bottom: 10px;
+      background: #fff;
+      border: 3px solid #000;
+      box-shadow: 2px 2px 0px #000;
     }
 
     .stat-row {
       display: flex;
       justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #333;
-      font-size: 14px;
+      padding: 10px 0;
+      border-bottom: 2px dashed rgba(0,0,0,0.2);
+      font-size: 16px;
     }
 
     .stat-row:last-child {
@@ -196,52 +280,29 @@
     }
 
     .stat-label {
-      color: var(--text-secondary);
+      font-weight: 700;
+      color: rgba(0,0,0,0.7);
     }
 
     .stat-value {
-      color: #fff;
-      font-weight: bold;
+      font-weight: 900;
+      color: #000;
+      background: rgba(255,255,255,0.5);
+      padding: 0 6px;
     }
 
-    /* Quality Colors */
-    .q-3 {
-      color: var(--quality-3);
-      border-color: var(--quality-3) !important;
-    }
-
-    .q-4 {
-      color: var(--quality-4);
-      border-color: var(--quality-4) !important;
-    }
-
-    .q-5 {
-      color: var(--quality-5);
-      border-color: var(--quality-5) !important;
-    }
-
-    .q-text-3 {
-      color: var(--quality-3);
-    }
-
-    .q-text-4 {
-      color: var(--quality-4);
-    }
-
-    .q-text-5 {
-      color: var(--quality-5);
-    }
-
-    .equip-icon-wrapper.q-3 .equip-icon {
-      border-color: var(--quality-3);
-    }
-
-    .equip-icon-wrapper.q-4 .equip-icon {
-      border-color: var(--quality-4);
-    }
-
-    .equip-icon-wrapper.q-5 .equip-icon {
-      border-color: var(--quality-5);
+    /* Decoration */
+    .deco-bar {
+      height: 12px;
+      background: repeating-linear-gradient(
+        45deg,
+        #000,
+        #000 10px,
+        var(--nb-yellow) 10px,
+        var(--nb-yellow) 20px
+      );
+      margin-top: 20px;
+      border: 3px solid #000;
     }
   </style>
 </head>
@@ -251,18 +312,22 @@
     <!-- Header -->
     <div class="header">
       <div class="role-info">
+        {{#if personAvatar}}
         <img src="{{personAvatar}}" class="avatar">
+        {{else}}
+        <div class="avatar" style="display: flex; align-items: center; justify-content: center; background: #333; color: #fff; font-size: 32px; font-weight: 900;">?</div>
+        {{/if}}
         <div class="role-text">
           <h1>{{roleName}}</h1>
-          <div>
-            <span>{{zoneName}} {{serverName}}</span>
-            <span>{{forceName}}</span>
-            <span>{{bodyName}}</span>
+          <div class="role-tags">
+            <span class="tag">{{zoneName}} {{serverName}}</span>
+            <span class="tag">{{forceName}}</span>
+            <span class="tag">{{bodyName}}</span>
           </div>
         </div>
       </div>
       <div class="total-score">
-        <div class="label">装备分数</div>
+        <div class="label">GS SCORE</div>
         <div class="value">{{panelList.score}}</div>
       </div>
     </div>
@@ -273,8 +338,8 @@
       <div class="equip-column">
         <!-- Hat (Index 3) -->
         {{#with equipList.[3]}}
-        <div class="equip-item">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -294,8 +359,8 @@
 
         <!-- Coat (Index 2) -->
         {{#with equipList.[2]}}
-        <div class="equip-item">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -316,8 +381,8 @@
 
         <!-- Belt (Index 4) -->
         {{#with equipList.[4]}}
-        <div class="equip-item">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -338,8 +403,8 @@
 
         <!-- Wrist (Index 6) -->
         {{#with equipList.[6]}}
-        <div class="equip-item">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -360,8 +425,8 @@
 
         <!-- Pants (Index 5) -->
         {{#with equipList.[5]}}
-        <div class="equip-item">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -381,8 +446,8 @@
 
         <!-- Shoes (Index 7) -->
         {{#with equipList.[7]}}
-        <div class="equip-item">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -404,7 +469,7 @@
 
       <!-- Center Column: Stats -->
       <div class="stats-panel">
-        <h3 style="color: #fff; margin-bottom: 15px; text-align: center;">属性详情</h3>
+        <h3>属性详情</h3>
         {{#each panelList.panel}}
         <div class="stat-row">
           <span class="stat-label">{{name}}</span>
@@ -417,8 +482,8 @@
       <div class="equip-column">
         <!-- Necklace (Index 8) -->
         {{#with equipList.[8]}}
-        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -427,7 +492,7 @@
             <div class="equip-enchant">
               {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
-            <div class="equip-stones" style="justify-content: flex-end;">
+            <div class="equip-stones">
               {{#each fiveStone}}
               <img src="{{icon}}" class="stone-icon">
               {{/each}}
@@ -438,8 +503,8 @@
 
         <!-- Pendant (Index 9) -->
         {{#with equipList.[9]}}
-        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -448,7 +513,7 @@
             <div class="equip-enchant">
               {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
-            <div class="equip-stones" style="justify-content: flex-end;">
+            <div class="equip-stones">
               {{#each fiveStone}}
               <img src="{{icon}}" class="stone-icon">
               {{/each}}
@@ -459,8 +524,8 @@
 
         <!-- Ring 1 (Index 10) -->
         {{#with equipList.[10]}}
-        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -469,7 +534,7 @@
             <div class="equip-enchant">
               {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
-            <div class="equip-stones" style="justify-content: flex-end;">
+            <div class="equip-stones">
               {{#each fiveStone}}
               <img src="{{icon}}" class="stone-icon">
               {{/each}}
@@ -480,8 +545,8 @@
 
         <!-- Ring 2 (Index 11) -->
         {{#with equipList.[11]}}
-        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -490,7 +555,7 @@
             <div class="equip-enchant">
               {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
-            <div class="equip-stones" style="justify-content: flex-end;">
+            <div class="equip-stones">
               {{#each fiveStone}}
               <img src="{{icon}}" class="stone-icon">
               {{/each}}
@@ -501,8 +566,8 @@
 
         <!-- Range (Index 1) -->
         {{#with equipList.[1]}}
-        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -511,7 +576,7 @@
             <div class="equip-enchant">
               {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
-            <div class="equip-stones" style="justify-content: flex-end;">
+            <div class="equip-stones">
               {{#each fiveStone}}
               <img src="{{icon}}" class="stone-icon">
               {{/each}}
@@ -522,8 +587,8 @@
 
         <!-- Weapon (Index 0) -->
         {{#with equipList.[0]}}
-        <div class="equip-item" style="flex-direction: row-reverse; text-align: right;">
-          <div class="equip-icon-wrapper q-{{color}}">
+        <div class="equip-item q-{{color}}">
+          <div class="equip-icon-wrapper">
             <img src="{{icon}}" class="equip-icon">
             <div class="equip-strength">+{{strengthLevel}}</div>
           </div>
@@ -532,9 +597,10 @@
             <div class="equip-enchant">
               {{#each permanentEnchant}}{{name}} {{/each}}
             </div>
-            <div class="equip-stones" style="justify-content: flex-end;">
+            <div class="equip-stones">
               {{#if colorStone}}
-              <img src="{{colorStone.icon}}" class="stone-icon" style="border: 1px solid #a335ee;">
+              <img src="{{colorStone.icon}}" class="stone-icon" style="border: 2px solid #a335ee;">
+              <span class="stone-name">{{colorStone.name}}</span>
               {{/if}}
               {{#each fiveStone}}
               <img src="{{icon}}" class="stone-icon">
@@ -545,6 +611,8 @@
         {{/with}}
       </div>
     </div>
+
+    <div class="deco-bar"></div>
   </div>
 </body>
 
