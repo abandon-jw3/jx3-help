@@ -1,6 +1,6 @@
 import { Context, Random } from "koishi";
 import dayjs from "dayjs";
-import { ArgParser, serverList, jjcModel } from "../tools";
+import { ArgParser, serverList, jjcModel, baizhanSkill } from "../tools";
 import isoWeek from "dayjs/plugin/isoWeek";
 dayjs.extend(isoWeek);
 export const name = "instructions-commands";
@@ -559,11 +559,6 @@ export function instructionsCommands(ctx: Context, config: Config) {
       let server = parser.tryMatch("server", serverList);
       if (!server) server = session.channel.groupServer || session.user.userServer;
       let keyword = parser.getRemaining()[0] || "";
-      // if (!keyword) {
-      //   await session.send("请输入要查询的师父关键字：");
-      //   keyword = await session.prompt();
-      //   if (!keyword) return "输入超时。";
-      // }
       const res = await ctx.jx3api.getMemberTeacher({ server, keyword });
       if (!(Array.isArray(res.data.data) && res.data.data.length)) return <p>没有查到师父信息</p>;
       const screenshot = await ctx.jx3render.render("MemberTeacher", res.data, `MemberTeacher-${server}`, false);
@@ -690,10 +685,10 @@ export function instructionsCommands(ctx: Context, config: Config) {
       return <img src={"data:image/png;base64," + screenshot} />;
     });
 
-  //查询精耐
+  //查询角色精耐
   ctx
     .guild()
-    .command("精耐 [服务器] [角色名]", "查询角色精力信息")
+    .command("精耐 [服务器] [角色名]", "查询角色精耐信息")
     .channelFields(["groupServer"])
     .userFields(["userServer", "roleName"])
     .action(async ({ session }, ...arg) => {
@@ -707,7 +702,9 @@ export function instructionsCommands(ctx: Context, config: Config) {
         if (!name) return "输入超时。";
       }
       const res = await ctx.jx3api.getRoleMonster({ server, name });
-      return;
+      res.data.skillList.forEach((item) => {
+        item.skillIconId = baizhanSkill[item.dwInSkillID];
+      });
       if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
       if (res.msg !== "success") return <p>{res.msg}</p>;
       const screenshot = await ctx.jx3render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
@@ -1173,12 +1170,131 @@ export function instructionsCommands(ctx: Context, config: Config) {
     .alias("喝什么")
     .action(async (_) => {
       const index = Random.int(1, 10);
-      const url = `http://localhost:5140/jx3assets/images/drinks/${index}.png`
+      const url = `http://localhost:5140/jx3assets/images/drinks/${index}.png`;
       const res = await fetch(url);
       const blob = await res.blob();
       const arrayBuffer = await blob.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const base64 = buffer.toString("base64");
       return <img src={`data:image/png;base64,${base64}`} />;
+    });
+
+  ctx
+    .guild()
+    .command("名士排行 [服务器]", "查询服务器名士排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "名士五十强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatistical", { data: res.data, server }, `RankStatistical-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
+
+  ctx
+    .guild()
+    .command("江湖排行 [服务器]", "查询服务器资历排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "老江湖五十强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatisticalZili", { data: res.data, server }, `RankStatisticalZili-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
+
+  ctx
+    .guild()
+    .command("兵甲排行 [服务器]", "查询服务器兵甲排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "兵甲藏家五十强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatisticalBingjia", { data: res.data, server }, `RankStatisticalBingjia-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
+
+  ctx
+    .guild()
+    .command("名师排行 [服务器]", "查询服务器名师排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "名师五十强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatisticalMingshi", { data: res.data, server }, `RankStatisticalMingshi-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
+
+  ctx
+    .guild()
+    .command("阵营排行 [服务器]", "查询服务器阵营排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "阵营英雄五十强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatisticalZhenyin", { data: res.data, server }, `RankStatisticalZhenyin-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
+
+  ctx
+    .guild()
+    .command("薪火排行 [服务器]", "查询服务器薪火排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "薪火相传五十强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatisticalXinhuo", { data: res.data, server }, `RankStatisticalXinhuo-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
+    });
+
+  ctx
+    .guild()
+    .command("家园排行 [服务器]", "查询服务器家园排行")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, server) => {
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      const res = await ctx.jx3api.getRankStatistical({
+        server,
+        table: "个人",
+        name: "庐园广记一百强",
+      });
+      if (res.msg !== "success") return <>{res.msg}</>;
+      const screenshot = await ctx.jx3render.render("RankStatisticalHome", { data: res.data, server }, `RankStatisticalHome-${server}`, false);
+      return <img src={"data:image/png;base64," + screenshot} />;
     });
 }

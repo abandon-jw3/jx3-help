@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>角色精耐</title>
+  <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1200px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #f5f5f5;
+      background-size: 20px 20px;
+      color: #2d3436;
+    }
+
+    .container {
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    /* Header Section */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 35px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .server-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .server-badge::before {
+      content: "📍";
+    }
+
+    .role-name {
+      font-size: 18px;
+      font-weight: 600;
+      padding-left: 15px;
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .role-name::before {
+      content: "👤";
+      margin-right: 6px;
+    }
+
+    .header-center {
+      display: flex;
+      gap: 30px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+    }
+
+
+    .stat-value {
+      font-weight: 700;
+      color: #ffd700;
+      font-size: 20px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    .header-right::before {
+      content: "🆔";
+    }
+
+    /* Notice Section */
+    .notice-bar {
+      background: rgba(255, 193, 7, 0.1);
+      padding: 12px 35px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+    }
+
+    .notice-text {
+      color: #ba9116;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Skill Grid */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 16px;
+      padding: 30px 35px;
+    }
+
+    .skill-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .skill-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      padding: 4px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    /* Color borders based on nColor */
+    .skill-icon-wrapper.color-0 {
+      background: linear-gradient(145deg, #666666, #333333);
+    }
+    .skill-icon-wrapper.color-1 {
+      background: linear-gradient(145deg, #ffffff, #cccccc);
+    }
+    .skill-icon-wrapper.color-2 {
+      background: linear-gradient(145deg, #ffd700, #b8860b);
+    }
+    .skill-icon-wrapper.color-3 {
+      background: linear-gradient(145deg, #4fc3f7, #0288d1);
+    }
+    .skill-icon-wrapper.color-4 {
+      background: linear-gradient(145deg, #81c784, #388e3c);
+    }
+    .skill-icon-wrapper.color-5 {
+      background: linear-gradient(145deg, #ef5350, #c62828);
+    }
+    .skill-icon-wrapper.color-6 {
+      background: linear-gradient(145deg, #ba68c8, #7b1fa2);
+    }
+    .skill-icon-wrapper.color-7 {
+      background: linear-gradient(145deg, #1a1a1a, #000000);
+    }
+
+    .skill-icon {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #2d2d35;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .skill-level {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-size: 16px;
+      font-weight: 700;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(40, 40, 50, 0.95);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+      color: #fff;
+    }
+
+    .skill-name {
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Grayscale effect for level 0 skills */
+    .skill-card.grayscale {
+      filter: grayscale(100%);
+      opacity: 0.6;
+    }
+
+    /* Footer */
+    .page-footer {
+      padding: 15px 35px;
+      text-align: right;
+    }
+
+    .update-time {
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-left">
+        <div class="server-badge">{{data.serverName}}</div>
+        <div class="role-name">{{data.roleName}}</div>
+      </div>
+
+      <div class="header-center">
+        <div class="stat-item">
+          <span class="stat-label">精力：</span>
+          <span class="stat-value">{{data.gameEnergy}}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">耐力：</span>
+          <span class="stat-value">{{data.gameStamina}}</span>
+        </div>
+      </div>
+
+      <div class="header-right">{{data.globalRoleId}}</div>
+    </div>
+
+    <!-- Notice Bar -->
+    <div class="notice-bar">
+      <span class="notice-text">注意：客户端在世界频道发言可更新技能和精耐数值</span>
+    </div>
+
+    <!-- Skill Grid -->
+    <div class="skill-grid">
+      {{#each data.skillList}}
+      <div class="skill-card{{#if (eq nLevel 0)}} grayscale{{/if}}">
+        <div class="skill-icon-wrapper color-{{nColor}}">
+          {{#if skillIconId}}
+          <img class="skill-icon" src="https://icon.jx3box.com/icon/{{skillIconId}}.png" alt="{{szSkillName}}"
+            onerror="this.src='https://icon.jx3box.com/icon/4808.png'" />
+          {{else}}
+          <img class="skill-icon" src="https://icon.jx3box.com/icon/4808.png" alt="{{szSkillName}}" />
+          {{/if}}
+          <div class="skill-level">{{nLevel}}</div>
+        </div>
+        <div class="skill-name" title="{{szSkillName}}">{{szSkillName}}</div>
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+      <span class="update-time">更新时间：{{formatTime data.updateTime "YYYY-MM-DD HH:mm:ss"}}</span>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名士排行</title>
+  <style>
+    @font-face {
+      font-family: "DengXian";
+      src: local("DengXian"), local("SimHei");
+    }
+
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1100px;
+      margin: 0 auto;
+      font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+      background-color: #f0f0f0;
+      background-image:
+        linear-gradient(90deg, #bebebe 1px, transparent 1px),
+        linear-gradient(#bebebe 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #000;
+      padding: 40px;
+    }
+
+    /* Header Section */
+    .page-header {
+      margin-bottom: 30px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .page-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #fff;
+      display: inline-block;
+      background: #ff6b6b;
+      padding: 15px 30px;
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0px 0px #000;
+      transform: rotate(-2deg);
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+
+    .page-subtitle {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      padding: 8px 16px;
+      border: 3px solid #000;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+      transform: rotate(1deg);
+    }
+
+    .server-badge {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #4ecdc4;
+      color: #000;
+      padding: 12px 24px;
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0px 0px #000;
+      font-size: 24px;
+      font-weight: 900;
+      transform: rotate(2deg);
+    }
+
+    /* Card Container */
+    .card {
+      background: #ffffff;
+      border: 4px solid #000;
+      box-shadow: 12px 12px 0px 0px #000;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: #000;
+    }
+
+    thead th {
+      padding: 18px 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-right: 3px solid #333;
+    }
+
+    thead th:last-child {
+      border-right: none;
+    }
+
+    tbody tr {
+      border-bottom: 3px solid #000;
+      transition: all 0.15s ease;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #fff3cd;
+    }
+
+    tbody td {
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      border-right: 3px solid #e0e0e0;
+      vertical-align: middle;
+    }
+
+    tbody td:last-child {
+      border-right: none;
+    }
+
+    /* Rank Column - Special Styling */
+    .col-rank {
+      width: 80px;
+      font-family: "DengXian", sans-serif;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+      font-weight: 900;
+      border: 3px solid #000;
+      box-shadow: 3px 3px 0px 0px #000;
+    }
+
+    .rank-1 {
+      background: linear-gradient(135deg, #ffd700, #ffb347);
+      color: #000;
+      transform: rotate(-3deg) scale(1.1);
+    }
+
+    .rank-2 {
+      background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+      color: #000;
+      transform: rotate(2deg) scale(1.05);
+    }
+
+    .rank-3 {
+      background: linear-gradient(135deg, #cd7f32, #b87333);
+      color: #fff;
+      transform: rotate(-2deg) scale(1.02);
+    }
+
+    .rank-normal {
+      background: #f8f9fa;
+      color: #000;
+    }
+
+    /* Name Column */
+    .col-name {
+      font-weight: 800;
+      font-size: 20px;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .player-name {
+      display: inline-block;
+      background: #ffe66d;
+      padding: 6px 14px;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0px 0px #000;
+      font-weight: 900;
+    }
+
+    /* School Column */
+    .col-school {
+      width: 120px;
+    }
+
+    .school-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 2px solid #000;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 2px 2px 0px 0px #000;
+    }
+
+    /* Camp Column */
+    .col-camp {
+      width: 100px;
+    }
+
+    .camp-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 2px solid #000;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 2px 2px 0px 0px #000;
+    }
+
+    .camp-haoqi {
+      background: #74b9ff;
+      color: #000;
+    }
+
+    .camp-eren {
+      background: #ff7675;
+      color: #fff;
+    }
+
+    .camp-zhongli {
+      background: #a29bfe;
+      color: #fff;
+    }
+
+    /* Tong (Guild) Column */
+    .col-tong {
+      max-width: 160px;
+    }
+
+    .tong-name {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #dfe6e9;
+      border: 2px solid #000;
+      font-size: 16px;
+      font-weight: 600;
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .no-tong {
+      color: #b2bec3;
+      font-style: italic;
+    }
+
+    /* Score Column */
+    .col-score {
+      width: 140px;
+    }
+
+    .score-value {
+      display: inline-block;
+      background: #00b894;
+      color: #fff;
+      padding: 8px 16px;
+      border: 3px solid #000;
+      box-shadow: 4px 4px 0px 0px #000;
+      font-family: "DengXian", sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      transform: skew(-3deg);
+    }
+
+    /* Level Column */
+    .col-level {
+      width: 80px;
+    }
+
+    .level-badge {
+      display: inline-block;
+      background: #636e72;
+      color: #fff;
+      padding: 4px 10px;
+      border: 2px solid #000;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Alternating Row Colors */
+    tbody tr:nth-child(odd) {
+      background: #fafafa;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fff;
+    }
+
+    /* Footer */
+    .page-footer {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .footer-note {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="header-left">
+        <div class="page-title">
+          <span>🏆 名士排行榜</span>
+        </div>
+        <div class="page-subtitle">JX3 CELEBRITY RANKING / TOP 50</div>
+      </div>
+      <div class="server-badge">📍 {{server}}</div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%" class="col-rank" >排名</th>
+            <th style="width: 25%" class="col-name">角色名</th>
+            <th style="width: 15%" class="col-school">门派</th>
+            <th style="width: 15%" class="col-camp">阵营</th>
+            <th style="width: 20%" class="col-tong">帮会</th>
+            <th style="width: 20%" class="col-score">声望</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data}}
+          <tr>
+            <td class="col-rank">
+              {{#if (eq index 1)}}
+              <span class="rank-badge rank-1">{{index}}</span>
+              {{else if (eq index 2)}}
+              <span class="rank-badge rank-2">{{index}}</span>
+              {{else if (eq index 3)}}
+              <span class="rank-badge rank-3">{{index}}</span>
+              {{else}}
+              <span class="rank-badge rank-normal">{{index}}</span>
+              {{/if}}
+            </td>
+            <td class="col-name">
+              <span class="player-name">{{name}}</span>
+            </td>
+            <td class="col-school">
+              <span class="school-badge">{{school}}</span>
+            </td>
+            <td class="col-camp">
+              {{#if (eq camp_name '浩气盟')}}
+              <span class="camp-badge camp-haoqi">{{camp_name}}</span>
+              {{else if (eq camp_name '恶人谷')}}
+              <span class="camp-badge camp-eren">{{camp_name}}</span>
+              {{else}}
+              <span class="camp-badge camp-zhongli">{{camp_name}}</span>
+              {{/if}}
+            </td>
+            <td class="col-tong">
+              {{#if tong_name}}
+              <span class="tong-name" title="{{tong_name}}">{{tong_name}}</span>
+              {{else}}
+              <span class="no-tong">无帮会</span>
+              {{/if}}
+            </td>
+
+            <td class="col-score">
+              <span class="score-value">{{score}}</span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="page-footer">
+      <span class="footer-note">数据来源：JX3API | 名士五十强</span>
+    </div>
+
+  </div>
+</body>
+
+</html>
