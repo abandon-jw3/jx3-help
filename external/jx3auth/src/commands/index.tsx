@@ -45,7 +45,7 @@ export function jx3AuthCommands(ctx: Context, config: Config) {
 
   ctx
     .guild()
-    .command("添加时间 <天数:number>", "为当前群组添加到期时间")
+    .command("添加时间 <天数:number>", "为当前群组添加到期时间", { permissions: ["authority:5"] })
     .channelFields(["expireTime"])
     .action(async (arg, day = 30) => {
       const channel = arg.session.channel;
