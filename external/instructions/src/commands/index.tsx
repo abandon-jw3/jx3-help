@@ -491,7 +491,15 @@ export function instructionsCommands(ctx: Context, config: Config) {
       }
       const res = await ctx.jx3api.getLuckAdventure({ server, name });
       if (!(Array.isArray(res.data) && res.data.length)) return <p>没有查到奇遇记录</p>;
-      const screenshot = await ctx.jx3render.render("UserQiyuRecord", res.data, `UserQiyuRecord-${server}-${name}`, false);
+      // 按 level 分组：1=普通奇遇，2=绝世奇遇，3=宠物奇遇
+      const groupedData = {
+        normal: res.data.filter((item) => item.level === 1),
+        bindao: res.data.filter((item) => item.level === 2),
+        pet: res.data.filter((item) => item.level === 3),
+        roleName: name,
+        serverName: server,
+      };
+      const screenshot = await ctx.jx3render.render("UserQiyuRecord", groupedData, `UserQiyuRecord-${server}-${name}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });
   //未出奇遇查询
@@ -669,6 +677,35 @@ export function instructionsCommands(ctx: Context, config: Config) {
       );
     });
 
+  ctx
+    .guild()
+    .command("数据更新 [服务器] [角色ID]", "角色数据更新")
+    .channelFields(["groupServer"])
+    .userFields(["userServer"])
+    .action(async ({ session }, ...arg) => {
+      const parser = new ArgParser(arg);
+      let server = parser.tryMatch("server", serverList);
+      if (!server) server = session.channel.groupServer || session.user.userServer;
+      let roleid = parser.getRemaining()[0];
+      if (!roleid) {
+        await session.send("请输入角色ID：");
+        roleid = await session.prompt();
+        if (!roleid) return "输入超时。";
+      }
+      const res = await ctx.jx3api.getRoleUpdate({ server, roleid });
+      if (res.msg !== "success") return <p>{res.msg}</p>;
+      return (
+        <>
+          <p>{res.data.roleName} · 更新成功</p>
+          <p>服务器：{res.data.serverName}</p>
+          <p>名称：{res.data.roleName}</p>
+          <p>门派：{res.data.forceName}</p>
+          <p>体型：{res.data.bodyName}</p>
+          <p>帮会：{res.data.tongName}</p>
+          <p>角色标识：{res.data.roleId}</p>
+        </>
+      );
+    });
   //心法奇穴
   ctx
     .guild()
@@ -702,11 +739,12 @@ export function instructionsCommands(ctx: Context, config: Config) {
         if (!name) return "输入超时。";
       }
       const res = await ctx.jx3api.getRoleMonster({ server, name });
+      if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
+      if (res.msg !== "success") return <p>{res.msg}</p>;
       res.data.skillList.forEach((item) => {
         item.skillIconId = baizhanSkill[item.dwInSkillID];
       });
-      if (res.code == 404) return <p>未找到角色：{name},请确认角色名或在世界发言</p>;
-      if (res.msg !== "success") return <p>{res.msg}</p>;
+
       const screenshot = await ctx.jx3render.render("RoleMonster", { ...res, name, server }, `RoleMonster-${server}-${name}`, false);
       return <img src={"data:image/png;base64," + screenshot} />;
     });

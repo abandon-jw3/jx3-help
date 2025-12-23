@@ -19,7 +19,6 @@
 
     body {
       width: 1400px;
-      /* Using 1400px to match other 3 templates */
       margin: 0 auto;
       font-family: "Courier New", Courier, monospace, "Microsoft YaHei";
       background-color: #f4d03f;
@@ -56,6 +55,62 @@
       font-family: "Impact", "SimHei", sans-serif;
       text-shadow: 3px 3px 0 #d35400;
       letter-spacing: 2px;
+    }
+
+    .page-header .subtitle {
+      font-size: 18px;
+      text-align: center;
+      margin-top: 10px;
+      font-family: "Microsoft YaHei", sans-serif;
+      color: #636e72;
+    }
+
+    /* Section Styling */
+    .section {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-left: 10px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 900;
+      font-family: "Impact", "SimHei", sans-serif;
+      padding: 10px 30px;
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0px #000;
+      transform: skew(-5deg);
+    }
+
+    .section-title.bindao {
+      background: #ff7675;
+      color: #fff;
+      text-shadow: 2px 2px 0 #d63031;
+    }
+
+    .section-title.normal {
+      background: #74b9ff;
+      color: #fff;
+      text-shadow: 2px 2px 0 #0984e3;
+    }
+
+    .section-title.pet {
+      background: #55efc4;
+      color: #000;
+      text-shadow: 2px 2px 0 #00b894;
+    }
+
+    .section-count {
+      margin-left: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #636e72;
     }
 
     /* Grid Styling */
@@ -106,11 +161,9 @@
     /* Time Badge */
     .time {
       font-size: 20px;
-      /* Slightly larger for impact */
       font-weight: 900;
       color: #000;
       background-color: #ffeaa7;
-      /* Yellow base */
       padding: 10px 20px;
       border: 3px solid #000;
       box-shadow: 4px 4px 0px #000;
@@ -119,20 +172,29 @@
       transform: skew(-5deg);
     }
 
-    /* Alternating colors */
-    .card:nth-child(2n) .time {
-      background-color: #ff7675;
-      /* Salmon */
+    /* Section-specific card time colors */
+    .section.bindao .time {
+      background-color: #fab1a0;
     }
 
-    .card:nth-child(3n) .time {
-      background-color: #74b9ff;
-      /* Blue */
+    .section.normal .time {
+      background-color: #81ecec;
     }
 
-    .card:nth-child(4n) .time {
-      background-color: #55efc4;
-      /* Mint */
+    .section.pet .time {
+      background-color: #a29bfe;
+    }
+
+    /* Empty state */
+    .empty-state {
+      width: 100%;
+      text-align: center;
+      padding: 30px;
+      font-size: 18px;
+      color: #636e72;
+      background: #fff;
+      border: 3px dashed #b2bec3;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -141,17 +203,65 @@
   <div class="container">
     <div class="page-header">
       <h1># 角色奇遇记录 #</h1>
+      <div class="subtitle">{{serverName}} · {{roleName}}</div>
     </div>
-    <div class="grid">
-      {{#each this}}
-      <div class="card">
-        <div class="qiyu-img">
-          <img src="http://localhost:5140/jx3assets/images/qiyu/{{event}}.png" alt="{{event}}" />
-        </div>
-        <div class="time">{{default (formatTime time "YYYY-MM-DD HH:mm") "太久啦！已经忘记了！"}}</div>
+
+    {{#if bindao.length}}
+    <div class="section bindao">
+      <div class="section-header">
+        <div class="section-title bindao">★ 绝世奇遇</div>
+        <span class="section-count">共 {{bindao.length}} 个</span>
       </div>
-      {{/each}}
+      <div class="grid">
+        {{#each bindao}}
+        <div class="card">
+          <div class="qiyu-img">
+            <img src="http://localhost:5140/jx3assets/images/qiyu/{{event}}.png" alt="{{event}}" />
+          </div>
+          <div class="time">{{default (formatTime time "YYYY-MM-DD HH:mm") "太久啦！已经忘记了！"}}</div>
+        </div>
+        {{/each}}
+      </div>
     </div>
+    {{/if}}
+
+    {{#if normal.length}}
+    <div class="section normal">
+      <div class="section-header">
+        <div class="section-title normal">◆ 普通奇遇</div>
+        <span class="section-count">共 {{normal.length}} 个</span>
+      </div>
+      <div class="grid">
+        {{#each normal}}
+        <div class="card">
+          <div class="qiyu-img">
+            <img src="http://localhost:5140/jx3assets/images/qiyu/{{event}}.png" alt="{{event}}" />
+          </div>
+          <div class="time">{{default (formatTime time "YYYY-MM-DD HH:mm") "太久啦！已经忘记了！"}}</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if pet.length}}
+    <div class="section pet">
+      <div class="section-header">
+        <div class="section-title pet">✿ 宠物奇遇</div>
+        <span class="section-count">共 {{pet.length}} 个</span>
+      </div>
+      <div class="grid">
+        {{#each pet}}
+        <div class="card">
+          <div class="qiyu-img">
+            <img src="http://localhost:5140/jx3assets/images/qiyu/{{event}}.png" alt="{{event}}" />
+          </div>
+          <div class="time">{{default (formatTime time "YYYY-MM-DD HH:mm") "太久啦！已经忘记了！"}}</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
   </div>
 </body>
 

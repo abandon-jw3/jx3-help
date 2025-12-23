@@ -730,6 +730,34 @@ export interface RoleDetailedParams {
   ticket?: string;
 }
 
+// 角色更新
+export interface RoleUpdate extends JX3APIResponse {
+  data: {
+    zoneName: string;
+    serverName: string;
+    roleName: string;
+    roleId: string;
+    globalRoleId: string;
+    forceName: string;
+    forceId: string;
+    bodyName: string;
+    bodyId: string;
+    tongName: string | null;
+    tongId: string | null;
+    campName: string;
+    campId: string;
+    personName: string;
+    personId: string;
+    personAvatar: string;
+  };
+}
+
+export interface RoleUpdateParams {
+  server: string;
+  roleid: string;
+  ticket?: string;
+}
+
 // 心法奇穴
 export interface SchoolForce extends JX3APIResponse {
   data: Array<{
@@ -754,10 +782,10 @@ export interface SchoolForceParams {
 export interface RoleMonster extends JX3APIResponse {
   data: {
     zoneName: string;
-    serverName: string;//服务器名
-    roleName: string;//角色名称
-    roleId: string;//角色id
-    globalRoleId: string;//角色id
+    serverName: string; //服务器名
+    roleName: string; //角色名称
+    roleId: string; //角色id
+    globalRoleId: string; //角色id
     gameEnergy: string; //角色精力
     gameStamina: string; //角色耐力
     skillCount: string;
@@ -765,13 +793,13 @@ export interface RoleMonster extends JX3APIResponse {
       bDeprecated: boolean;
       dwInSkillID: number;
       dwOutSkillID: number;
-      nColor: number;  //技能颜色，0无色、1白色、2黄色、3蓝色、4绿色、5红色、6紫色、7黑色
+      nColor: number; //技能颜色，0无色、1白色、2黄色、3蓝色、4绿色、5红色、6紫色、7黑色
       nCost: number; //技能占用
       nLevel: number; //技能等级
       szBossName: string; //BOSS名称
       szSkillName: string; //技能名称
       szType: string; //技能类型
-      skillIconId?:string //技能图标ID
+      skillIconId?: string; //技能图标ID
     }>;
     updateTime: number;
   };

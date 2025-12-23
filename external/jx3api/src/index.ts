@@ -66,6 +66,8 @@ import {
   RewardStatisticalParams,
   RoleDetailed,
   RoleDetailedParams,
+  RoleUpdate,
+  RoleUpdateParams,
   SchoolForce,
   SchoolForceParams,
   RoleMonster,
@@ -485,6 +487,15 @@ export class JX3_api_service extends Service {
    */
   getRoleDetailed(data: RoleDetailedParams): Promise<RoleDetailed> {
     return this.http.post("/data/role/detailed", { ...data, ticket: this.config.ticket || null });
+  }
+
+  /**
+   * 获取角色更新
+   * @param data.server 服务器名
+   * @param data.id 角色ID
+   */
+  getRoleUpdate(data: RoleUpdateParams): Promise<RoleUpdate> {
+    return this.http.post("/save/role/detailed",  { ...data, ticket: this.config.ticket || null });
   }
 
   /**
