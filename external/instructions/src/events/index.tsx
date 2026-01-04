@@ -662,7 +662,7 @@ export function instructionsEvents(ctx: Context, config: Config) {
     };
   };
   ctx.on("jx3ws.2004", async (data: event2004) => {
-    const { title, url, date } = data.data;
+    const { title, url, date, name } = data.data;
     const channels = await ctx.jx3auth.getChannelsByServer(null, ["expireTime", "groupServer", "guildId", "bagua"]);
     const list = channels.filter((channel) => channel.bagua);
     const sendList = list.map((channel) => `onebot:${channel.guildId}`);
