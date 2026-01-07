@@ -955,9 +955,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/core@npm:4.18.9":
-  version: 4.18.9
-  resolution: "@koishijs/core@npm:4.18.9"
+"@koishijs/core@npm:4.18.10":
+  version: 4.18.10
+  resolution: "@koishijs/core@npm:4.18.10"
   dependencies:
     "@koishijs/i18n-utils": "npm:^1.0.1"
     "@koishijs/utils": "npm:^7.2.1"
@@ -965,8 +965,8 @@ __metadata:
     cordis: "npm:^3.18.1"
     cosmokit: "npm:^1.6.3"
     fastest-levenshtein: "npm:^1.0.16"
-    minato: "npm:^3.6.1"
-  checksum: 10c0/989c0f0f38685935a9282c09aa4bc79c022507d358f274b6bfaa393ed7be89462dbbeee572987e96432a4a176c4c007e9052c54ff31ca36ccb7e3bbc2bed3969
+    minato: "npm:^3.7.0"
+  checksum: 10c0/eb70280eae2f273efa42b52bbbecd7fea4c82c79f1627a57197ab36177bd921eb08ce10223e997ef90cb39da50e499dedae794e8491e202362f45ba6119b736c
   languageName: node
   linkType: hard
 
@@ -979,16 +979,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/loader@npm:4.6.9":
-  version: 4.6.9
-  resolution: "@koishijs/loader@npm:4.6.9"
+"@koishijs/loader@npm:4.6.10":
+  version: 4.6.10
+  resolution: "@koishijs/loader@npm:4.6.10"
   dependencies:
     dotenv: "npm:^16.4.5"
     js-yaml: "npm:^4.1.0"
     ns-require: "npm:^1.1.4"
   peerDependencies:
-    "@koishijs/core": 4.18.9
-  checksum: 10c0/bd57650cd3bf0141b84896869e9c2eeab5796e77ab3a3313f8cc8646be000f21e444562658dff603c2be209d3ed1cf8c605b2a70e5f4fe88df0c8850580054d5
+    "@koishijs/core": 4.18.10
+  checksum: 10c0/ea7f83a387c95cfbfe80b288bf1a03b98989941cc9dc52864d9e51f3d220bbfa1180ca4878e6573b918083a8d1d516d69d6e9f0c1b70c7fbcea4a71aafe0e6a5
   languageName: node
   linkType: hard
 
@@ -1090,14 +1090,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@koishijs/plugin-database-postgres@npm:2.6.0":
-  version: 2.6.0
-  resolution: "@koishijs/plugin-database-postgres@npm:2.6.0"
+"@koishijs/plugin-database-postgres@npm:2.7.0":
+  version: 2.7.0
+  resolution: "@koishijs/plugin-database-postgres@npm:2.7.0"
   dependencies:
-    "@minatojs/driver-postgres": "npm:^2.6.0"
+    "@minatojs/driver-postgres": "npm:^2.7.0"
   peerDependencies:
-    koishi: ^4.17.12
-  checksum: 10c0/17e39f29f60f9acb0c21b9b67d236f9aa6f7dc84a3f6f25f6d0c2e376827815a8b6173cf2d0ecae743f86e3a74f4fa34438853d6a7585b9e70d04fb0a6b83571
+    koishi: ^4.18.10
+  checksum: 10c0/8b9088f1632b2dc00fa5f229af4243a95d053a0321a677daa9c486dec3b84ba192e71972d5249d28ef79a9f04fdc127b9583158079d032465202d339ee02a5c9
   languageName: node
   linkType: hard
 
@@ -1342,27 +1342,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@minatojs/driver-postgres@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "@minatojs/driver-postgres@npm:2.6.0"
+"@minatojs/driver-postgres@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "@minatojs/driver-postgres@npm:2.7.0"
   dependencies:
-    "@minatojs/sql-utils": "npm:^5.5.0"
-    cosmokit: "npm:^1.6.2"
+    "@minatojs/sql-utils": "npm:^5.6.0"
+    cosmokit: "npm:^1.6.3"
     postgres: "npm:^3.4.4"
   peerDependencies:
-    minato: ^3.6.0
-  checksum: 10c0/0cebec347db331e6602fc7c3fd51fcdccfe858e2102754c8ee9b9c69a406572fa7bb7b9af16ad3d4911a88a9ab3de538cc78b589d2cf2c58f41ffff86c5179d1
+    minato: ^3.7.0
+  checksum: 10c0/8352a1da2a9b16050830f44c8bde6087bd10c4ce8dc385c66823d855c9d1decd73f9c42734e014777951bb73c7a745c80746a300d5525c13b0b365242ccf2820
   languageName: node
   linkType: hard
 
-"@minatojs/sql-utils@npm:^5.5.0":
-  version: 5.5.0
-  resolution: "@minatojs/sql-utils@npm:5.5.0"
+"@minatojs/sql-utils@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "@minatojs/sql-utils@npm:5.6.0"
   dependencies:
-    cosmokit: "npm:^1.6.2"
+    cosmokit: "npm:^1.6.3"
   peerDependencies:
-    minato: ^3.6.0
-  checksum: 10c0/8d03a96fbfcac4c32856c0019e27605f7c93b6d09b5552321ef4bc90444a7b139ab9a45bfc1ba2d6231dd92dcc6e20defd2dadf251e2056908cd43d1e7bcc276
+    minato: ^3.7.0
+  checksum: 10c0/7b97a6ce110e74d2b1d906bf34b79c5fcd784de49da7fb7172595ae695a694db2b7d6e54d224dd17256cc30cf58a669d041bfe37ea365148d54a50b68a247962
   languageName: node
   linkType: hard
 
@@ -4774,7 +4774,7 @@ __metadata:
     "@koishijs/plugin-commands": "npm:3.5.5"
     "@koishijs/plugin-config": "npm:^2.8.6"
     "@koishijs/plugin-console": "npm:5.30.11"
-    "@koishijs/plugin-database-postgres": "npm:2.6.0"
+    "@koishijs/plugin-database-postgres": "npm:2.7.0"
     "@koishijs/plugin-explorer": "npm:^1.5.5"
     "@koishijs/plugin-help": "npm:2.4.6"
     "@koishijs/plugin-hmr": "npm:^1.2.9"
@@ -4795,7 +4795,7 @@ __metadata:
     cross-env: "npm:^7.0.3"
     esbuild: "npm:^0.23.1"
     esbuild-register: "npm:@shigma/esbuild-register@^1.1.1"
-    koishi: "npm:^4.18.7"
+    koishi: "npm:4.18.10"
     koishi-plugin-adapter-onebot: "npm:6.8.0"
     koishi-plugin-crazy-thursday: "npm:1.0.4"
     koishi-plugin-desktop: "npm:^1.0.0"
@@ -4961,23 +4961,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi-plugin-instructions@workspace:external/instructions":
-  version: 0.0.0-use.local
-  resolution: "koishi-plugin-instructions@workspace:external/instructions"
-  dependencies:
-    "@satorijs/element": "npm:^3.1.8"
-    dayjs: "npm:^1.11.18"
-    handlebars: "npm:^4.7.8"
-    koishi-plugin-jx3api: "workspace:*"
-    koishi-plugin-jx3auth: "workspace:*"
-    koishi-plugin-jx3render: "workspace:*"
-    koishi-plugin-jx3ws: "workspace:*"
-  peerDependencies:
-    "@koishijs/plugin-server": ^3.2.7
-    koishi: ^4.18.7
-  languageName: unknown
-  linkType: soft
-
 "koishi-plugin-jx3api@workspace:*, koishi-plugin-jx3api@workspace:external/jx3api":
   version: 0.0.0-use.local
   resolution: "koishi-plugin-jx3api@workspace:external/jx3api"
@@ -5007,6 +4990,23 @@ __metadata:
     dayjs: "npm:^1.11.18"
     koishi-plugin-jx3render: "workspace:*"
   peerDependencies:
+    koishi: ^4.18.7
+  languageName: unknown
+  linkType: soft
+
+"koishi-plugin-jx3instructions@workspace:external/jx3instructions":
+  version: 0.0.0-use.local
+  resolution: "koishi-plugin-jx3instructions@workspace:external/jx3instructions"
+  dependencies:
+    "@satorijs/element": "npm:^3.1.8"
+    dayjs: "npm:^1.11.18"
+    handlebars: "npm:^4.7.8"
+    koishi-plugin-jx3api: "workspace:*"
+    koishi-plugin-jx3auth: "workspace:*"
+    koishi-plugin-jx3render: "workspace:*"
+    koishi-plugin-jx3ws: "workspace:*"
+  peerDependencies:
+    "@koishijs/plugin-server": ^3.2.7
     koishi: ^4.18.7
   languageName: unknown
   linkType: soft
@@ -5093,12 +5093,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi@npm:^4.18.7":
-  version: 4.18.9
-  resolution: "koishi@npm:4.18.9"
+"koishi@npm:4.18.10":
+  version: 4.18.10
+  resolution: "koishi@npm:4.18.10"
   dependencies:
-    "@koishijs/core": "npm:4.18.9"
-    "@koishijs/loader": "npm:4.6.9"
+    "@koishijs/core": "npm:4.18.10"
+    "@koishijs/loader": "npm:4.6.10"
     "@koishijs/plugin-http": "npm:^0.6.3"
     "@koishijs/plugin-proxy-agent": "npm:^0.3.3"
     "@koishijs/plugin-server": "npm:^3.2.7"
@@ -5108,7 +5108,7 @@ __metadata:
     kleur: "npm:^4.1.5"
   bin:
     koishi: bin.js
-  checksum: 10c0/76c7dac7eff65cdfb338d379346a7447b96f0852cf0700972af43a3f1024e675ffa15711377f015e71b9163411bf5708532a51c9582fbfe95a77019c75c4cfe8
+  checksum: 10c0/8341ea53c4423813b0c644da4e60b8b1eaaa9a4206c5126c5ac225156a27e65f669f10b2771d241fcd7f8824308b3ba59a611aa80eaa65c445db719a2179cf6f
   languageName: node
   linkType: hard
 
@@ -5324,14 +5324,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minato@npm:^3.6.1":
-  version: 3.6.1
-  resolution: "minato@npm:3.6.1"
+"minato@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "minato@npm:3.7.0"
   dependencies:
     cosmokit: "npm:^1.6.3"
   peerDependencies:
     cordis: ^3.18.1
-  checksum: 10c0/ffba5624a8a3622ab7eccc8105544376a8e18cd14c94bd1307ef3e05b5eb068f62fb1e387bf6d21433b1b69fac1b1cad5d902feb065cd70632958081e594f074
+  checksum: 10c0/1b2232fd4ef8ca4b5334d28129b4df66e0730615515976904b6a1c0f353f69a89c729f27c8d252693e73df5c756e2366b9a59bb698024b20bee5034376a513ef
   languageName: node
   linkType: hard
 

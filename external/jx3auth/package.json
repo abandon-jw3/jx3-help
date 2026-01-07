@@ -22,6 +22,10 @@
     "dayjs": "^1.11.18",
     "koishi-plugin-jx3render": "workspace:*"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abandon-jw3/jx3-help.git"
+  },
   "koishi": {
     "service": {
       "required": [

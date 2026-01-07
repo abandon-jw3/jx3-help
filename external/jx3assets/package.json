@@ -18,6 +18,10 @@
     "@koishijs/plugin-server": "^3.2.7",
     "koishi": "^4.18.7"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abandon-jw3/jx3-help.git"
+  },
   "dependencies": {
     "koa-mount": "^4.2.0",
     "koa-static": "^5.0.0"

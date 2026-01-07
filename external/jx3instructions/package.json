@@ -1,5 +1,5 @@
 {
-  "name": "koishi-plugin-instructions",
+  "name": "koishi-plugin-jx3instructions",
   "description": "指令相关",
   "version": "0.0.1",
   "main": "lib/index.js",
@@ -17,6 +17,10 @@
   "peerDependencies": {
     "@koishijs/plugin-server": "^3.2.7",
     "koishi": "^4.18.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abandon-jw3/jx3-help.git"
   },
   "dependencies": {
     "@satorijs/element": "^3.1.8",

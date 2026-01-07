@@ -11,6 +11,7 @@ plugins:
     auth:naw2dl:
       admin:
         password: '123456'
+        enabled: false
     admin:jav47v: {}
     commands:ujnv2t:
       timer:
@@ -56,17 +57,17 @@ plugins:
       user: ${{env.DB_USER}}
   group:adapter:
     adapter-onebot:vzydl8:
-      selfId: ${{env.BOT_ID}}
-      token: OK7VCm+WZLBeSX4x
-      protocol: ws
+      selfId: '1714436591'
+      token: HF*Aldp7KDcI%HW3
       endpoint: ws://127.0.0.1:3001
+      protocol: ws
   group:develop:
     $if: env.NODE_ENV === 'development'
+    crazy-thursday:gfxpfh: {}
     hmr:1phdm8:
       root:
         - .
   group:bgk8b7:
-    crazy-thursday:gfxpfh: {}
     puppeteer:rdco9y:
       defaultViewport:
         width: 720
@@ -78,7 +79,7 @@ plugins:
         - '--disable-features=IsolateOrigins,site-per-process'
     jx3assets:8wh8dw: {}
     jx3render:gdwm18: {}
-    instructions:wx7gxe: null
+    jx3instructions:wx7gxe: null
     jx3ws:dsyxdj:
       wsUrl: ws://socket.jx3api.com
       wstoken: ${{env.WS_TOKEN}}

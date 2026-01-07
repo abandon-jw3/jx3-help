@@ -9,7 +9,7 @@ import "koishi-plugin-jx3ws";
 import "koishi-plugin-jx3api";
 
 export const inject = ["http", "jx3ws", "jx3api", "jx3render", "server", "database", "jx3auth"];
-export const name = "instructions";
+export const name = "jx3instructions";
 
 export interface Config {}
 

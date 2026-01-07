@@ -18,6 +18,10 @@
     "koishi": "^4.18.7",
     "koishi-plugin-puppeteer": "^3.9.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abandon-jw3/jx3-help.git"
+  },
   "dependencies": {
     "@satorijs/element": "^3.1.8",
     "dayjs": "^1.11.18",
