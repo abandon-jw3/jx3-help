@@ -12,7 +12,9 @@
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "jx3",
+    "剑网三"
   ],
   "peerDependencies": {
     "koishi": "^4.18.7"
