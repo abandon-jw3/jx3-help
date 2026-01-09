@@ -43,7 +43,7 @@ plugins:
     insight:row0d8: {}
     market:sstlz9:
       search:
-        endpoint: https://registry.koishi.t4wefan.pub/index.json
+        endpoint: https://koishi-registry.yumetsuki.moe/index.json
       registry: {}
     notifier:g6bdvu: {}
     oobe:01jmeo: {}

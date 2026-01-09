@@ -34,7 +34,7 @@
     "clean": "yakumo clean",
     "bump": "yakumo version",
     "dep": "yakumo upgrade",
-    "pub": "yakumo publish",
+    "pub": "yakumo publish --debug",
     "dev": "cross-env NODE_ENV=development koishi start -r esbuild-register -r yml-register",
     "start": "koishi start"
   },
