@@ -1,6 +1,6 @@
 {
   "name": "koishi-plugin-jx3api",
-  "description": "jx3api接口服务",
+  "description": "jx3-help接口服务",
   "version": "2.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
