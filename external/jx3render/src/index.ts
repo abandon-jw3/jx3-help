@@ -7,13 +7,13 @@ import "koishi-plugin-puppeteer";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-cn";
+
 dayjs.extend(relativeTime);
 dayjs.locale("zh-cn");
-export const name = "jx3render";
 
+export const name = "jx3render";
 export interface Config {}
 export const inject = ["puppeteer"];
-
 export const Config: Schema<Config> = Schema.object({});
 
 export class RenderService extends Service {

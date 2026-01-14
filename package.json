@@ -1,8 +1,7 @@
 {
   "name": "jx3-help",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "packageManager": "yarn@4.1.0",
-  "private": false,
   "files": [
     ".env",
     "koishi.yml"

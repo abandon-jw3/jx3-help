@@ -4961,7 +4961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koishi-plugin-jx3api@workspace:*, koishi-plugin-jx3api@workspace:external/jx3api":
+"koishi-plugin-jx3api@workspace:external/jx3api":
   version: 0.0.0-use.local
   resolution: "koishi-plugin-jx3api@workspace:external/jx3api"
   peerDependencies:
@@ -4982,13 +4982,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"koishi-plugin-jx3auth@workspace:*, koishi-plugin-jx3auth@workspace:external/jx3auth":
+"koishi-plugin-jx3auth@workspace:external/jx3auth":
   version: 0.0.0-use.local
   resolution: "koishi-plugin-jx3auth@workspace:external/jx3auth"
   dependencies:
     "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"
-    koishi-plugin-jx3render: "workspace:*"
   peerDependencies:
     koishi: ^4.18.7
   languageName: unknown
@@ -5000,18 +4999,13 @@ __metadata:
   dependencies:
     "@satorijs/element": "npm:^3.1.8"
     dayjs: "npm:^1.11.18"
-    handlebars: "npm:^4.7.8"
-    koishi-plugin-jx3api: "workspace:*"
-    koishi-plugin-jx3auth: "workspace:*"
-    koishi-plugin-jx3render: "workspace:*"
-    koishi-plugin-jx3ws: "workspace:*"
   peerDependencies:
     "@koishijs/plugin-server": ^3.2.7
     koishi: ^4.18.7
   languageName: unknown
   linkType: soft
 
-"koishi-plugin-jx3render@workspace:*, koishi-plugin-jx3render@workspace:external/jx3render":
+"koishi-plugin-jx3render@workspace:external/jx3render":
   version: 0.0.0-use.local
   resolution: "koishi-plugin-jx3render@workspace:external/jx3render"
   dependencies:
@@ -5024,7 +5018,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"koishi-plugin-jx3ws@workspace:*, koishi-plugin-jx3ws@workspace:external/jx3ws":
+"koishi-plugin-jx3ws@workspace:external/jx3ws":
   version: 0.0.0-use.local
   resolution: "koishi-plugin-jx3ws@workspace:external/jx3ws"
   peerDependencies:
